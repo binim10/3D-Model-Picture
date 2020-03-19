@@ -24,7 +24,9 @@ public class Vector {
     }
 
     /**
-     * @param _head
+     * constructor
+     *
+     * @param point3D
      */
     public Vector(Point3D point3D) {
         if (Point3D.ZERO.equals(point3D))
@@ -46,7 +48,7 @@ public class Vector {
      * @param other
      * @return Vector
      */
-    public Vector add(Vector other){
+    public Vector add(Vector other) {
         return new Vector(this._head.add(other));//go to ctor of point3d
     }
 
@@ -56,21 +58,54 @@ public class Vector {
      * @param _vector
      * @return
      */
-    public Vector subtract(Vector _vector){
+    public Vector subtract(Vector _vector) {
         return new Vector(this._head.subtract(_vector._head));//go to ctor of vector
     }
 
     /**
      * Scale
+     *
      * @param _scalar
      * @return Vector
      */
-    public Vector scale(double _scalar){
-        return new Vector(this._head._x._coord*_scalar,
-                this._head._y._coord*_scalar,
-                this._head._z._coord*_scalar);
+    public Vector scale(double _scalar) {
+        return new Vector(this._head.get_x()._coord * _scalar,
+                this._head.get_y()._coord * _scalar,
+                this._head.get_z()._coord * _scalar);
     }
 
+    /**
+     * dotProduct
+     *
+     * @param _vec
+     * @return
+     */
+    public double dotProduct(Vector _vec) {
+        return (this._head.get_x()._coord * _vec._head.get_x()._coord) +
+                (this._head.get_y()._coord * _vec._head.get_y()._coord) +
+                (this._head.get_z()._coord * _vec._head.get_z()._coord);
+
+    }
+
+    /**
+     *
+     * @param _vector
+     * @return
+     */
+    public Vector crossProduct(Vector _vector) {
+        return new Vector((new Point3D(
+                this._head.get_y()._coord * _vector._head.get_z()._coord - this._head.get_z()._coord * _vector._head.get_y()._coord,
+                this._head.get_z()._coord * _vector._head.get_x()._coord - this._head.get_x()._coord * _vector._head.get_z()._coord,
+                this._head.get_x()._coord * _vector._head.get_y()._coord - this._head.get_y()._coord * _vector._head.get_x()._coord)));
+    }
+
+    public double lengthSquared(){
+        return Point3D.ZERO.distanceSquared(this._head);
+    }
+
+    public double length(){
+        return Point3D.ZERO.distance(this._head);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,21 +121,5 @@ public class Vector {
                 '}';
     }
 
-    /**
-     * @param other Vector
-     * @return dotproduct (double)
-     */
-    public double dotProduct(Vector other) {
-        return _head._x.get() * other._head._x.get() +
-                _head._y.get() * other._head._y.get() +
-                _head._z.get() * other._head._z.get();
-    }
 
-    /**
-     * @param other Vector
-     * @return Vector for cross product using right thumb rule
-     */
-    public Vector crossProduct(Vector other) {
-        return Vector.ZERO;
-    }
 }
