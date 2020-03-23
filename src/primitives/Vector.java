@@ -106,6 +106,19 @@ public class Vector {
     public double length(){
         return Point3D.ZERO.distance(this._head);
     }
+
+    public Vector normalize(){
+         this._head=new Point3D(this._head.get_x()._coord/this.length(),
+                 this._head.get_y()._coord/this.length(),
+                 this._head.get_z()._coord/length());
+         return this;
+    }
+
+    public Vector normalized(){
+        Vector temp=new Vector(this._head);
+        return temp.normalize();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

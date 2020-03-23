@@ -84,11 +84,11 @@ public class Point3D {
      * @return vector
      */
     public Vector subtract(Point3D vertex) {
-        return new Vector(new Point3D(
-                vertex.get_x()._coord-this.get_x()._coord,
-                vertex.get_y()._coord - this.get_y()._coord,
-                vertex.get_z()._coord - this.get_z()._coord
-        ));
+        return new Vector(
+                this.get_x()._coord-vertex.get_x()._coord,
+                this.get_y()._coord - vertex.get_y()._coord,
+                this.get_z()._coord - vertex.get_z()._coord
+        );
     }
 
 

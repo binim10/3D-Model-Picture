@@ -16,7 +16,6 @@ public class Polygon implements Geometry {
      */
     protected List<Point3D> _vertices;
     /**
-     *
      * Associated plane in which the polygon lays
      */
     protected Plane _plane;
@@ -26,13 +25,18 @@ public class Polygon implements Geometry {
      * path. The polygon must be convex.
      * 
      * @param vertices list of vertices according to their order by edge path
-     * @throws IllegalArgumentException in any case of illegal combination of vertices:
+     * @throws IllegalArgumentException in any case of illegal combination of
+     *                                  vertices:
      *                                  <ul>
      *                                  <li>Less than 3 vertices</li>
-     *                                  <li>Consequent vertices are in the same point
-     *                                  <li>The vertices are not in the same plane</li>
-     *                                  <li>The order of vertices is not according to edge path</li>
-     *                                  <li>Three consequent vertices lay in the same line (180&#176; angle between two
+     *                                  <li>Consequent vertices are in the same
+     *                                  point
+     *                                  <li>The vertices are not in the same
+     *                                  plane</li>
+     *                                  <li>The order of vertices is not according
+     *                                  to edge path</li>
+     *                                  <li>Three consequent vertices lay in the
+     *                                  same line (180&#176; angle between two
      *                                  consequent edges)
      *                                  <li>The polygon is concave (not convex></li>
      *                                  </ul>
@@ -47,12 +51,12 @@ public class Polygon implements Geometry {
         _plane = new Plane(vertices[0], vertices[1], vertices[2]);
         if (vertices.length == 3) return; // no need for more tests for a Triangle
 
-        Vector n = _plane.getNormal();
+        Vector n = _plane.get_normal();
 
         // Subtracting any subsequent points will throw an IllegalArgumentException
         // because of Zero Vector if they are in the same point
-        Vector edge1 = vertices[0].subtract(vertices[vertices.length - 1]);
-        Vector edge2 = vertices[1].subtract(vertices[0]);
+        Vector edge1 = vertices[vertices.length - 1].subtract(vertices[vertices.length - 2]);
+        Vector edge2 = vertices[0].subtract(vertices[vertices.length - 1]);
 
         // Cross Product of any subsequent edges will throw an IllegalArgumentException
         // because of Zero Vector if they connect three vertices that lay in the same
@@ -64,7 +68,7 @@ public class Polygon implements Geometry {
         // the
         // polygon is convex ("kamur" in Hebrew).
         boolean positive = edge1.crossProduct(edge2).dotProduct(n) > 0;
-        for (int i = 2; i < vertices.length; ++i) {
+        for (int i = 1; i < vertices.length; ++i) {
             // Test that the point is in the same plane as calculated originally
             if (!isZero(vertices[i].subtract(vertices[0]).dotProduct(n)))
                 throw new IllegalArgumentException("All vertices of a polygon must lay in the same plane");
@@ -77,7 +81,14 @@ public class Polygon implements Geometry {
     }
 
     @Override
+    public String toString() {
+        return "_vertices=" + _vertices +
+                ", _plane=" + _plane +
+                '\n';
+    }
+
+    @Override
     public Vector getNormal(Point3D point) {
-        return _plane.getNormal();
+        return _plane.getNormal(point);
     }
 }
