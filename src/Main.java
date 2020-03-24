@@ -1,3 +1,6 @@
+import geometries.Cylinder;
+import geometries.Plane;
+import geometries.Tube;
 import primitives.*;
 import static java.lang.System.out;
 import static primitives.Util.*;
@@ -68,5 +71,10 @@ public final class Main {
              out.println("ERROR: Point - Point does not work correctly");
 
         out.println("If there were no any other outputs - all tests succeeded!");
+        Ray r=new Ray(p1,v);
+        Plane pp=new Plane(p1,v);
+        Tube t= new Tube(1.2,r);
+        Cylinder c=new Cylinder(1.2,r,3.2);
+        out.println(p1.toString()+v.toString()+r.toString()+pp.toString()+t.toString()+c.toString());
     }
 }

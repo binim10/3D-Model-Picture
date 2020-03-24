@@ -1,12 +1,5 @@
 package primitives;
 
-import java.util.Objects;
-
-import static primitives.Util.isZero;
-
-/**
- * Point3D: class for representing a point in 3D environment
- */
 public class Point3D {
     public final static Point3D ZERO = new Point3D(0, 0, 0);
     Coordinate _x;
@@ -22,7 +15,7 @@ public class Point3D {
      * @param _z coordinate on the z axis
      */
     public Point3D(Coordinate _x, Coordinate _y, Coordinate _z) {
-        this._x = new Coordinate(_x);
+                    this._x = new Coordinate(_x);
         this._y = new Coordinate(_y);
         this._z = new Coordinate(_z);
     }
@@ -41,7 +34,7 @@ public class Point3D {
     /**
      * copy Constructor
      *
-     * @param Point3D
+     * @param _point
      */
     public Point3D(Point3D _point) {
         this._x = _point._x;
@@ -65,10 +58,12 @@ public class Point3D {
         return new Coordinate(_z);
     }
 
+    /*******************functions****************/
+
     /**
      * Add vector to the point
      *
-     * @param Vector
+     * @param _vector
      * @return Point3D
      */
     public Point3D add(Vector _vector){

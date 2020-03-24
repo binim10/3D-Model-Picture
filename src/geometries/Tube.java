@@ -5,21 +5,32 @@ import primitives.Ray;
 import primitives.Vector;
 
 public class Tube extends  RadialGeometry {
-    Ray r;
+    Ray _axisRay;
 
-    public Tube(double radius, Ray r) {
+    /**
+     * Instantiates a new Tube.
+     *
+     * @param radius the radius
+     * @param axisRay  the axisRay
+     */
+    public Tube(double radius, Ray axisRay) {
         super(radius);
-        this.r =new Ray(r);
+        this._axisRay =new Ray(axisRay);
     }
 
-    public Ray getR() {
-        return r;
+    /**
+     * Gets axisRay.
+     *
+     * @return the axisRay
+     */
+    public Ray get_axisRay() {
+        return _axisRay;
     }
 
     @Override
     public String toString() {
         return "Tube:" +
-                "r=" + r +
+                "r=" + _axisRay +
                 super.toString();
     }
 

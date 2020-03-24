@@ -4,14 +4,29 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+/**
+ * The type Cylinder.
+ */
 public class Cylinder extends Tube {
     double _height;
 
+    /**
+     * Instantiates a new Cylinder.
+     *
+     * @param radius the radius
+     * @param r      the r
+     * @param height the height
+     */
     public Cylinder(double radius, Ray r, double height) {
         super(radius, r);
         this._height = height;
     }
 
+    /**
+     * Gets height.
+     *
+     * @return the height
+     */
     public double get_height() {
         return _height;
     }

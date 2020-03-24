@@ -8,19 +8,41 @@ public class Ray {
     private Vector _direction;
 
 
+    /**
+     * Instantiates a new Ray.
+     *
+     * @param poo       the poo
+     * @param direction the direction
+     */
     public Ray(Point3D poo, Vector direction) {
         this._POO = new Point3D(poo);
         this._direction = new Vector(direction);
     }
+
+    /**
+     * Instantiates a new Ray.
+     *
+     * @param ray the ray
+     */
     public Ray(Ray ray) {
         this._POO = new Point3D(ray.getPOO());
         this._direction = new Vector(ray.getDirection());
     }
 
+    /**
+     * Gets poo.
+     *
+     * @return the poo
+     */
     public Point3D getPOO() {
         return this._POO;
     }
 
+    /**
+     * Gets direction.
+     *
+     * @return the direction
+     */
     public Vector getDirection() {
         return this._direction;
     }

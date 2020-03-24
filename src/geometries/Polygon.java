@@ -84,7 +84,7 @@ public class Polygon implements Geometry {
     public String toString() {
         return "_vertices=" + _vertices +
                 ", _plane=" + _plane +
-                '\n';
+                ". ";
     }
 
     @Override

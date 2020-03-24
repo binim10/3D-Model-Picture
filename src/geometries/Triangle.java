@@ -12,4 +12,5 @@ public class Triangle extends Polygon {
     public String toString() {
         return "Triangle:" + super.toString();
     }
+
 }
