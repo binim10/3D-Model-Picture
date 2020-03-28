@@ -142,7 +142,7 @@ public class Vector {
     }
 
     /**
-     * Normalize vector.
+     * Normalize vector return the same vector after normalization.
      *
      * @return the vector
      */
@@ -154,7 +154,7 @@ public class Vector {
     }
 
     /**
-     * Normalized vector.
+     * Normalized vector create new vector.
      *
      * @return the vector
      */
