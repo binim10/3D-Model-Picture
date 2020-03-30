@@ -6,25 +6,40 @@ import static java.lang.System.out;
 import static org.junit.Assert.*;
 import static primitives.Util.isZero;
 
+/**
+ * The type Vector test.
+ */
 public class VectorTest {
 
 
+    /**
+     * Add.
+     */
     @Test
     public void add() {
         Point3D p1 = new Point3D(1, 2, 3);
-        assertTrue("ERROR: Point + Vector does not work correctly",Point3D.ZERO.equals(p1.add(new Vector(-1, -2, -3))));
+        assertEquals("ERROR: Point + Vector does not work correctly", Point3D.ZERO, p1.add(new Vector(-1, -2, -3)));
     }
 
+    /**
+     * Subtract.
+     */
     @Test
     public void subtract() {
         Point3D p1 = new Point3D(1, 2, 3);
         assertEquals("ERROR: Point - Point does not work correctly",new Vector(1, 1, 1),new Point3D(2, 3, 4).subtract(p1));
     }
 
+    /**
+     * Scale.
+     */
     @Test
     public void scale() {
     }
 
+    /**
+     * Dot product.
+     */
     @Test
     public void dotProduct() {
         Vector v1 = new Vector(1, 2, 3);
@@ -35,6 +50,9 @@ public class VectorTest {
         assertTrue("ERROR: dotProduct() wrong value", isZero(v1.dotProduct(v2) + 28));
     }
 
+    /**
+     * Cross product.
+     */
     @Test
     public void crossProduct() {
         Vector v1 = new Vector(1, 2, 3);
@@ -60,10 +78,16 @@ public class VectorTest {
 
     }
 
+    /**
+     * Length squared.
+     */
     @Test
     public void lengthSquared() {
     }
 
+    /**
+     * Length.
+     */
     @Test
     public void length() {
         Vector v1 = new Vector(1, 2, 3);
@@ -73,6 +97,9 @@ public class VectorTest {
         assertTrue("ERROR: length() wrong value",isZero(new Vector(0, 3, 4).length() - 5));
     }
 
+    /**
+     * Normalize.
+     */
     @Test
     public void normalize() {
         Vector v = new Vector(1, 2, 3);
@@ -82,6 +109,9 @@ public class VectorTest {
         assertTrue("ERROR: normalize() result is not a unit vector",isZero(vCopyNormalize.length() - 1));
     }
 
+    /**
+     * Normalized.
+     */
     @Test
     public void normalized() {
         Vector v = new Vector(1, 2, 3);

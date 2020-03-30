@@ -81,14 +81,7 @@ public class Polygon implements Geometry {
     }
 
     @Override
-    public String toString() {
-        return "_vertices=" + _vertices +
-                ", _plane=" + _plane +
-                ". ";
-    }
-
-    @Override
     public Vector getNormal(Point3D point) {
-        return _plane.getNormal(point);
+        return _plane.get_normal();
     }
 }

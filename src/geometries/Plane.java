@@ -27,7 +27,9 @@ public class Plane implements Geometry {
      */
     public Plane(Point3D x,Point3D y, Point3D z) {
         this._p=new Point3D(x);
-        this._normal=null;
+        Vector v1= y.subtract(x);
+        Vector v2=z.subtract(x);
+        this._normal=(v1.crossProduct(v2)).normalized();
     }
 
     /**

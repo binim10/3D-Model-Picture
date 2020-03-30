@@ -49,6 +49,7 @@ public class Vector {
      * Copy constructor
      *
      * @param other the other
+     * @throws "NOTHING"
      */
     public Vector(Vector other) {
         this._head = new Point3D(other._head);
@@ -99,6 +100,7 @@ public class Vector {
 
     /**
      * dotProduct
+     * (Michpala Scalarit)
      *
      * @param _vec the vec
      * @return double
@@ -111,7 +113,8 @@ public class Vector {
     }
 
     /**
-     * Cross product vector.
+     * Cross product vector
+     * (michpala vectorit)
      *
      * @param _vector the vector
      * @return vector
