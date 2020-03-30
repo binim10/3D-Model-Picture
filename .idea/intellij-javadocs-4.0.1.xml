@@ -170,6 +170,16 @@
 &lt;/#list&gt;
  */</VALUE>
         </METHOD>
+        <METHOD>
+          <KEY>Junit</KEY>
+          <VALUE>/**
+  * Unit test {@link ${CLASS_NAME}#${NAME}}
+  */
+@org.junit.Test
+public void test${NAME}() {
+  ${BODY}
+}</VALUE>
+        </METHOD>
       </METHODS>
       <FIELDS>
         <FIELD>
