@@ -12,12 +12,12 @@ public class TubeTest {
     // ============ Equivalence Partitions Tests ==============
     /**
      *test case for getNormal method in tube.
-     *EP
+     *EP in case that the t (the dotProduct between the diraction and the  )
      */
     @Test
     public void getNormal() {
-        Tube t = new Tube(2d, new Ray(new Point3D(0, 1, 2), new Vector(2, 2, 2)));
-        Vector v = new Vector(-11 /( 11 * Math.sqrt(3)), -11 / (11 * Math.sqrt(3)), -11 / (11 * Math.sqrt(3)));
-        assertEquals("Bad normal to tube", v, t.getNormal(new Point3D(1, 2, 3)));
+        Tube t = new Tube(2d, new Ray(new Point3D(0, 1, 0), new Vector(0,0,1)));
+        Vector v = new Vector(0, 1, 0);
+        assertEquals("Bad normal to tube", v, t.getNormal(new Point3D(0, 3, 0)));
     }
 }
