@@ -1,5 +1,8 @@
 package primitives;
 
+/**
+ * The type Ray.
+ */
 public class Ray {
     // Point of origin
     private Point3D _POO;
@@ -15,6 +18,11 @@ public class Ray {
      * @param direction the direction
      */
     public Ray(Point3D poo, Vector direction) {
+        //check if direction is normalized
+        if(Math.sqrt(direction._head.get_x()._coord*direction._head.get_x()._coord+
+                direction._head.get_y()._coord*direction._head.get_y()._coord+
+                direction._head.get_z()._coord*direction._head.get_z()._coord)!=1)
+            throw new IllegalArgumentException("the vector is not normalized");
         this._POO = new Point3D(poo);
         this._direction = new Vector(direction);
     }

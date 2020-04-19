@@ -3,6 +3,9 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * The type Plane represent a plane.
+ */
 public class Plane implements Geometry {
     protected Point3D _p;
     protected Vector _normal;
@@ -52,6 +55,6 @@ public class Plane implements Geometry {
 
     @Override
     public Vector getNormal(Point3D p) {
-        return null;
+        return get_normal();
     }
 }

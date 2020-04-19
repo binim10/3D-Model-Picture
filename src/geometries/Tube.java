@@ -4,8 +4,11 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+/**
+ * The type Tube.
+ */
 public class Tube extends RadialGeometry {
-    Ray _axisRay;
+    private Ray _axisRay;
 
     /**
      * Instantiates a new Tube.
