@@ -40,6 +40,11 @@ public class Sphere extends RadialGeometry {
 
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        return null;
+
+
+
+
+
+
     }
 }
