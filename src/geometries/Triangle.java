@@ -22,8 +22,8 @@ public class Triangle extends Polygon {
      * @param b the b
      * @param c the c
      */
-    public Triangle(Point3D a,Point3D b,Point3D c) {
-        super(a,b,c);
+    public Triangle(Point3D a, Point3D b, Point3D c) {
+        super(a, b, c);
     }
 
     @Override
@@ -42,17 +42,17 @@ public class Triangle extends Polygon {
         }
 
         List<Vector> normals = new ArrayList<>(3);
-        for (int i = 0 ; i < 2; ++i) {
-            normals.add(vectors.get(i).crossProduct(vectors.get(i+1)));
+        for (int i = 0; i < 2; ++i) {
+            normals.add(vectors.get(i).crossProduct(vectors.get(i + 1)));
         }
         normals.add(vectors.get(2).crossProduct(vectors.get(0)));
 
         int plus = 0, minus = 0;
-        for (int i = 0; i < 3; ++i){
+        for (int i = 0; i < 3; ++i) {
             double t = alignZero(normals.get(i).dotProduct(ray.getDirection()));
             if (isZero(t))
                 return null;
-            if(t > 0)
+            if (t > 0)
                 plus++;
             else
                 minus++;
