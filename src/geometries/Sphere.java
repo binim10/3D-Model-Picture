@@ -42,30 +42,35 @@ public class Sphere extends RadialGeometry {
 
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        Point3D p0 = Ray.getPoint();
-        Vector v = Ray.getDirection();
-        Vector u;
-        try {
-            u = _center.subtract(p0);   // p0 == _center
-        } catch (IllegalArgumentException e) {
-            return List.of(Ray.getTargetPoint(_radius));
+        // Ray start at the center of the sphere
+        if (ray.getPOO().equals(_center)) {
+            Point3D p = new Point3D(_center).add(ray.getDirection().scale(_radius));
+            return List.of(p);
         }
-        double tm = alignZero(v.dotProduct(u));
-        double dSquared = (tm == 0) ? u.lengthSquared() : u.lengthSquared() - tm * tm;
-        double thSquared = alignZero(_radius * _radius - dSquared);
-
-        if (thSquared <= 0) return null;
-
-        double th = alignZero(Math.sqrt(thSquared));
-        if (th == 0) return null;
-
-        double t1 = alignZero(tm - th);
-        double t2 = alignZero(tm + th);
-        if (t1 <= 0 && t2 <= 0) return null;
-        if (t1 > 0 && t2 > 0) return List.of(Ray.getTargetPoint(t1), Ray.getTargetPoint(t2)); //P1 , P2
-        if (t1 > 0)
-            return List.of(Ray.getTargetPoint(t1));
-        else
-            return List.of(Ray.getTargetPoint(t2));
+        Vector u = ray.getPOO().subtract(_center);
+        double tm = alignZero(u.dotProduct(ray.getDirection()));
+        double d = alignZero(Math.sqrt(u.lengthSquared() - (tm * tm)));
+        if (d >= _radius)
+            return null;
+        double th = alignZero(Math.sqrt((_radius * _radius) - (d * d)));
+        double t1 = alignZero(tm + th);
+        double t2 = alignZero(tm - th);
+        if (t1 > 0 && t2 > 0) {
+            Point3D p1 = new Point3D(ray.getPOO()).add(ray.getDirection().scale(t1));
+            Point3D p2 = new Point3D(ray.getPOO()).add(ray.getDirection().scale(t2));
+            return List.of(p1, p2);
+        }
+        if (t1 <= 0 && t2 <= 0) {
+            return null;
+        }
+        if (t1 > 0 && t2 <= 0) {
+            Point3D p1 = new Point3D(ray.getPOO()).add(ray.getDirection().scale(t1));
+            return List.of(p1);
+        }
+        if (t1 <= 0 && t2 > 0) {
+            Point3D p2 = new Point3D(ray.getPOO()).add(ray.getDirection().scale(t2));
+            return List.of(p2);
+        }
+        return null;
     }
 }

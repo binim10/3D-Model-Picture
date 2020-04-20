@@ -6,6 +6,9 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 /**
  * The type Plane represent a plane.
  */
@@ -31,11 +34,11 @@ public class Plane implements Geometry {
      * @param y the y
      * @param z the z
      */
-    public Plane(Point3D x,Point3D y, Point3D z) {
-        this._p=new Point3D(x);
-        Vector v1= y.subtract(x);
-        Vector v2=z.subtract(x);
-        this._normal=(v1.crossProduct(v2)).normalized();
+    public Plane(Point3D x, Point3D y, Point3D z) {
+        this._p = new Point3D(x);
+        Vector v1 = y.subtract(x);
+        Vector v2 = z.subtract(x);
+        this._normal = (v1.crossProduct(v2)).normalized();
     }
 
     /**
@@ -63,6 +66,20 @@ public class Plane implements Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray ray) {
+        if (ray.getPOO().equals(_p)) // Ray start at the point that present the plane
+            return null;
+        double nv = ray.getDirection().dotProduct(_normal);
+        if (isZero(nv)) // Ray is parallel to the plane
+            return null;
+
+        double nQMinusP0 = _normal.dotProduct(ray.getPOO().subtract(_p));
+        double t = alignZero(nQMinusP0 / nv);
+
+        if (t > 0) {
+            Point3D p = new Point3D(ray.getPOO()).add(ray.getDirection().scale(t));
+            return List.of(p);
+        }
         return null;
+
     }
 }
