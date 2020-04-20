@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * The type Tube.
  */
@@ -46,5 +48,10 @@ public class Tube extends RadialGeometry {
         Point3D center = _axisRay.getPOO().add(_axisRay.getDirection().scale(t));
         Vector v = p.subtract(center);
         return v.normalize();
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 }

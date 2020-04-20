@@ -12,7 +12,7 @@ public class TubeTest {
     // ============ Equivalence Partitions Tests ==============
     /**
      *test case for getNormal method in tube.
-     *EP in case that the t (the dotProduct between the diraction and the  )
+     *EP in case that the t (the dotProduct between the direction and the  )
      */
     @Test
     public void getNormal() {

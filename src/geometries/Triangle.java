@@ -1,6 +1,9 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
+
+import java.util.List;
 
 /**
  * The type Triangle.
@@ -23,4 +26,8 @@ public class Triangle extends Polygon {
         return "Triangle:" + super.toString();
     }
 
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
+    }
 }
