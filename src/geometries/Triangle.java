@@ -38,7 +38,7 @@ public class Triangle extends Polygon {
 
         List<Vector> vectors = new ArrayList<>(3);
         for (int i = 0; i < 3; ++i) {
-            vectors.add(new Vector(ray.getPOO()).subtract(new Vector(_vertices.get(i))));
+            vectors.add(new Vector(_vertices.get(i)).subtract(new Vector(ray.getPOO())));
         }
 
         List<Vector> normals = new ArrayList<>(3);

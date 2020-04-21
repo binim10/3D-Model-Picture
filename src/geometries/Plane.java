@@ -72,11 +72,11 @@ public class Plane implements Geometry {
         if (isZero(nv)) // Ray is parallel to the plane
             return null;
 
-        double nQMinusP0 = _normal.dotProduct(ray.getPOO().subtract(_p));
+        double nQMinusP0 = _normal.dotProduct(_p.subtract(ray.getPOO()));
         double t = alignZero(nQMinusP0 / nv);
 
         if (t > 0) {
-            Point3D p = new Point3D(ray.getPOO()).add(ray.getDirection().scale(t));
+            Point3D p = new Point3D(ray.getPoint(t));
             return List.of(p);
         }
         return null;

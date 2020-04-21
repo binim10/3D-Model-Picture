@@ -45,7 +45,7 @@ public class SphereTest {
         assertEquals("no match between the intersections", List.of(p1, p2), result);
 
         // TC03: Ray starts inside the sphere (1 point)
-        Point3D p3 = new Point3D(1.58, 0.81, 0);
+        Point3D p3 = new Point3D(1.5831513611335566, 0.8123635208501675, 0.0);
         List<Point3D> result2 = sphere.findIntersections(new Ray(new Point3D(0.5, 0, 0), new Vector(2, 1.5, 0)));
         assertEquals("TC03: no intersection's at all or more than one", 1, result2.size());
         assertEquals("TC03: Ray not cross the sphere in the excepted points", p3, result2.get(0));
@@ -59,15 +59,16 @@ public class SphereTest {
 
 
         // TC11: Ray starts at sphere and goes inside (1 points)
-        Point3D p11 = new Point3D(1.82, 0.57, 0.01);
+        Point3D p11 = new Point3D(1.820706605082462, 0.5712796438230884, 0.008957506761619063);
         List<Point3D> result11 = sphere.findIntersections(new Ray(new Point3D(0.19, 0.58, 0.07),
                 new Vector(1.87, -0.01, -0.07)));
-        assertEquals("TC11: no match between the number of intersection", 1, result.size());
+        assertEquals("TC11: no match between the number of intersection", 1, result11.size());
         assertEquals("no match between the points of the intersection", p11, result11.get(0));
 
+
         // TC12: Ray starts at sphere and goes outside (0 points)
-        assertNull("TC12: there is an intersection", sphere.findIntersections(new Ray(new Point3D(0.19, 0.58, 0.07),
-                new Vector(-1.87, 0.01, 0.07))));
+        assertNull("TC12: there is an intersection", sphere.findIntersections(new Ray(new Point3D(1,0,1),
+                new Vector(0,0,1))));
 
 
         // **** Group: Ray's line goes through the center
@@ -95,7 +96,7 @@ public class SphereTest {
         assertEquals("no match between the points of the intersection", p15, result15.get(0));
 
         // TC16: Ray starts at the center (1 points)
-        Point3D p16 = new Point3D(1.58, 0.58, 0.58);
+        Point3D p16 = new Point3D(1.5773502691896257, 0.5773502691896258, 0.5773502691896258);
         List<Point3D> result16 = sphere.findIntersections(new Ray(new Point3D(1, 0, 0),
                 new Vector(2, 2, 2)));
         assertEquals("TC11: no match between the number of intersection", 1, result16.size());

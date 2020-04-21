@@ -44,10 +44,10 @@ public class Sphere extends RadialGeometry {
     public List<Point3D> findIntersections(Ray ray) {
         // Ray start at the center of the sphere
         if (ray.getPOO().equals(_center)) {
-            Point3D p = new Point3D(_center).add(ray.getDirection().scale(_radius));
+            Point3D p = new Point3D(ray.getPoint(_radius));
             return List.of(p);
         }
-        Vector u = ray.getPOO().subtract(_center);
+        Vector u = _center.subtract(ray.getPOO());
         double tm = alignZero(u.dotProduct(ray.getDirection()));
         double d = alignZero(Math.sqrt(u.lengthSquared() - (tm * tm)));
         if (d >= _radius)
@@ -56,19 +56,19 @@ public class Sphere extends RadialGeometry {
         double t1 = alignZero(tm + th);
         double t2 = alignZero(tm - th);
         if (t1 > 0 && t2 > 0) {
-            Point3D p1 = new Point3D(ray.getPOO()).add(ray.getDirection().scale(t1));
-            Point3D p2 = new Point3D(ray.getPOO()).add(ray.getDirection().scale(t2));
+            Point3D p1 = new Point3D(ray.getPoint(t1));
+            Point3D p2 = new Point3D(ray.getPoint(t2));
             return List.of(p1, p2);
         }
         if (t1 <= 0 && t2 <= 0) {
             return null;
         }
         if (t1 > 0 && t2 <= 0) {
-            Point3D p1 = new Point3D(ray.getPOO()).add(ray.getDirection().scale(t1));
+            Point3D p1 = new Point3D(ray.getPoint(t1));
             return List.of(p1);
         }
         if (t1 <= 0 && t2 > 0) {
-            Point3D p2 = new Point3D(ray.getPOO()).add(ray.getDirection().scale(t2));
+            Point3D p2 = new Point3D(ray.getPoint(t2));
             return List.of(p2);
         }
         return null;
