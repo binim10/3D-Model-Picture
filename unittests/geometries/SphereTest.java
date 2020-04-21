@@ -73,9 +73,6 @@ public class SphereTest {
 
         // **** Group: Ray's line goes through the center
         // TC13: Ray starts before the sphere (2 points
-        /**
-         * <img src=C:\Users\binim\IdeaProjects\IME5780\JavaDoc\Sphere_inter_twice.png/>
-         */
         Point3D p13 = new Point3D(0, 0, 0);
         Point3D p13_1 = new Point3D(2, 0, 0);
         List<Point3D> result13 = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(3, 0, 0)));
