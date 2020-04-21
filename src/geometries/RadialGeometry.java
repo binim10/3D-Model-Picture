@@ -8,7 +8,7 @@ import primitives.Vector;
  */
 public abstract class RadialGeometry implements Geometry {
 
-    double _radius;
+    private double _radius;
 
     /**
      * Instantiates a new Radial geometry.

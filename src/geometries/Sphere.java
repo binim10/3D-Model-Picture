@@ -12,7 +12,7 @@ import static primitives.Util.alignZero;
  * The type Sphere.
  */
 public class Sphere extends RadialGeometry {
-    Point3D _center;
+    private Point3D _center;
 
     /**
      * Instantiates a new Sphere.
@@ -43,16 +43,16 @@ public class Sphere extends RadialGeometry {
     @Override
     public List<Point3D> findIntersections(Ray ray) {
         // Ray start at the center of the sphere
-        if (ray.getPOO().equals(_center)) {
-            Point3D p = new Point3D(ray.getPoint(_radius));
+        if (ray.getPOO().equals(get_center())) {
+            Point3D p = new Point3D(ray.getPoint(get_radius()));
             return List.of(p);
         }
         Vector u = _center.subtract(ray.getPOO());
         double tm = alignZero(u.dotProduct(ray.getDirection()));
         double d = alignZero(Math.sqrt(u.lengthSquared() - (tm * tm)));
-        if (d >= _radius)
+        if (d >= get_radius())
             return null;
-        double th = alignZero(Math.sqrt((_radius * _radius) - (d * d)));
+        double th = alignZero(Math.sqrt((get_radius() * get_radius()) - (d * d)));
         double t1 = alignZero(tm + th);
         double t2 = alignZero(tm - th);
         if (t1 > 0 && t2 > 0) {

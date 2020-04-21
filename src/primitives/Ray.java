@@ -52,10 +52,10 @@ public class Ray {
     }
 
     /**
-     * Get point point 3 d.
+     * Calculate to find point on Ray with a giving t.
      *
      * @param t the t
-     * @return the point 3 d
+     * @return the point 3D
      */
     public Point3D getPoint(double t) {
         return getPOO().add(getDirection().scale(t));

@@ -8,7 +8,7 @@ import primitives.Vector;
  * The type Cylinder.
  */
 public class Cylinder extends Tube {
-    double _height;
+    private double _height;
 
     /**
      * Instantiates a new Cylinder.
