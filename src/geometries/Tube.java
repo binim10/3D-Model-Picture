@@ -20,7 +20,7 @@ public class Tube extends RadialGeometry {
      */
     public Tube(double radius, Ray axisRay) {
         super(radius);
-        this._axisRay=axisRay;
+        this._axisRay = axisRay;
 
     }
 
@@ -43,7 +43,7 @@ public class Tube extends RadialGeometry {
     @Override
     public Vector getNormal(Point3D p) {
         double t = _axisRay.getDirection().dotProduct(p.subtract(_axisRay.getPOO()));
-        if(t==0)
+        if (t == 0)
             return new Vector(p.subtract(_axisRay.getPOO()).normalize());
         Point3D center = _axisRay.getPOO().add(_axisRay.getDirection().scale(t));
         Vector v = p.subtract(center);

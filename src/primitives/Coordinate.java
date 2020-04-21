@@ -13,11 +13,10 @@ public final class Coordinate {
      * Coordinate value, intentionally "package-friendly" due to performance
      * constraints
      */
-    public final double _coord;
+    private final double _coord;
 
     /**
      * Coordinate constructor receiving a coordinate value
-     *
      *
      * @param coord coordinate value
      */
@@ -29,7 +28,7 @@ public final class Coordinate {
     /**
      * Copy constructor for coordinate
      *
-     * @param other
+     * @param other the other
      */
     public Coordinate(Coordinate other) {
         _coord = other._coord;
@@ -50,7 +49,7 @@ public final class Coordinate {
         if (this == obj) return true;
         if (obj == null) return false;
         if (!(obj instanceof Coordinate)) return false;
-        return isZero(_coord - ((Coordinate)obj)._coord);
+        return isZero(_coord - ((Coordinate) obj)._coord);
     }
 
     @Override

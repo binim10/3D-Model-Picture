@@ -37,7 +37,7 @@ public class TriangleTest {
         // ============ Equivalence Partitions Tests ==============
         // TC02: Inside polygon/triangle(1 intersection)
         Point3D p2 = new Point3D(0, 2, 1);
-        List<Point3D> result2=t.findIntersections(new Ray(new Point3D(0.5, 2, 1), new Vector(-2, 0, 0)));
+        List<Point3D> result2 = t.findIntersections(new Ray(new Point3D(0.5, 2, 1), new Vector(-2, 0, 0)));
         assertEquals("no match between num of intersection", p2, result2.get(0));
 
         // TC03: Outside against edge(0 intersection)
@@ -48,11 +48,11 @@ public class TriangleTest {
 
         // ============ BVA Tests ==============
         // TC11: in vertex
-        assertNull("TC11: no match number of intersection",t.findIntersections(new Ray(new Point3D(0.5,1,0),new Vector(-2,0,0))));
+        assertNull("TC11: no match number of intersection", t.findIntersections(new Ray(new Point3D(0.5, 1, 0), new Vector(-2, 0, 0))));
         // TC12: On edge
-        assertNull("",t.findIntersections(new Ray(new Point3D(0.5,2.27,1.46),new Vector(-2,0,0))));
+        assertNull("", t.findIntersections(new Ray(new Point3D(0.5, 2.27, 1.46), new Vector(-2, 0, 0))));
         // TC13: On edge's continuation
-        assertNull("",t.findIntersections(new Ray(new Point3D(1,0,-6),new Vector(-2,0,0))));
+        assertNull("", t.findIntersections(new Ray(new Point3D(1, 0, -6), new Vector(-2, 0, 0))));
 
     }
 }

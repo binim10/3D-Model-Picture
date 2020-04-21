@@ -40,7 +40,7 @@ public class SphereTest {
         List<Point3D> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0),
                 new Vector(3, 1, 0)));
         assertEquals("TC02 Wrong number of points", 2, result.size());
-        if (result.get(0).get_x()._coord > result.get(1).get_x()._coord)
+        if (result.get(0).get_x().get() > result.get(1).get_x().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("no match between the intersections", List.of(p1, p2), result);
 
@@ -67,8 +67,8 @@ public class SphereTest {
 
 
         // TC12: Ray starts at sphere and goes outside (0 points)
-        assertNull("TC12: there is an intersection", sphere.findIntersections(new Ray(new Point3D(1,0,1),
-                new Vector(0,0,1))));
+        assertNull("TC12: there is an intersection", sphere.findIntersections(new Ray(new Point3D(1, 0, 1),
+                new Vector(0, 0, 1))));
 
 
         // **** Group: Ray's line goes through the center
@@ -77,7 +77,7 @@ public class SphereTest {
         Point3D p13_1 = new Point3D(2, 0, 0);
         List<Point3D> result13 = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(3, 0, 0)));
         assertEquals("TC13: No match between Number of intersection", 2, result13.size());
-        if (result13.get(0).get_x()._coord > result13.get(1).get_x()._coord)
+        if (result13.get(0).get_x().get() > result13.get(1).get_x().get())
             result13 = List.of(result13.get(1), result13.get(0));
         assertEquals("TC13: no match between points of intersection", List.of(p13, p13_1), result13);
 

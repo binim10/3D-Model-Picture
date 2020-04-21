@@ -17,7 +17,7 @@ public class Geometries implements Intersectable {
      * Instantiates a new Geometries.
      */
     public Geometries() {
-        _geometries=new ArrayList<Intersectable>();
+        _geometries = new ArrayList<Intersectable>();
     }
 
     /**
@@ -26,15 +26,15 @@ public class Geometries implements Intersectable {
      * @param geometries the geometries
      */
     public Geometries(Intersectable... geometries) {
-        this._geometries =Arrays.asList(geometries);
+        this._geometries = Arrays.asList(geometries);
     }
 
     /**
-     * Add Intersectable's to the list
+     * Add Intersectables to the list
      *
      * @param geometries the geometries
      */
-    public void add(Intersectable... geometries){
+    public void add(Intersectable... geometries) {
         _geometries.addAll(Arrays.asList(geometries));
     }
 

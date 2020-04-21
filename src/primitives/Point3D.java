@@ -1,5 +1,8 @@
 package primitives;
 
+/**
+ * The type Point 3 d.
+ */
 public class Point3D {
     public final static Point3D ZERO = new Point3D(0, 0, 0);
     Coordinate _x;
@@ -15,7 +18,7 @@ public class Point3D {
      * @param _z coordinate on the z axis
      */
     public Point3D(Coordinate _x, Coordinate _y, Coordinate _z) {
-                    this._x = new Coordinate(_x);
+        this._x = new Coordinate(_x);
         this._y = new Coordinate(_y);
         this._z = new Coordinate(_z);
     }
@@ -23,9 +26,9 @@ public class Point3D {
     /**
      * Constructor get doubles
      *
-     * @param _x
-     * @param _y
-     * @param _z
+     * @param _x the x
+     * @param _y the y
+     * @param _z the z
      */
     public Point3D(double _x, double _y, double _z) {
         this(new Coordinate(_x), new Coordinate(_y), new Coordinate(_z));
@@ -34,7 +37,7 @@ public class Point3D {
     /**
      * copy Constructor
      *
-     * @param _point
+     * @param _point the point
      */
     public Point3D(Point3D _point) {
         this._x = _point._x;
@@ -44,16 +47,28 @@ public class Point3D {
 
     /******************* getters ****************/
     /**
+     * Gets x.
+     *
      * @return new Coordinate with _x value
      */
     public Coordinate get_x() {
         return new Coordinate(_x);
     }
 
+    /**
+     * Gets y.
+     *
+     * @return the y
+     */
     public Coordinate get_y() {
         return new Coordinate(_y);
     }
 
+    /**
+     * Gets z.
+     *
+     * @return the z
+     */
     public Coordinate get_z() {
         return new Coordinate(_z);
     }
@@ -63,26 +78,27 @@ public class Point3D {
     /**
      * Add vector to the point
      *
-     * @param _vector
-     * @return Point3D
+     * @param _vector the vector
+     * @return Point3D point 3 d
      */
-    public Point3D add(Vector _vector){
+    public Point3D add(Vector _vector) {
         return new Point3D(
-                this.get_x()._coord+_vector._head.get_x()._coord,
-                this.get_y()._coord+_vector._head.get_y()._coord,
-                this.get_z()._coord+_vector._head.get_z()._coord);
+                this.get_x().get() + _vector._head.get_x().get(),
+                this.get_y().get() + _vector._head.get_y().get(),
+                this.get_z().get() + _vector._head.get_z().get());
     }/**/
+
     /**
      * calculate vector between two points
      *
-     * @param vertex
-     * @return vector
+     * @param vertex the vertex
+     * @return vector vector
      */
     public Vector subtract(Point3D vertex) {
         return new Vector(
-                this.get_x()._coord-vertex.get_x()._coord,
-                this.get_y()._coord - vertex.get_y()._coord,
-                this.get_z()._coord - vertex.get_z()._coord
+                this.get_x().get() - vertex.get_x().get(),
+                this.get_y().get() - vertex.get_y().get(),
+                this.get_z().get() - vertex.get_z().get()
         );
     }
 
@@ -90,25 +106,26 @@ public class Point3D {
     /**
      * calculate the distance Squared
      *
-     * @param _point
-     * @return double
+     * @param _point the point
+     * @return double double
      */
-    public double distanceSquared (Point3D _point){
-        return ((_point.get_x()._coord-this.get_x()._coord)*(_point.get_x()._coord-this.get_x()._coord)+
-                (_point.get_y()._coord-this.get_y()._coord)*(_point.get_y()._coord-this.get_y()._coord)+
-                (_point.get_z()._coord-this.get_z()._coord)*(_point.get_z()._coord-this.get_z()._coord));
+    public double distanceSquared(Point3D _point) {
+        return ((_point.get_x().get() - this.get_x().get()) * (_point.get_x().get() - this.get_x().get()) +
+                (_point.get_y().get() - this.get_y().get()) * (_point.get_y().get() - this.get_y().get()) +
+                (_point.get_z().get() - this.get_z().get()) * (_point.get_z().get() - this.get_z().get()));
     }
 
     /**
      * calculate the distance between points
      * by using the root of distanceSquared
      *
-     * @param _point
-     * @return double
+     * @param _point the point
+     * @return double double
      */
-    public double distance(Point3D _point){
+    public double distance(Point3D _point) {
         return Math.sqrt(distanceSquared(_point));
     }
+
     /************override functions*************/
     @Override
     public boolean equals(Object obj) {
@@ -116,7 +133,7 @@ public class Point3D {
         if (obj == null) return false;
         if (!(obj instanceof Point3D)) return false;
         Point3D temp = (Point3D) obj;
-        return _x.equals(temp._x) && _y.equals(temp._y)&&_z.equals(temp._z);
+        return _x.equals(temp._x) && _y.equals(temp._y) && _z.equals(temp._z);
     }
 
     @Override

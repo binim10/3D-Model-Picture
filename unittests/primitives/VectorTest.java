@@ -27,7 +27,7 @@ public class VectorTest {
     @Test
     public void subtract() {
         Point3D p1 = new Point3D(1, 2, 3);
-        assertEquals("ERROR: Point - Point does not work correctly",new Vector(1, 1, 1),new Point3D(2, 3, 4).subtract(p1));
+        assertEquals("ERROR: Point - Point does not work correctly", new Vector(1, 1, 1), new Point3D(2, 3, 4).subtract(p1));
     }
 
     /**
@@ -74,7 +74,8 @@ public class VectorTest {
         try {
             v1.crossProduct(v2);
             fail("crossProduct() for parallel vectors does not throw an exception");
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
     }
 
@@ -93,8 +94,8 @@ public class VectorTest {
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(-2, -4, -6);
         Vector v3 = new Vector(0, 3, -2);
-        assertTrue("ERROR: lengthSquared() wrong value",isZero(v1.lengthSquared() - 14));
-        assertTrue("ERROR: length() wrong value",isZero(new Vector(0, 3, 4).length() - 5));
+        assertTrue("ERROR: lengthSquared() wrong value", isZero(v1.lengthSquared() - 14));
+        assertTrue("ERROR: length() wrong value", isZero(new Vector(0, 3, 4).length() - 5));
     }
 
     /**
@@ -105,8 +106,8 @@ public class VectorTest {
         Vector v = new Vector(1, 2, 3);
         Vector vCopy = new Vector(v);
         Vector vCopyNormalize = vCopy.normalize();
-        assertTrue("ERROR: normalize() function creates a new vector",vCopy == vCopyNormalize);
-        assertTrue("ERROR: normalize() result is not a unit vector",isZero(vCopyNormalize.length() - 1));
+        assertTrue("ERROR: normalize() function creates a new vector", vCopy == vCopyNormalize);
+        assertTrue("ERROR: normalize() result is not a unit vector", isZero(vCopyNormalize.length() - 1));
     }
 
     /**
@@ -117,6 +118,6 @@ public class VectorTest {
         Vector v = new Vector(1, 2, 3);
         Vector u = v.normalized();
         assertFalse("ERROR: normalized() function does not create a new vector", u == v);
-        assertTrue("ERROR: normalize() result is not a unit vector",isZero(u.length() - 1));
+        assertTrue("ERROR: normalize() result is not a unit vector", isZero(u.length() - 1));
     }
 }

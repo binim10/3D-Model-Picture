@@ -1,5 +1,8 @@
 package primitives;
 
+/**
+ * The type Vector.
+ */
 public class Vector {
     protected Point3D _head;
 
@@ -80,7 +83,7 @@ public class Vector {
      * subtract vector from another using subtract method in Point3D class
      *
      * @param _vector the vector
-     * @return vector
+     * @return vector vector
      */
     public Vector subtract(Vector _vector) {
         return new Vector(this._head.subtract(_vector._head));//go to ctor of vector
@@ -93,9 +96,9 @@ public class Vector {
      * @return Vector vector
      */
     public Vector scale(double _scalar) {
-        return new Vector(this._head.get_x()._coord * _scalar,
-                this._head.get_y()._coord * _scalar,
-                this._head.get_z()._coord * _scalar);
+        return new Vector(this._head.get_x().get() * _scalar,
+                this._head.get_y().get() * _scalar,
+                this._head.get_z().get() * _scalar);
     }
 
     /**
@@ -103,12 +106,12 @@ public class Vector {
      * (Michpala Scalarit)
      *
      * @param _vec the vec
-     * @return double
+     * @return double double
      */
     public double dotProduct(Vector _vec) {
-        return (this._head.get_x()._coord * _vec._head.get_x()._coord) +
-                (this._head.get_y()._coord * _vec._head.get_y()._coord) +
-                (this._head.get_z()._coord * _vec._head.get_z()._coord);
+        return (this._head.get_x().get() * _vec._head.get_x().get()) +
+                (this._head.get_y().get() * _vec._head.get_y().get()) +
+                (this._head.get_z().get() * _vec._head.get_z().get());
 
     }
 
@@ -117,13 +120,13 @@ public class Vector {
      * (michpala vectorit)
      *
      * @param _vector the vector
-     * @return vector
+     * @return vector vector
      */
     public Vector crossProduct(Vector _vector) {
         return new Vector((new Point3D(
-                this._head.get_y()._coord * _vector._head.get_z()._coord - this._head.get_z()._coord * _vector._head.get_y()._coord,
-                this._head.get_z()._coord * _vector._head.get_x()._coord - this._head.get_x()._coord * _vector._head.get_z()._coord,
-                this._head.get_x()._coord * _vector._head.get_y()._coord - this._head.get_y()._coord * _vector._head.get_x()._coord)));
+                this._head.get_y().get() * _vector._head.get_z().get() - this._head.get_z().get() * _vector._head.get_y().get(),
+                this._head.get_z().get() * _vector._head.get_x().get() - this._head.get_x().get() * _vector._head.get_z().get(),
+                this._head.get_x().get() * _vector._head.get_y().get() - this._head.get_y().get() * _vector._head.get_x().get())));
     }
 
     /**
@@ -131,7 +134,7 @@ public class Vector {
      *
      * @return the double
      */
-    public double lengthSquared(){
+    public double lengthSquared() {
         return Point3D.ZERO.distanceSquared(this._head);
     }
 
@@ -140,7 +143,7 @@ public class Vector {
      *
      * @return the double
      */
-    public double length(){
+    public double length() {
         return Point3D.ZERO.distance(this._head);
     }
 
@@ -149,11 +152,11 @@ public class Vector {
      *
      * @return the vector
      */
-    public Vector normalize(){
-         this._head=new Point3D(this._head.get_x()._coord/this.length(),
-                 this._head.get_y()._coord/this.length(),
-                 this._head.get_z()._coord/length());
-         return this;
+    public Vector normalize() {
+        this._head = new Point3D(this._head.get_x().get() / this.length(),
+                this._head.get_y().get() / this.length(),
+                this._head.get_z().get() / length());
+        return this;
     }
 
     /**
@@ -161,8 +164,8 @@ public class Vector {
      *
      * @return the vector
      */
-    public Vector normalized(){
-        Vector temp=new Vector(this._head);
+    public Vector normalized() {
+        Vector temp = new Vector(this._head);
         return temp.normalize();
     }
 

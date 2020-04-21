@@ -51,7 +51,13 @@ public class Ray {
         return this._direction;
     }
 
-    public Point3D getPoint(double t){
+    /**
+     * Get point point 3 d.
+     *
+     * @param t the t
+     * @return the point 3 d
+     */
+    public Point3D getPoint(double t) {
         return getPOO().add(getDirection().scale(t));
     }
 
@@ -69,7 +75,7 @@ public class Ray {
         if (obj == null) return false;
         if (!(obj instanceof Ray)) return false;
         Ray temp = (Ray) obj;
-       return _POO.equals(temp._POO)&&_direction.equals(temp._direction);
+        return _POO.equals(temp._POO) && _direction.equals(temp._direction);
     }
 
 }

@@ -25,7 +25,7 @@ public abstract class RadialGeometry implements Geometry {
      * @param radialGeometry the radial geometry
      */
     public RadialGeometry(RadialGeometry radialGeometry) {
-        this._radius=radialGeometry._radius;
+        this._radius = radialGeometry._radius;
     }
 
     /**
