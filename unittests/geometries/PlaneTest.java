@@ -11,8 +11,14 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * The type Plane test.
+ */
 public class PlaneTest {
 
+    /**
+     * Gets normal.
+     */
     @Test
     public void getNormal() {
         // ============ Equivalence Partitions Tests ==============
@@ -22,9 +28,12 @@ public class PlaneTest {
         assertEquals("Bad normal to plain", new Vector(sqrt3, sqrt3, sqrt3), pl.get_normal());
     }
 
+    /**
+     * Test find intersections.
+     */
     @Test
     public void testFindIntersections() {
-        //TODO TC 2,3,6,8
+
         Plane pl = new Plane(new Point3D(0, 1.5, 0), new Point3D(0, 1, 0.2), new Point3D(0, 1, 1));
 
         // ============ Equivalence Partitions Tests ==============

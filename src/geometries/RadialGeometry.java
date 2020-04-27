@@ -8,7 +8,7 @@ import primitives.Vector;
  */
 public abstract class RadialGeometry implements Geometry {
 
-    private double _radius;
+    protected double _radius;
 
     /**
      * Instantiates a new Radial geometry.
@@ -33,7 +33,7 @@ public abstract class RadialGeometry implements Geometry {
      *
      * @return the radius
      */
-    public double get_radius() {
+    public double getRadius() {
         return this._radius;
     }
 

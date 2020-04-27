@@ -30,12 +30,7 @@ public class VectorTest {
         assertEquals("ERROR: Point - Point does not work correctly", new Vector(1, 1, 1), new Point3D(2, 3, 4).subtract(p1));
     }
 
-    /**
-     * Scale.
-     */
-    @Test
-    public void scale() {
-    }
+   
 
     /**
      * Dot product.
@@ -79,12 +74,7 @@ public class VectorTest {
 
     }
 
-    /**
-     * Length squared.
-     */
-    @Test
-    public void lengthSquared() {
-    }
+
 
     /**
      * Length.

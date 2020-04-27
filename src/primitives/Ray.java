@@ -52,7 +52,7 @@ public class Ray {
     }
 
     /**
-     * Calculate to find point on Ray with a giving t.
+     * Calculate to find point on Ray with a given t.
      *
      * @param t the t
      * @return the point 3D
