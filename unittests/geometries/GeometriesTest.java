@@ -9,8 +9,14 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Geometries test.
+ */
 public class GeometriesTest {
 
+    /**
+     * test Find intersections with list of geometries, Composite design.
+     */
     @Test
     public void findIntersections() {
         Triangle _triangle = new Triangle(new Point3D(0, 1.5, 3), new Point3D(0, 1, 0), new Point3D(0, 3, 0));

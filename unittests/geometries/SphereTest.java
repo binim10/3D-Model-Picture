@@ -13,8 +13,14 @@ import java.util.ListIterator;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Sphere test.
+ */
 public class SphereTest {
 
+    /**
+     * test  getNormal.
+     */
     @Test
     public void getNormal() {
         // ============ Equivalence Partitions Tests ==============
@@ -24,6 +30,10 @@ public class SphereTest {
         assertEquals("Bad normal to sphere", v, sp.getNormal(new Point3D(0, 2, 1)));
     }
 
+    /**
+     * test Find intersections.
+     * EP and BVA
+     */
     @Test
     public void findIntersections() {
         Sphere sphere = new Sphere(1d, new Point3D(1, 0, 0));
