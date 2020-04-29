@@ -51,7 +51,7 @@ public class Sphere extends RadialGeometry {
         double tm = alignZero(u.dotProduct(ray.getDirection()));
         double d = alignZero(Math.sqrt(u.lengthSquared() - (tm * tm)));
         //TODO if alignzero(d-radius)>=0
-        if (d >= _radius)
+        if (alignZero(d-  _radius)>=0)
             return null;
         double th = alignZero(Math.sqrt((_radius * _radius) - (d * d)));
         double t1 = alignZero(tm + th);

@@ -21,7 +21,7 @@ public class Camera {
      * @param vUp the v up
      * @param vTo the v to
      */
-    public Camera(Point3D p0, Vector vUp, Vector vTo) {
+    public Camera(Point3D p0, Vector vTo, Vector vUp) {
         //check if they are vertical
         if(!isZero(vUp.dotProduct(vTo))){
             throw new IllegalArgumentException("the vectors up and to are not vertical");
@@ -84,7 +84,33 @@ public class Camera {
     public Ray constructRayThroughPixel (int nX, int nY,
                                          int j, int i, double screenDistance,
                                          double screenWidth, double screenHeight){
-        return null;
+
+        Point3D Pc = _p0.add(_vTo.scale(screenDistance));
+        double Ry = screenHeight / nY;
+        double Rx = screenWidth / nX;
+
+        double yi = ((i - (nY / 2d)) * Ry + Ry / 2d);
+        double xj = ((j - (nX / 2d)) * Rx + Rx / 2d);
+
+        Point3D Pij=Pc;
+        Vector temp=new Vector(getVTo()),temp2=new Vector(getVTo());//initialise for temp
+
+        if (!isZero(xj)) {
+            temp =_vRight.scale(xj);
+            Pij=Pij.add(temp);
+        }
+        if (!isZero(yi)) {
+            temp2 = _vUp.scale(yi);
+            Pij=Pij.add(temp2);
+        }
+        if (!isZero(xj)&&!isZero(yi)){
+            Pij=Pij.add(temp.subtract(temp2));
+        }
+
+        Vector Vij = Pij.subtract(_p0);
+
+        return new Ray(_p0, Vij.normalized());
+
     }
 
 }
