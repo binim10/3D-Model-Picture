@@ -26,7 +26,7 @@ public class CameraIntegrationTest {
     int Nx = 3;
     int Ny = 3;
     /**
-     * Tests for sphere
+     * Tests for sphere integration with find intersections method
      */
     @Test
     public void testConstructRayThroughPixelWithSphere() {
@@ -99,13 +99,13 @@ public class CameraIntegrationTest {
                     count += results.size();
             }
         }
-        assertNull("SphTC05:bad Ray",count);
+        assertEquals("SphTC05:bad Ray",0,count);
         System.out.println("count: " + count);
         //END
     }
 
     /**
-     * test for plane
+     * test for plane integration with find intersections method
      */
     @Test
     public void testConstructRayThroughPixelWithPlane() {
@@ -155,7 +155,7 @@ public class CameraIntegrationTest {
     }
 
     /**
-     * Test intersections with triangle
+     * Test ConstructRayThroughPixel with triangle integration with find intersections method
      */
     @Test
     public void testConstructRayThroughPixelWithTriangle() {
@@ -165,7 +165,7 @@ public class CameraIntegrationTest {
         count=0;
         for (int i = 0; i < Ny; ++i) {
             for (int j = 0; j < Nx; ++j) {
-                results = triangle.findIntersections(new Ray(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3)));
+                results = triangle.findIntersections(new Ray(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3)));
                 if (results != null)
                     count += results.size();
             }

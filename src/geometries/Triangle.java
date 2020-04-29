@@ -33,12 +33,13 @@ public class Triangle extends Polygon {
 
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        if (_plane.findIntersections(ray) == null) // Ray doesn't intersect with the triangle
+        List<Point3D> plaInter= _plane.findIntersections(ray);
+        if (plaInter == null) // Ray doesn't intersect with the triangle
             return null;
 
         List<Vector> vectors = new ArrayList<>(3);
         for (int i = 0; i < 3; ++i) {
-            vectors.add(new Vector(_vertices.get(i)).subtract(new Vector(ray.getPOO())));
+            vectors.add(new Vector(_vertices.get(i).subtract(ray.getPOO())));
         }
 
         List<Vector> normals = new ArrayList<>(3);
@@ -60,5 +61,6 @@ public class Triangle extends Polygon {
         if (plus != 3 && minus != 3)
             return null;
         return _plane.findIntersections(ray);
+
     }
 }

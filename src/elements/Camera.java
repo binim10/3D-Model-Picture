@@ -27,10 +27,10 @@ public class Camera {
             throw new IllegalArgumentException("the vectors up and to are not vertical");
         }
         this._p0 = p0;
-        this._vUp = vUp.normalized();
         this._vTo = vTo.normalized();
+        this._vUp = vUp.normalized();
         //create the vRight vector by using crossProduct that give vertical vector for both.
-        this._vRight=new Vector(vUp.crossProduct(vTo)).normalized();
+        this._vRight=new Vector(vTo.crossProduct(vUp)).normalized();
     }
 
     /**
@@ -71,10 +71,11 @@ public class Camera {
 
     /**
      * Construct ray through pixel ray.
+     * find the ray starts from camera and end in the view plane point by given pixel.
      *
      * @param nX             the n x
      * @param nY             the n y
-     * @param j              the j
+     * @param j              the index j
      * @param i              the
      * @param screenDistance the screen distance
      * @param screenWidth    the screen width
@@ -85,31 +86,25 @@ public class Camera {
                                          int j, int i, double screenDistance,
                                          double screenWidth, double screenHeight){
 
-        Point3D Pc = _p0.add(_vTo.scale(screenDistance));
-        double Ry = screenHeight / nY;
-        double Rx = screenWidth / nX;
+        Point3D Pc = _p0.add(_vTo.scale(screenDistance));//Pc = P0 + d∙Vto
+        double Ry = screenHeight / nY;//Ry = h/Ny- size of pixel
+        double Rx = screenWidth / nX;//Rx = w/Nx
 
         double yi = ((i - (nY / 2d)) * Ry + Ry / 2d);
         double xj = ((j - (nX / 2d)) * Rx + Rx / 2d);
 
         Point3D Pij=Pc;
-        Vector temp=new Vector(getVTo()),temp2=new Vector(getVTo());//initialise for temp
 
         if (!isZero(xj)) {
-            temp =_vRight.scale(xj);
-            Pij=Pij.add(temp);
+            Pij = Pij.add(_vRight.scale(xj));
         }
         if (!isZero(yi)) {
-            temp2 = _vUp.scale(yi);
-            Pij=Pij.add(temp2);
-        }
-        if (!isZero(xj)&&!isZero(yi)){
-            Pij=Pij.add(temp.subtract(temp2));
+            Pij=Pij.add(_vUp.scale(-yi));
         }
 
         Vector Vij = Pij.subtract(_p0);
 
-        return new Ray(_p0, Vij.normalized());
+        return new Ray(_p0, Vij.normalize());
 
     }
 

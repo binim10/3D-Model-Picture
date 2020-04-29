@@ -9,7 +9,7 @@ import primitives.*;
 
 /**
  * Testing Camera Class
- * @author Dan
+ * @author Dan the king!!
  *
  */
 public class CameraTest {
