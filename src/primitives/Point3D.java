@@ -106,24 +106,24 @@ public class Point3D {
     /**
      * calculate the distance Squared
      *
-     * @param _point the point
+     * @param point the point
      * @return double double
      */
-    public double distanceSquared(Point3D _point) {
-        return ((_point.get_x().get() - this.get_x().get()) * (_point.get_x().get() - this.get_x().get()) +
-                (_point.get_y().get() - this.get_y().get()) * (_point.get_y().get() - this.get_y().get()) +
-                (_point.get_z().get() - this.get_z().get()) * (_point.get_z().get() - this.get_z().get()));
+    public double distanceSquared(Point3D point) {
+        return ((point.get_x().get() - this.get_x().get()) * (point.get_x().get() - this.get_x().get()) +
+                (point.get_y().get() - this.get_y().get()) * (point.get_y().get() - this.get_y().get()) +
+                (point.get_z().get() - this.get_z().get()) * (point.get_z().get() - this.get_z().get()));
     }
 
     /**
      * calculate the distance between points
      * by using the root of distanceSquared
      *
-     * @param _point the point
+     * @param point the point
      * @return double double
      */
-    public double distance(Point3D _point) {
-        return Math.sqrt(distanceSquared(_point));
+    public double distance(Point3D point) {
+        return Math.sqrt(distanceSquared(point));
     }
 
     /************override functions*************/

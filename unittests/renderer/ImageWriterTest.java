@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  */
 public class ImageWriterTest {
     /**
-     * Test build image blue and white net.
+     * Test build image blue and white grid.
      */
     @Test
     public void testBuildImage() {

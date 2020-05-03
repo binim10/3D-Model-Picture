@@ -12,7 +12,7 @@ import static primitives.Util.isZero;
  */
 public class Camera {
     private Point3D _p0;
-    private Vector _vUp,_vTo,_vRight;
+    private Vector _vUp, _vTo, _vRight;
 
     /**
      * Instantiates a new Camera.
@@ -23,14 +23,14 @@ public class Camera {
      */
     public Camera(Point3D p0, Vector vTo, Vector vUp) {
         //check if they are vertical
-        if(!isZero(vUp.dotProduct(vTo))){
+        if (!isZero(vUp.dotProduct(vTo))) {
             throw new IllegalArgumentException("the vectors up and to are not vertical");
         }
         this._p0 = p0;
         this._vTo = vTo.normalized();
         this._vUp = vUp.normalized();
         //create the vRight vector by using crossProduct that give vertical vector for both.
-        this._vRight=new Vector(vTo.crossProduct(vUp)).normalized();
+        this._vRight = new Vector(vTo.crossProduct(vUp)).normalized();
     }
 
     /**
@@ -73,18 +73,18 @@ public class Camera {
      * Construct ray through pixel ray.
      * find the ray starts from camera and end in the view plane point by given pixel.
      *
-     * @param nX             the n x
-     * @param nY             the n y
-     * @param j              the index j
-     * @param i              the
+     * @param nX             the number of horizontal pixels
+     * @param nY             the number of vertical pixels
+     * @param j              the index j represent index of columns
+     * @param i              the index i represent index of rows
      * @param screenDistance the screen distance
      * @param screenWidth    the screen width
      * @param screenHeight   the screen height
      * @return the ray
      */
-    public Ray constructRayThroughPixel (int nX, int nY,
-                                         int j, int i, double screenDistance,
-                                         double screenWidth, double screenHeight){
+    public Ray constructRayThroughPixel(int nX, int nY,
+                                        int j, int i, double screenDistance,
+                                        double screenWidth, double screenHeight) {
 
         Point3D Pc = _p0.add(_vTo.scale(screenDistance));//Pc = P0 + d∙Vto
         double Ry = screenHeight / nY;//Ry = h/Ny- size of pixel
@@ -93,13 +93,13 @@ public class Camera {
         double yi = ((i - (nY / 2d)) * Ry + Ry / 2d);
         double xj = ((j - (nX / 2d)) * Rx + Rx / 2d);
 
-        Point3D Pij=Pc;
+        Point3D Pij = Pc;
 
         if (!isZero(xj)) {
             Pij = Pij.add(_vRight.scale(xj));
         }
         if (!isZero(yi)) {
-            Pij=Pij.add(_vUp.scale(-yi));
+            Pij = Pij.add(_vUp.scale(-yi));
         }
 
         Vector Vij = Pij.subtract(_p0);
