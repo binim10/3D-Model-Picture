@@ -1,9 +1,14 @@
 package parser;
 
+import elements.AmbientLight;
+import elements.Camera;
+import geometries.Geometries;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import primitives.Color;
+import primitives.Point3D;
+import primitives.Vector;
 import renderer.ImageWriter;
 import scene.Scene;
 
@@ -15,6 +20,8 @@ public class SceneXMLParser extends DefaultHandler {
     private List<Scene> scenes = null;
     private Scene scene = null;
     private ImageWriter image=null;
+    private Camera camera = null;
+    private List<Geometries> geometriesList = null;
     private String data = null;
     private Double d = null;
 
@@ -23,6 +30,10 @@ public class SceneXMLParser extends DefaultHandler {
     boolean bColor = false;
     boolean bAmbientLight = false;
     boolean bGeometries = false;
+    boolean bSphere=false;
+    boolean bTriangle=false;
+    boolean bPlane=false;
+    boolean bTube=false;
     boolean bCamera = false;
     boolean bImage = false;
 
@@ -38,14 +49,16 @@ public class SceneXMLParser extends DefaultHandler {
         if (qName.equalsIgnoreCase("background")) {
             bColor = true;
         }
-        if (qName.equalsIgnoreCase("ambientLight")) {
-
+        if (qName.equalsIgnoreCase("ambient-light")) {
             bAmbientLight = true;
         }
         if (qName.equalsIgnoreCase("geometries")) {
+            if (geometriesList==null)
+                geometriesList=new ArrayList<>();
             bGeometries = true;
         }
         if (qName.equalsIgnoreCase("camera")) {
+
             bCamera = true;
         }
         if (qName.equalsIgnoreCase("image")) {
@@ -57,6 +70,23 @@ public class SceneXMLParser extends DefaultHandler {
             image=new ImageWriter(name,imageWidth,imageHeight,nX,nY);
             bImage = true;
         }
+        if (qName.equalsIgnoreCase("triangle")) {
+
+            bTriangle = true;
+        }
+        if (qName.equalsIgnoreCase("sphere")) {
+
+            bSphere = true;
+        }
+        if (qName.equalsIgnoreCase("plane")) {
+
+            bPlane = true;
+        }
+        if (qName.equalsIgnoreCase("tube")) {
+
+            bTube = true;
+        }
+
         data = new String();
 
     }
@@ -66,8 +96,30 @@ public class SceneXMLParser extends DefaultHandler {
         if (bColor) {
             String[] rgb = data.split(" ");
             scene.setBackground(new Color(d=Double.parseDouble(rgb[0]), d=Double.parseDouble(rgb[1]), d=Double.parseDouble(rgb[2])));
+            bColor=false;
         }
         if(bImage){
+            bImage=false;
         }
+        if (bAmbientLight){
+            String[] rgb = temp._ambientLightAttributes.get("color").split(" ");
+            scene.setAmbientLight(new AmbientLight(new Color(d=Double.parseDouble(rgb[0]), d=Double.parseDouble(rgb[1]), d=Double.parseDouble(rgb[2])),1));
+            bAmbientLight=false;
+        }
+        if(bCamera){
+            String[] point = temp._cameraAttributes.get("P0").split(" ");
+            String[] vUp = temp._cameraAttributes.get("Vup").split(" ");
+            String[] vTo = temp._cameraAttributes.get("Vto").split(" ");
+            camera = new Camera(new Point3D(d=Double.parseDouble(point[0]), d=Double.parseDouble(point[1]), d=Double.parseDouble(point[2])),
+                    new Vector(d=Double.parseDouble(vTo[0]), d=Double.parseDouble(vTo[1]), d=Double.parseDouble(vTo[2])),
+                    new Vector(d=Double.parseDouble(vUp[0]), d=Double.parseDouble(vUp[1]), d=Double.parseDouble(vUp[2])));
+        }
+        if(bGeometries){
+            bGeometries=false;
+        }
+    }
+    @Override
+    public void characters(char ch[], int start, int length) throws SAXException {
+        data= data + new String(ch, start, length);
     }
 }
