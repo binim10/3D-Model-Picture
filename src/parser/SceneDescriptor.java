@@ -10,14 +10,16 @@ import org.xml.sax.helpers.DefaultHandler;
 import scene.Scene;
 
 public class SceneDescriptor {
-    Map<String,String> _sceneAttributes;
+    public Map<String,String> _sceneAttributes;
     Map <String, String> _cameraAttributes;
+    Map<String,String> _imageWriter;
     Map <String, String> _ambientLightAttributes;
     List <Map <String, String>> _spheres;
     List < Map <String, String>> _triangles;
 
 
     public void InitializeFromXMLstring(String xmlText){
+
 
     }
 

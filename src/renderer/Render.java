@@ -82,7 +82,6 @@ public class Render {
     public Point3D getClosestPoint(List<Point3D> points) {
         Point3D closest;
         Point3D rayStart = _scene.getCamera().getP0();
-        double min;
         closest = new Point3D(points.get(0));
         for (Point3D p : points) {
             if (rayStart.distance(p) < rayStart.distance(closest)) {
