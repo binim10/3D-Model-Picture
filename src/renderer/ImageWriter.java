@@ -118,5 +118,4 @@ public class ImageWriter {
     public void writePixel(int xIndex, int yIndex, Color color) {
         _image.setRGB(xIndex, yIndex, color.getRGB());
     }
-
 }
