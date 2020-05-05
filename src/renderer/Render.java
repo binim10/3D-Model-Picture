@@ -30,7 +30,7 @@ public class Render {
     /**
      * Render image by using writePixel method.
      * check each pixel in view plane if intersect some geometries and paint the pixel according that,
-     * if not paint in background color.
+     * if not, paint in background's color.
      */
     public void renderImage() {
         Camera camera = _scene.getCamera();
@@ -70,7 +70,6 @@ public class Render {
      */
     public primitives.Color calcColor(Point3D p) {
         return _scene.getAmbientLight().getIntensity();
-
     }
 
     /**
@@ -83,8 +82,11 @@ public class Render {
         Point3D closest;
         Point3D rayStart = _scene.getCamera().getP0();
         closest = new Point3D(points.get(0));
+        double min = rayStart.distance(closest);
         for (Point3D p : points) {
-            if (rayStart.distance(p) < rayStart.distance(closest)) {
+            double check = rayStart.distance(p);
+            if (check < min) {
+                min = check;
                 closest = p;
             }
         }

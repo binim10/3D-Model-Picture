@@ -15,12 +15,13 @@ import renderer.ImageWriter;
 import renderer.Render;
 import scene.Scene;
 
+import java.util.*;
+
 /**
  * The type Sax handler.
  * extends the default handler of SAX.
  */
 public class SAXHandler extends DefaultHandler {
-
 
     private Scene scene = null;
     private ImageWriter image = null;
@@ -39,6 +40,13 @@ public class SAXHandler extends DefaultHandler {
     boolean bCamera = false;
     boolean bImage = false;
 
+    public Scene getScene(){
+        return scene;
+    }
+    public ImageWriter getImage(){
+        return image;
+    }
+
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         //if an element has attribute whats the length
@@ -46,44 +54,47 @@ public class SAXHandler extends DefaultHandler {
         if (qName.equalsIgnoreCase("scene")) {
             String name = attributes.getValue("name");
             scene = new Scene(name);
-            //array of string to store the coordinates splited
-            String[] rgb;
             for (int i = 0; i < attributeLength; i++) {
                 if (attributes.getQName(i).equalsIgnoreCase("background-color")) {
-                    rgb = attributes.getValue("background-color").split(" ");
-                    scene.setBackground(new Color(d = Double.parseDouble(rgb[0]), d = Double.parseDouble(rgb[1]), d = Double.parseDouble(rgb[2])));
+                    //List of Doubles to store the coordinates
+                    List<Double> listOfD=getDoubleList(attributes.getValue("background-color"));
+                    scene.setBackground(new Color(listOfD.get(0),listOfD.get(1),listOfD.get(2)));
                 } else if (attributes.getQName(i).equalsIgnoreCase("screen-distance")) {
                     scene.setDistance(d = Double.parseDouble(attributes.getValue("screen-distance")));
                 }
             }
             bScene = true;
         } else if (qName.equalsIgnoreCase("ambient-light")) {
-            String[] rgb = attributes.getValue("color").split(" ");
-            scene.setAmbientLight(new AmbientLight(new Color(d = Double.parseDouble(rgb[0]), d = Double.parseDouble(rgb[1]), d = Double.parseDouble(rgb[2])), 1));
+            List<Double> listOfD=getDoubleList(attributes.getValue("color"));
+            scene.setAmbientLight(new AmbientLight(new Color(listOfD.get(0),listOfD.get(1),listOfD.get(2)), 1));
             bAmbientLight = true;
         } else if (qName.equalsIgnoreCase("geometries")) {
             bGeometries = true;
         } else if (qName.equalsIgnoreCase("camera")) {
-            String[] point = new String[3];
-            String[] vUp = new String[3];
-            String[] vTo = new String[3];
+            List<Double> listOfDP0=getDoubleList(attributes.getValue("P0"));
+            List<Double> listOfVup=getDoubleList(attributes.getValue("Vup"));
+            List<Double> listOfVto=getDoubleList(attributes.getValue("Vto"));
+            Point3D P0=null;
+            Vector Vup=null;
+            Vector Vto=null;
             for (int i = 0; i < attributeLength; i++) {
                 if (attributes.getQName(i).equalsIgnoreCase("P0")) {
-                    point = attributes.getValue(i).split(" ");
+                    P0=new Point3D(listOfDP0.get(0),listOfDP0.get(1),listOfDP0.get(2));
                 } else if (attributes.getQName(i).equalsIgnoreCase("Vto")) {
-                    vTo = attributes.getValue(i).split(" ");
+                    Vto =new Vector(listOfVto.get(0),listOfVto.get(1),listOfVto.get(2));
                 } else if (attributes.getQName(i).equalsIgnoreCase("Vup")) {
-                    vUp = attributes.getValue(i).split(" ");
+                    Vup =new Vector(listOfVup.get(0),listOfVup.get(1),listOfVup.get(2));
                 }
             }
-            camera = new Camera(new Point3D(d = Double.parseDouble(point[0]), d = Double.parseDouble(point[1]), d = Double.parseDouble(point[2])),
-                    new Vector(d = Double.parseDouble(vTo[0]), d = Double.parseDouble(vTo[1]), d = Double.parseDouble(vTo[2])),
-                    new Vector(d = Double.parseDouble(vUp[0]), d = Double.parseDouble(vUp[1]), d = Double.parseDouble(vUp[2])));
+            assert Vto != null;
+            assert P0 != null;
+            assert Vup != null;
+            camera = new Camera(new Point3D(P0), new Vector(Vto), new Vector(Vup));
             bCamera = true;
         } else if (qName.equalsIgnoreCase("image")) {
             String name = attributes.getValue("name");
-            if(name==null)
-                name="Stam";
+            if (name == null)
+                name = "Stam";
             double imageWidth = 0;
             double imageHeight = 0;
             int nX = 0;
@@ -102,34 +113,39 @@ public class SAXHandler extends DefaultHandler {
             image = new ImageWriter(name, imageWidth, imageHeight, nX, nY);
             bImage = true;
         } else if (qName.equalsIgnoreCase("triangle")) {
-            String[] p0 = new String[3];
-            String[] p1 = new String[3];
-            String[] p2 = new String[3];
+            Point3D p0 =null;
+            Point3D p1 =null;
+            Point3D p2 = null;
             for (int i = 0; i < attributeLength; i++) {
                 if (attributes.getQName(i).equalsIgnoreCase("p0")) {
-                    p0 = attributes.getValue(i).split(" ");
+                    List<Double> listOfDP0=getDoubleList(attributes.getValue("p0"));
+                    p0 = new Point3D(listOfDP0.get(0),listOfDP0.get(1),listOfDP0.get(2));
                 } else if (attributes.getQName(i).equalsIgnoreCase("p1")) {
-                    p1 = attributes.getValue(i).split(" ");
+                    List<Double> listOfDP1=getDoubleList(attributes.getValue("p1"));
+                    p1 =new Point3D(listOfDP1.get(0),listOfDP1.get(1),listOfDP1.get(2));
                 } else if (attributes.getQName(i).equalsIgnoreCase("p2")) {
-                    p2 = attributes.getValue(i).split(" ");
+                    List<Double> listOfDP2=getDoubleList(attributes.getValue("p2"));
+                    p2 = new Point3D(listOfDP2.get(0),listOfDP2.get(1),listOfDP2.get(2));
                 }
             }
-            geometriesList.add(new Triangle(new Point3D(d = Double.parseDouble(p0[0]), d = Double.parseDouble(p0[1]), d = Double.parseDouble(p0[2])),
-                    new Point3D(d = Double.parseDouble(p1[0]), d = Double.parseDouble(p1[1]), d = Double.parseDouble(p1[2])),
-                    new Point3D(d = Double.parseDouble(p2[0]), d = Double.parseDouble(p2[1]), d = Double.parseDouble(p2[2]))));
+            //points cannot be null
+            assert p0 != null;
+            assert p1 != null;
+            assert p2 != null;
+            geometriesList.add(new Triangle(new Point3D(p0), new Point3D(p1), new Point3D(p2)));
             bTriangle = true;
         } else if (qName.equalsIgnoreCase("sphere")) {
-            String[] center = new String[3];
+            Point3D center=null;
             double rad = 0;
             for (int i = 0; i < attributeLength; i++) {
                 if (attributes.getQName(i).equalsIgnoreCase("center")) {
-                    center = attributes.getValue(i).split(" ");
+                    List<Double> listOfDCenter=getDoubleList(attributes.getValue("center"));
+                    center = new Point3D(listOfDCenter.get(0),listOfDCenter.get(1),listOfDCenter.get(2));
                 } else if (attributes.getQName(i).equalsIgnoreCase("radius")) {
                     rad = Double.parseDouble(attributes.getValue(i));
                 }
             }
-            Point3D cePoint = new Point3D(d = Double.parseDouble(center[0]), d = Double.parseDouble(center[1]), d = Double.parseDouble(center[2]));
-            geometriesList.add(new Sphere(rad, cePoint));
+            geometriesList.add(new Sphere(rad, center));
             bSphere = true;
         } else if (qName.equalsIgnoreCase("plane")) {
             //TODO parser for plane
@@ -144,11 +160,7 @@ public class SAXHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (qName.equalsIgnoreCase("scene")) {
-            Render render = new Render(image, scene);
-            render.renderImage();
-            //grid from the test render
-            render.printGrid(50, java.awt.Color.YELLOW);
-            render.writeToImage();
+           bScene=false;
         }
     }
 
@@ -172,5 +184,16 @@ public class SAXHandler extends DefaultHandler {
             bGeometries = false;
         }
     }
+
+    public List<Double> getDoubleList(String s) {
+        String[] arrString = s.split(" ");
+        List<Double> lisDouble = new ArrayList<Double>();
+        for (int i = 0; i < arrString.length; i++) {
+            lisDouble.add(d = Double.parseDouble(arrString[i]));
+        }
+        return lisDouble;
+    }
 }
+
+
 

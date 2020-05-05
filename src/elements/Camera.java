@@ -86,23 +86,23 @@ public class Camera {
                                         int j, int i, double screenDistance,
                                         double screenWidth, double screenHeight) {
 
-        Point3D Pc = _p0.add(_vTo.scale(screenDistance));//Pc = P0 + d∙Vto
-        double Ry = screenHeight / nY;//Ry = h/Ny- size of pixel
-        double Rx = screenWidth / nX;//Rx = w/Nx
+        Point3D pc = _p0.add(_vTo.scale(screenDistance));//Pc = P0 + d∙Vto
+        double rY = screenHeight / nY;//Ry = h/Ny- size of pixel
+        double rX = screenWidth / nX;//Rx = w/Nx
 
-        double yi = ((i - (nY / 2d)) * Ry + Ry / 2d);
-        double xj = ((j - (nX / 2d)) * Rx + Rx / 2d);
+        double yi = ((i - (nY / 2d)) * rY + rY / 2d);
+        double xj = ((j - (nX / 2d)) * rX + rX / 2d);
 
-        Point3D Pij = Pc;
+        Point3D pij = pc;
 
         if (!isZero(xj)) {
-            Pij = Pij.add(_vRight.scale(xj));
+            pij = pij.add(_vRight.scale(xj));
         }
         if (!isZero(yi)) {
-            Pij = Pij.add(_vUp.scale(-yi));
+            pij = pij.add(_vUp.scale(-yi));
         }
 
-        Vector Vij = Pij.subtract(_p0);
+        Vector Vij = pij.subtract(_p0);
 
         return new Ray(_p0, Vij.normalize());
 

@@ -24,6 +24,7 @@ public class RenderTest {
      */
     @Test
     public void getClosestPointtest() {
+        //================================EP============================
         Scene scene=new Scene("test closest");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(100);
@@ -35,6 +36,7 @@ public class RenderTest {
         Render render=new Render(imageWriter,scene);
         List<Point3D> list=scene.getGeometries().findIntersections(ray);
         Point3D closest=render.getClosestPoint(list);
+        //=========TC01: 2 points in list
         assertEquals("not the closest",new Point3D(0.25000625039065816, 0.25000625039065816, 50.00125007813163),closest);
     }
 }
