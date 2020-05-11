@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
@@ -25,6 +26,18 @@ public abstract class RadialGeometry extends Geometry {
      * @param radialGeometry the radial geometry
      */
     public RadialGeometry(RadialGeometry radialGeometry) {
+        this._radius = radialGeometry._radius;
+    }
+
+
+    /**
+     * Instantiates a new Radial geometry.
+     *
+     * @param color          the color
+     * @param radialGeometry the radial geometry
+     */
+    public RadialGeometry(Color color, RadialGeometry radialGeometry) {
+        _emmission = color;
         this._radius = radialGeometry._radius;
     }
 

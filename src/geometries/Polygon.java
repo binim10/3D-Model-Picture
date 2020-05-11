@@ -69,7 +69,7 @@ public class Polygon extends Geometry {
     }
 
     /**
-     * Instantiates a new Polygon.
+     * Instantiates a new Polygon with color.
      *
      * @param color    the color
      * @param vertices the vertices

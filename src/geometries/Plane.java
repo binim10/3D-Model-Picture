@@ -29,7 +29,7 @@ public class Plane extends Geometry {
     }
 
     /**
-     * Instantiates a new Plane.
+     * Instantiates a new Plane with color.
      *
      * @param color  the color
      * @param p      the p

@@ -18,7 +18,7 @@ public class Geometries implements Intersectable {
      * Instantiates a new Geometries.
      */
     public Geometries() {
-        _geometries = new ArrayList<Intersectable>();
+        _geometries = new LinkedList<Intersectable>();
     }
 
     /**
