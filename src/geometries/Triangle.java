@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -26,14 +27,30 @@ public class Triangle extends Polygon {
         super(a, b, c);
     }
 
+    /**
+     * Instantiates a new Triangle.
+     *
+     * @param color the color of the triangle.
+     * @param a     the a
+     * @param b     the b
+     * @param c     the c
+     */
+    public Triangle(Color color, Point3D a, Point3D b, Point3D c) {
+        this(a, b, c);
+        this._emmission = color;
+    }
+
     @Override
     public String toString() {
         return "Triangle:" + super.toString();
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> plaInter= _plane.findIntersections(ray);
+    public List<GeoPoint> findIntersections(Ray ray) {
+        List<GeoPoint> plaInter = _plane.findIntersections(ray);
+        for (GeoPoint g : plaInter) {
+            g.geometry = this;
+        }
         if (plaInter == null) // Ray doesn't intersect with the triangle
             return null;
 
@@ -60,7 +77,7 @@ public class Triangle extends Polygon {
         }
         if (plus != 3 && minus != 3)
             return null;
-        return _plane.findIntersections(ray);
+        return plaInter;
 
     }
 }

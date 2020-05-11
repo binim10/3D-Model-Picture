@@ -4,7 +4,7 @@ import org.junit.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
+import geometries.Intersectable.GeoPoint;
 
 import java.util.List;
 
@@ -39,9 +39,9 @@ public class PlaneTest {
         // ============ Equivalence Partitions Tests ==============
         // TC02: Ray intersects the plane(1 intersection)
         Point3D p1 = new Point3D(0, 1, 1.25);
-        List<Point3D> result = pl.findIntersections(new Ray(new Point3D(-0.5, 1, 1), new Vector(2, 0, 1)));
+        List<GeoPoint> result = pl.findIntersections(new Ray(new Point3D(-0.5, 1, 1), new Vector(2, 0, 1)));
         assertEquals("no moutch intersection", 1, result.size());
-        assertEquals("no the point i want", p1, result.get(0));
+        assertEquals("no the point i want", p1, result.get(0).point);
 
         // TC03: Ray does not intersect the plane(0 intersection)
         assertNull("", pl.findIntersections(new Ray(new Point3D(0.5, 0, 0), new Vector(2, 1, 0))));
@@ -56,9 +56,9 @@ public class PlaneTest {
 
         // TC06: Ray is orthogonal and start before to the plane (1 intersection)
         Point3D p6 = new Point3D(0, 0, 0);
-        List<Point3D> result06 = pl.findIntersections(new Ray(new Point3D(0.5, 0, 0), new Vector(-2, 0, 0)));
+        List<GeoPoint> result06 = pl.findIntersections(new Ray(new Point3D(0.5, 0, 0), new Vector(-2, 0, 0)));
         assertEquals("no match intersection", 1, result06.size());
-        assertEquals("no the point i want", p6, result06.get(0));
+        assertEquals("no the point i want", p6, result06.get(0).point);
 
         // TC07: Ray is orthogonal and start in the plane (0 intersection)
         assertNull("", pl.findIntersections(new Ray(new Point3D(0, 0, 0), new Vector(-2, 0, 1))));

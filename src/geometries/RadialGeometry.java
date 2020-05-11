@@ -6,7 +6,7 @@ import primitives.Vector;
 /**
  * The type Radial geometry.
  */
-public abstract class RadialGeometry implements Geometry {
+public abstract class RadialGeometry extends Geometry {
 
     protected double _radius;
 

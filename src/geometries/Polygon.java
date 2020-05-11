@@ -12,7 +12,7 @@ import static primitives.Util.*;
  *
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -68,13 +68,24 @@ public class Polygon implements Geometry {
         }
     }
 
+    /**
+     * Instantiates a new Polygon.
+     *
+     * @param color    the color
+     * @param vertices the vertices
+     */
+    public Polygon(Color color, Point3D... vertices) {
+        this(vertices);
+        this._emmission = color;
+    }
+
     @Override
     public Vector getNormal(Point3D point) {
         return _plane.get_normal();
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         return null;
     }
 }

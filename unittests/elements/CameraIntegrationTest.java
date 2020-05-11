@@ -1,5 +1,6 @@
 package elements;
 
+import geometries.Intersectable.GeoPoint;
 import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
@@ -20,7 +21,7 @@ public class CameraIntegrationTest {
 
     Camera cam1 = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
     Camera cam2 = new Camera(new Point3D(0, 0, -0.5), new Vector(0, 0, 1), new Vector(0, -1, 0));
-    List<Point3D> results;
+    List<GeoPoint> results;
     int count = 0;
     int nX = 3;
     int nY = 3;

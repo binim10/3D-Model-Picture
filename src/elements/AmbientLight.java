@@ -5,8 +5,7 @@ import primitives.Color;
 /**
  * The type Ambient light.
  */
-public class AmbientLight {
-    private Color _intensity;
+public class AmbientLight extends Light {
 
     /**
      * Instantiates a new Ambient light.
@@ -15,8 +14,8 @@ public class AmbientLight {
      * @param iA the a
      * @param kA the k a
      */
-    public AmbientLight(Color iA,double kA) {
-        _intensity=new Color(iA.scale(kA));
+    public AmbientLight(Color iA, double kA) {
+        super(new Color(iA.scale(kA)));
     }
 
     /**
@@ -24,7 +23,5 @@ public class AmbientLight {
      *
      * @return the intensity
      */
-    public Color getIntensity() {
-        return _intensity;
-    }
+
 }

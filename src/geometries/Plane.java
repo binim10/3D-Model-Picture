@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -12,7 +13,7 @@ import static primitives.Util.isZero;
 /**
  * The type Plane represent a plane.
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     protected Point3D _p;
     protected Vector _normal;
 
@@ -25,6 +26,18 @@ public class Plane implements Geometry {
     public Plane(Point3D p, Vector normal) {
         this._p = p;
         this._normal = normal;
+    }
+
+    /**
+     * Instantiates a new Plane.
+     *
+     * @param color  the color
+     * @param p      the p
+     * @param normal the normal
+     */
+    public Plane(Color color, Point3D p, Vector normal) {
+        this(p, normal);
+        this._emmission = color;
     }
 
     /**
@@ -65,7 +78,7 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         if (ray.getPOO().equals(_p)) // Ray start at the point that present the plane
             return null;
         double nv = ray.getDirection().dotProduct(_normal);
@@ -76,7 +89,7 @@ public class Plane implements Geometry {
         double t = alignZero(nQMinusP0 / nv);
 
         if (t > 0) {
-            Point3D p = new Point3D(ray.getPoint(t));
+            GeoPoint p = new GeoPoint(this, ray.getPoint(t));
             return List.of(p);
         }
         return null;

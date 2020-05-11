@@ -2,6 +2,7 @@ package renderer;
 
 import elements.Camera;
 import geometries.Intersectable;
+import geometries.Intersectable.GeoPoint;
 import primitives.Point3D;
 import primitives.Ray;
 import scene.Scene;
@@ -47,12 +48,12 @@ public class Render {
         for (int row = 0; row < nY; row++) {
             for (int col = 0; col < nX; col++) {
                 Ray ray = camera.constructRayThroughPixel(nX, nY, col, row, distance, imageWidth, imageHeight);
-                List<Point3D> intersectionPoints = geometries.findIntersections(ray);
+                List<GeoPoint> intersectionPoints = geometries.findIntersections(ray);
                 //no intersections - paint the background color
                 if (intersectionPoints == null) {
                     _imageWriter.writePixel(col, row, background);
                 } else {//paint in the color of the geometry in the closest point
-                    Point3D closestPoint = getClosestPoint(intersectionPoints);
+                    GeoPoint closestPoint = getClosestPoint(intersectionPoints);
                     _imageWriter.writePixel(col, row, calcColor(closestPoint).getColor());
                 }
 
@@ -68,8 +69,8 @@ public class Render {
      * @param p the point
      * @return the Color
      */
-    public primitives.Color calcColor(Point3D p) {
-        return _scene.getAmbientLight().getIntensity();
+    public primitives.Color calcColor(GeoPoint p) {
+        return p.geometry.getEmmission().add(_scene.getAmbientLight().getIntensity());
     }
 
     /**
@@ -78,16 +79,16 @@ public class Render {
      * @param points a list of points
      * @return the closest point
      */
-    public Point3D getClosestPoint(List<Point3D> points) {
-        Point3D closest;
+    public GeoPoint getClosestPoint(List<GeoPoint> points) {
+        GeoPoint closest;
         Point3D rayStart = _scene.getCamera().getP0();
-        closest = new Point3D(points.get(0));
-        double min = rayStart.distance(closest);
-        for (Point3D p : points) {
-            double check = rayStart.distance(p);
+        closest = new GeoPoint(points.get(0).geometry, points.get(0).point);
+        double min = rayStart.distance(closest.point);
+        for (GeoPoint p : points) {
+            double check = rayStart.distance(p.point);
             if (check < min) {
                 min = check;
-                closest = p;
+                closest = new GeoPoint(p.geometry, p.point);
             }
         }
         return closest;
