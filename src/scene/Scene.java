@@ -147,7 +147,9 @@ public class Scene {
      * @param lights the lights
      */
     public void addLights(LightSource... lights) {
-        _lights.addAll(Arrays.asList(lights));
+        for (LightSource ls : lights) {
+            _lights.add(ls);
+        }
     }
 
 

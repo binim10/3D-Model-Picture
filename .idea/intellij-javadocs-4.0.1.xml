@@ -8,6 +8,7 @@
       <LEVELS>
         <LEVEL>TYPE</LEVEL>
         <LEVEL>METHOD</LEVEL>
+        <LEVEL>FIELD</LEVEL>
       </LEVELS>
       <VISIBILITIES>
         <VISIBILITY>PUBLIC</VISIBILITY>

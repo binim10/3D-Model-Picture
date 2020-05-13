@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +25,7 @@ public class Triangle extends Polygon {
     }
 
     /**
-     * Instantiates a new Triangle.
+     * Instantiates a new Triangle withe color.
      *
      * @param color the color of the triangle.
      * @param a     the a
@@ -38,6 +35,20 @@ public class Triangle extends Polygon {
     public Triangle(Color color, Point3D a, Point3D b, Point3D c) {
         this(a, b, c);
         this._emmission = color;
+    }
+
+    /**
+     * Instantiates a new Triangle with material.
+     *
+     * @param color    the color
+     * @param material the material
+     * @param point3D  the point 3 d
+     * @param point3D1 the point 3 d 1
+     * @param point3D2 the point 3 d 2
+     */
+    public Triangle(Color color, Material material, Point3D point3D, Point3D point3D1, Point3D point3D2) {
+        this(color, point3D, point3D1, point3D2);
+        _material = material;
     }
 
     @Override

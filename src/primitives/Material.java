@@ -20,14 +20,29 @@ public class Material {
         this._nShininess = nShininess;
     }
 
+    /**
+     * Gets kd.
+     *
+     * @return the kd
+     */
     public double getKD() {
         return _kD;
     }
 
+    /**
+     * Gets ks.
+     *
+     * @return the ks
+     */
     public double getKS() {
         return _kS;
     }
 
+    /**
+     * Gets nShininess.
+     *
+     * @return the n shininess
+     */
     public int getNShininess() {
         return _nShininess;
     }

@@ -14,14 +14,14 @@ public interface LightSource {
      * @param point3D the point 3 d
      * @return the intensity
      */
-    public Color getIntensity(Point3D point3D);
+    Color getIntensity(Point3D point3D);
 
     /**
-     * Gets l.
+     * Gets the vector from light source to the given point.
      *
-     * @param point3D the point 3D
-     * @return the vector l
+     * @param point3D the point in the scene
+     * @return the vector L normalized
      */
-    public Vector getL(Point3D point3D);
+    Vector getL(Point3D point3D);
 
 }

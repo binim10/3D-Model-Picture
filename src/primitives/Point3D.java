@@ -86,7 +86,7 @@ public class Point3D {
                 this.get_x().get() + _vector._head.get_x().get(),
                 this.get_y().get() + _vector._head.get_y().get(),
                 this.get_z().get() + _vector._head.get_z().get());
-    }/**/
+    }
 
     /**
      * calculate vector between two points

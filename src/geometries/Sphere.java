@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
@@ -26,9 +23,29 @@ public class Sphere extends RadialGeometry {
         this._center = new Point3D(center);
     }
 
+    /**
+     * Instantiates a new Sphere withe color.
+     *
+     * @param color  the color
+     * @param radius the radius
+     * @param center the center
+     */
     public Sphere(Color color, double radius, Point3D center) {
         this(radius, center);
         this._emmission = color;
+    }
+
+    /**
+     * Instantiates a new Sphere withe material.
+     *
+     * @param color    the color
+     * @param material the material
+     * @param radius   the radius
+     * @param center   the center
+     */
+    public Sphere(Color color, Material material, double radius, Point3D center) {
+        this(color, radius, center);
+        _material = material;
     }
 
     /**

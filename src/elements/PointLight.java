@@ -17,6 +17,10 @@ public class PointLight extends Light implements LightSource {
      * Instantiates a new Light.
      *
      * @param _intensity the intensity
+     * @param position   the position
+     * @param c          the c
+     * @param l          the l
+     * @param q          the q
      */
     public PointLight(Color _intensity, Point3D position, double c, double l, double q) {
         super(_intensity);
@@ -35,6 +39,6 @@ public class PointLight extends Light implements LightSource {
 
     @Override
     public Vector getL(Point3D point3D) {
-        return null;
+        return point3D.subtract(_position).normalize();
     }
 }

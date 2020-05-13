@@ -9,6 +9,8 @@ import scene.Scene;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+
 /**
  * The type Render.
  */
@@ -89,14 +91,51 @@ public class Render {
         return color;
     }
 
-    private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
-        //TODO
-        return null;
+    /**
+     * check if the point are lighted
+     * if the dotProduct are both positive or negative
+     *
+     * @param val
+     * @return true if positive
+     */
+    private boolean sign(double val) {
+        return (val > 0d);
     }
 
+    /**
+     * Calculate Specular component of light reflection.
+     *
+     * @param ks             specular component  mekadem
+     * @param l              direction from light to point
+     * @param n              normal to surface at the point
+     * @param v              direction from point of view to point
+     * @param nShininess     shininess level
+     * @param lightIntensity light intensity at the point
+     * @return specular component light effect at the point
+     */
+    private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
+        double nl = n.dotProduct(l);
+        Vector r = l.add(n.scale(-2 * nl));
+        double vr = v.dotProduct(r);
+        if (alignZero(vr) >= 0)
+            return Color.BLACK;
+        return lightIntensity.scale(ks * Math.pow(vr, nShininess));
+    }
+
+    /**
+     * Calculate Diffusive component of light reflection.
+     *
+     * @param kd             diffusive component mekadem
+     * @param n              the normal in the point n
+     * @param l              the vector from the light to the point
+     * @param lightIntensity light intensity at the point
+     * @return diffusive component of light reflection
+     */
     private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {
-        //TODO
-        return null;
+        double d = l.dotProduct(n);
+        if (alignZero(d) < 0)
+            d = -d;
+        return lightIntensity.scale(kd * d);
     }
 
     /**

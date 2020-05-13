@@ -11,7 +11,13 @@ import static primitives.Util.isZero;
  * The type Plane represent a plane.
  */
 public class Plane extends Geometry {
+    /**
+     * The P.
+     */
     protected Point3D _p;
+    /**
+     * The Normal.
+     */
     protected Vector _normal;
 
     /**
@@ -37,6 +43,14 @@ public class Plane extends Geometry {
         _emmission = color;
     }
 
+    /**
+     * Instantiates a new Plane with material.
+     *
+     * @param material the material
+     * @param color    the color
+     * @param p        the p
+     * @param normal   the normal
+     */
     public Plane(Material material, Color color, Point3D p, Vector normal) {
         this(color, p, normal);
         _material = material;

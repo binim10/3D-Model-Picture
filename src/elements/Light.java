@@ -3,7 +3,8 @@ package elements;
 import primitives.Color;
 
 /**
- * The type Light.
+ * The type Light
+ * abstract class extended by all of light sources.
  */
 abstract class Light {
     protected Color _intensity;
@@ -14,11 +15,12 @@ abstract class Light {
      * @param intensity the intensity
      */
     public Light(Color intensity) {
-        this._intensity = intensity;
+        _intensity = intensity;
     }
 
     /**
-     * Gets intensity.
+     * Gets the intensity.
+     * each light source calculated difference
      *
      * @return the intensity
      */
