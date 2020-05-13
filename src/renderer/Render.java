@@ -12,7 +12,8 @@ import java.util.List;
 import static primitives.Util.alignZero;
 
 /**
- * The type Render.
+ * The type Render
+ * render the image.
  */
 public class Render {
     private ImageWriter _imageWriter;
