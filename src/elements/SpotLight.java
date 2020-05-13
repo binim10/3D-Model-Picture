@@ -12,7 +12,7 @@ import static primitives.Util.alignZero;
  */
 public class SpotLight extends PointLight {
     private Vector _direction;
-    private double _sharpsBeam;
+    private double _sharpsBeam = 1;
 
     /**
      * Instantiates a new Light.
@@ -25,22 +25,22 @@ public class SpotLight extends PointLight {
      * @param direction the direction
      */
     public SpotLight(Color intensity, Point3D position, double c, double l, double q, Vector direction) {
-        super(intensity, position, c, l, q);
-        _direction = direction.normalized();
+        this(intensity, position, c, l, q, direction, 1.0);
     }
 
     public SpotLight(Color intensity, Point3D position, double c, double l, double q, Vector direction, double sharps) {
-        this(intensity, position, c, l, q, direction);
+        super(intensity, position, c, l, q);
+        _direction = direction.normalized();
         _sharpsBeam = sharps;
     }
 
     @Override
     public Color getIntensity(Point3D point3D) {
-        double dirL = point3D.subtract(_position).normalized().dotProduct(_direction);
+        double dirL = alignZero(getL(point3D).dotProduct(_direction));
         if (alignZero(dirL) <= 0) {
             return Color.BLACK;
         }
-        if (_sharpsBeam != 1)
+        if (_sharpsBeam > 1)
             dirL = Math.pow(dirL, _sharpsBeam);
         return super.getIntensity(point3D).scale(dirL);
     }

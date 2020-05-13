@@ -21,7 +21,7 @@ public class Triangle extends Polygon {
      * @param c the c
      */
     public Triangle(Point3D a, Point3D b, Point3D c) {
-        super(a, b, c);
+        this(Color.BLACK, a, b, c);
     }
 
     /**
@@ -33,8 +33,7 @@ public class Triangle extends Polygon {
      * @param c     the c
      */
     public Triangle(Color color, Point3D a, Point3D b, Point3D c) {
-        this(a, b, c);
-        this._emmission = color;
+        this(Color.BLACK, new Material(0, 0, 0), a, b, c);
     }
 
     /**
@@ -47,8 +46,7 @@ public class Triangle extends Polygon {
      * @param point3D2 the point 3 d 2
      */
     public Triangle(Color color, Material material, Point3D point3D, Point3D point3D1, Point3D point3D2) {
-        this(color, point3D, point3D1, point3D2);
-        _material = material;
+        super(color, material, point3D, point3D1, point3D2);
     }
 
     @Override

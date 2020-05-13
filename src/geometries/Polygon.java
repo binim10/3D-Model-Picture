@@ -23,16 +23,39 @@ public class Polygon extends Geometry {
     protected Plane _plane;
 
     /**
+     * Instantiates a new Polygon.
+     *
+     * @param vertices the vertices
+     */
+    public Polygon(Point3D... vertices) {
+        this(Color.BLACK, vertices);
+    }
+
+    /**
+     * Instantiates a new Polygon.
+     *
+     * @param color    the color
+     * @param vertices the vertices
+     */
+    public Polygon(Color color, Point3D... vertices) {
+        this(color, new Material(0, 0, 0), vertices);
+    }
+
+    /**
      * Polygon constructor based on vertices list. The list must be ordered by edge
      * path. The polygon must be convex.
      *
+     * @param color    the emmission
+     * @param material the material
      * @param vertices list of vertices according to their order by edge path
      * @throws IllegalArgumentException in any case of illegal combination of                                  vertices:                                  <ul>                                  <li>Less than 3 vertices</li>                                  <li>Consequent vertices are in the same                                  point                                  <li>The vertices are not in the same                                  plane</li>                                  <li>The order of vertices is not according                                  to edge path</li>                                  <li>Three consequent vertices lay in the                                  same line (180&#176; angle between two                                  consequent edges)                                  <li>The polygon is concave (not convex></li>                                  </ul>
      */
-    public Polygon(Point3D... vertices) {
+    public Polygon(Color color, Material material, Point3D... vertices) {
+        super(color, material);
         if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         _vertices = List.of(vertices);
+
         // Generate the plane according to the first three vertices and associate the
         // polygon with this plane.
         // The plane holds the invariant normal (orthogonal unit) vector to the polygon
@@ -66,17 +89,6 @@ public class Polygon extends Geometry {
             if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
-    }
-
-    /**
-     * Instantiates a new Polygon with color.
-     *
-     * @param color    the color
-     * @param vertices the vertices
-     */
-    public Polygon(Color color, Point3D... vertices) {
-        this(vertices);
-        this._emmission = color;
     }
 
     @Override

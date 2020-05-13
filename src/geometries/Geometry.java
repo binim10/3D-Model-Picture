@@ -35,8 +35,8 @@ public abstract class Geometry implements Intersectable {
      * @param material  the material
      */
     public Geometry(Color emmission, Material material) {
-        this._emmission = emmission;
-        this._material = material;
+        _emmission = emmission;
+        _material = material;
     }
 
     /**

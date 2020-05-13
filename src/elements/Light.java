@@ -20,7 +20,7 @@ abstract class Light {
 
     /**
      * Gets the intensity.
-     * each light source calculated difference
+     *
      *
      * @return the intensity
      */

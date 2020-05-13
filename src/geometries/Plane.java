@@ -23,12 +23,22 @@ public class Plane extends Geometry {
     /**
      * Instantiates a new Plane.
      *
+     * @param x the x
+     * @param y the y
+     * @param z the z
+     */
+    public Plane(Point3D x, Point3D y, Point3D z) {
+        this(x, (y.subtract(x).crossProduct(z.subtract(x))).normalized());
+    }
+
+    /**
+     * Instantiates a new Plane.
+     *
      * @param p      the p
      * @param normal the normal
      */
     public Plane(Point3D p, Vector normal) {
-        _p = p;
-        _normal = normal;
+        this(new Material(0, 0, 0), Color.BLACK, p, normal);
     }
 
     /**
@@ -39,8 +49,7 @@ public class Plane extends Geometry {
      * @param normal the normal
      */
     public Plane(Color color, Point3D p, Vector normal) {
-        this(p, normal);
-        _emmission = color;
+        this(new Material(0, 0, 0), color, p, normal);
     }
 
     /**
@@ -52,23 +61,12 @@ public class Plane extends Geometry {
      * @param normal   the normal
      */
     public Plane(Material material, Color color, Point3D p, Vector normal) {
-        this(color, p, normal);
-        _material = material;
+        super(color, material);
+        _p = p;
+        _normal = normal;
+
     }
 
-    /**
-     * Instantiates a new Plane.
-     *
-     * @param x the x
-     * @param y the y
-     * @param z the z
-     */
-    public Plane(Point3D x, Point3D y, Point3D z) {
-        _p = new Point3D(x);
-        Vector v1 = y.subtract(x);
-        Vector v2 = z.subtract(x);
-        _normal = (v1.crossProduct(v2)).normalized();
-    }
 
     /**
      * Gets p.

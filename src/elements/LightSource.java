@@ -9,9 +9,10 @@ import primitives.Vector;
  */
 public interface LightSource {
     /**
-     * Gets intensity.
+     * Gets intensity in a given point.
+     * each light source calculated difference
      *
-     * @param point3D the point 3 d
+     * @param point3D the point
      * @return the intensity
      */
     Color getIntensity(Point3D point3D);

@@ -83,24 +83,15 @@ public class Render {
         double ks = material.getKS();
         for (LightSource lightSource : _scene.getLights()) {
             Vector l = lightSource.getL(p.point);
-            if (sign(n.dotProduct(l)) == sign(n.dotProduct(v))) {
+            double nl = n.dotProduct(l);
+            double nv = n.dotProduct(v);
+            if ((nl > 0 && nv > 0) || (nl < 0 && nv < 0)) {
                 Color lightIntensity = lightSource.getIntensity(p.point);
-                color = color.add(calcDiffusive(kd, l, n, lightIntensity),
-                        calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                color = color.add(calcDiffusive(kd, nl, lightIntensity),
+                        calcSpecular(ks, nl, l, n, v, nShininess, lightIntensity));
             }
         }
         return color;
-    }
-
-    /**
-     * check if the point are lighted
-     * if the dotProduct are both positive or negative
-     *
-     * @param val
-     * @return true if positive
-     */
-    private boolean sign(double val) {
-        return (val > 0d);
     }
 
     /**
@@ -114,29 +105,26 @@ public class Render {
      * @param lightIntensity light intensity at the point
      * @return specular component light effect at the point
      */
-    private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
-        double nl = n.dotProduct(l);
+    private Color calcSpecular(double ks, double nl, Vector n, Vector l, Vector v, int nShininess, Color lightIntensity) {
         Vector r = l.add(n.scale(-2 * nl));
-        double vr = v.dotProduct(r);
+        double vr = alignZero(v.dotProduct(r));
         if (alignZero(vr) >= 0)
             return Color.BLACK;
-        return lightIntensity.scale(ks * Math.pow(vr, nShininess));
+        return lightIntensity.scale(ks * Math.pow(-vr, nShininess));
     }
 
     /**
      * Calculate Diffusive component of light reflection.
      *
      * @param kd             diffusive component mekadem
-     * @param n              the normal in the point n
-     * @param l              the vector from the light to the point
+     * @param nl             n.dotproduct(l)
      * @param lightIntensity light intensity at the point
      * @return diffusive component of light reflection
      */
-    private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {
-        double d = l.dotProduct(n);
-        if (alignZero(d) < 0)
-            d = -d;
-        return lightIntensity.scale(kd * d);
+    private Color calcDiffusive(double kd, double nl, Color lightIntensity) {
+        if (alignZero(nl) < 0)
+            nl = -nl;
+        return lightIntensity.scale(kd * nl);
     }
 
     /**
@@ -179,6 +167,7 @@ public class Render {
         }
 
     }
+
     /**
      * Write to image.
      * use the imageWriter method to write and save the image.

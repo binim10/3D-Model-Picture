@@ -18,10 +18,4 @@ public class AmbientLight extends Light {
         super(new Color(iA.scale(kA)));
     }
 
-    /**
-     * Gets intensity.
-     *
-     * @return the intensity
-     */
-
 }
