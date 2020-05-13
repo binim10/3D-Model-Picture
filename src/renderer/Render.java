@@ -178,7 +178,6 @@ public class Render {
         }
 
     }
-
     /**
      * Write to image.
      * use the imageWriter method to write and save the image.
