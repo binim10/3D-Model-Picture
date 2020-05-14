@@ -59,11 +59,8 @@ public class Render {
                     GeoPoint closestPoint = getClosestPoint(intersectionPoints);
                     _imageWriter.writePixel(col, row, calcColor(closestPoint).getColor());
                 }
-
             }
         }
-
-
     }
 
     /**
@@ -75,7 +72,7 @@ public class Render {
     public primitives.Color calcColor(GeoPoint p) {
         Color color = _scene.getAmbientLight().getIntensity();
         color = color.add(p.geometry.getEmmission());
-        Vector v = p.point.subtract(_scene.getCamera().getP0()).normalize();
+        Vector v = p.point.subtract(_scene.getCamera().getP0()).normalized();
         Vector n = p.geometry.getNormal(p.point);
         Material material = p.geometry.getMaterial();
         int nShininess = material.getNShininess();
@@ -83,9 +80,9 @@ public class Render {
         double ks = material.getKS();
         for (LightSource lightSource : _scene.getLights()) {
             Vector l = lightSource.getL(p.point);
-            double nl = n.dotProduct(l);
-            double nv = n.dotProduct(v);
-            if ((nl > 0 && nv > 0) || (nl < 0 && nv < 0)) {
+            double nl = l.dotProduct(n);
+            double nv = v.dotProduct(n);
+            if ((nl > 0d && nv > 0d) || (nl <= 0d && nv <= 0d)) {
                 Color lightIntensity = lightSource.getIntensity(p.point);
                 color = color.add(calcDiffusive(kd, nl, lightIntensity),
                         calcSpecular(ks, nl, l, n, v, nShininess, lightIntensity));
@@ -105,9 +102,9 @@ public class Render {
      * @param lightIntensity light intensity at the point
      * @return specular component light effect at the point
      */
-    private Color calcSpecular(double ks, double nl, Vector n, Vector l, Vector v, int nShininess, Color lightIntensity) {
+    private Color calcSpecular(double ks, double nl, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
         Vector r = l.add(n.scale(-2 * nl));
-        double vr = alignZero(v.dotProduct(r));
+        double vr = v.dotProduct(r);
         if (alignZero(vr) >= 0)
             return Color.BLACK;
         return lightIntensity.scale(ks * Math.pow(-vr, nShininess));
@@ -122,9 +119,10 @@ public class Render {
      * @return diffusive component of light reflection
      */
     private Color calcDiffusive(double kd, double nl, Color lightIntensity) {
-        if (alignZero(nl) < 0)
-            nl = -nl;
-        return lightIntensity.scale(kd * nl);
+        double d = nl;
+        if (d < 0)
+            d = -d;
+        return lightIntensity.scale(kd * d);
     }
 
     /**

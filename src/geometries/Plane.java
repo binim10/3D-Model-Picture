@@ -63,7 +63,7 @@ public class Plane extends Geometry {
     public Plane(Material material, Color color, Point3D p, Vector normal) {
         super(color, material);
         _p = p;
-        _normal = normal;
+        _normal = normal.normalized();
 
     }
 
@@ -83,7 +83,7 @@ public class Plane extends Geometry {
      * @return the normal
      */
     public Vector get_normal() {
-        return _normal;
+        return _normal.normalized();
     }
 
     @Override

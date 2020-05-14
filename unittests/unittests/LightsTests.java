@@ -9,7 +9,7 @@ import renderer.*;
 import scene.Scene;
 
 /**
- * Test rendering a basic image
+ * Test rendering abasic image
  *
  * @author Dan
  */
@@ -75,8 +75,8 @@ public class LightsTests {
         scene.addGeometries(
                 new Sphere(new Color(java.awt.Color.BLUE), new Material(0.5, 0.5, 100), 50, new Point3D(0, 0, 50)));
 
-        scene.addLights(new SpotLight(new Color(500, 300, 0), new Point3D(-50, 50, -50),
-                1, 0.00001, 0.00000001, new Vector(1, -1, 2)));
+        scene.addLights(new SpotLight(new Color(500, 300, 0), new Point3D(-50, 50, -50), 1, 0.00001, 0.00000001,
+                new Vector(1, -1, 2)));
 
         ImageWriter imageWriter = new ImageWriter("sphereSpot", 150, 150, 500, 500);
         Render render = new Render(imageWriter, scene);

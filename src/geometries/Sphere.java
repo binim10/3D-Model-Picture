@@ -43,7 +43,7 @@ public class Sphere extends RadialGeometry {
      */
     public Sphere(Color color, Material material, double radius, Point3D center) {
         super(color, material, radius);
-        _center = center;
+        _center = new Point3D(center);
     }
 
     /**
