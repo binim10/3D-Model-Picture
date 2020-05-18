@@ -18,6 +18,10 @@ import static primitives.Util.alignZero;
 public class Render {
     private ImageWriter _imageWriter;
     private Scene _scene;
+    /**
+     *@param DELTA help me to move the point that help to true shadoe
+     */
+    private static final double DELTA = 0.1;
 
     /**
      * Instantiates a new Render.
@@ -84,8 +88,10 @@ public class Render {
             double nv = v.dotProduct(n);
             if ((nl > 0d && nv > 0d) || (nl <= 0d && nv <= 0d)) {
                 Color lightIntensity = lightSource.getIntensity(p.point);
-                color = color.add(calcDiffusive(kd, nl, lightIntensity),
-                        calcSpecular(ks, nl, l, n, v, nShininess, lightIntensity));
+                if (unshaded(lightSource,l, n, p)) {
+                    color = color.add(calcDiffusive(kd, nl, lightIntensity),
+                            calcSpecular(ks, nl, l, n, v, nShininess, lightIntensity));
+                }
             }
         }
         return color;
@@ -123,6 +129,31 @@ public class Render {
         if (d < 0)
             d = -d;
         return lightIntensity.scale(kd * d);
+    }
+
+
+    /**
+     * Unshaded boolean.
+     *
+     * @param l  the vector from lithe source to the point
+     * @param n  the normal
+     * @param gp the geo point
+     * @return the boolean
+     */
+    private boolean unshaded(LightSource ls,Vector l, Vector n, GeoPoint gp) {
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+        Point3D point = gp.point.add(delta);
+        Ray lightRay = new Ray(point, lightDirection);
+        List<GeoPoint> intersections = _scene.getGeometries().findIntersections(lightRay);
+        if(intersections==null) return true;
+        double distance = ls.getDistance(gp.point);
+        int count=0;
+        for (GeoPoint g:intersections) {
+            if(distance>g.point.distance(gp.point))
+                count++;
+        }
+        return count==0;
     }
 
     /**

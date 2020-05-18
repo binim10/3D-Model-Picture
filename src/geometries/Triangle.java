@@ -57,11 +57,12 @@ public class Triangle extends Polygon {
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
         List<GeoPoint> plaInter = _plane.findIntersections(ray);
+        if (plaInter == null) // Ray doesn't intersect with the triangle
+            return null;
+
         for (GeoPoint g : plaInter) {
             g.geometry = this;
         }
-        if (plaInter == null) // Ray doesn't intersect with the triangle
-            return null;
 
         List<Vector> vectors = new ArrayList<>(3);
         for (int i = 0; i < 3; ++i) {
