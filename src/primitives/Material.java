@@ -4,7 +4,7 @@ package primitives;
  * The type Material.
  */
 public class Material {
-    private double _kD, _kS;
+    private double _kD, _kS, _kT, _kR;
     private int _nShininess;
 
     /**
@@ -15,9 +15,15 @@ public class Material {
      * @param nShininess the n shininess
      */
     public Material(double kD, double kS, int nShininess) {
-        this._kD = kD;
-        this._kS = kS;
-        this._nShininess = nShininess;
+        this(0, 0, kD, kS, nShininess);
+    }
+
+    public Material(double kt, double kr, double kD, double kS, int nShininess) {
+        _kT = kt;
+        _kR = kr;
+        _kD = kD;
+        _kS = kS;
+        _nShininess = nShininess;
     }
 
     /**
@@ -36,6 +42,24 @@ public class Material {
      */
     public double getKS() {
         return _kS;
+    }
+
+    /**
+     * Gets kt.
+     *
+     * @return the kt
+     */
+    public double getKT() {
+        return _kT;
+    }
+
+    /**
+     * Gets kr.
+     *
+     * @return the kr
+     */
+    public double getKR() {
+        return _kR;
     }
 
     /**

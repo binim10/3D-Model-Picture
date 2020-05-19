@@ -16,10 +16,12 @@ import static primitives.Util.alignZero;
  * render the image.
  */
 public class Render {
+    private static final int MAX_CALC_COLOR_LEVEL = 10;
+    private static final double MIN_CALC_COLOR_K = 0.001;
     private ImageWriter _imageWriter;
     private Scene _scene;
     /**
-     *@param DELTA help me to move the point that help to true shadoe
+     * @param DELTA help me to move the point that help to true shadoe
      */
     private static final double DELTA = 0.1;
 
