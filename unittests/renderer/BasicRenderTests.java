@@ -14,7 +14,7 @@ import scene.Scene;
  *
  * @author Dan
  */
-public class RenderTests2 {
+public class BasicRenderTests {
 
     /**
      * Produce a scene with basic 3D model and render it into a jpeg image with a

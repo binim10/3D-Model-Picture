@@ -15,10 +15,10 @@ public class Material {
      * @param nShininess the n shininess
      */
     public Material(double kD, double kS, int nShininess) {
-        this(0, 0, kD, kS, nShininess);
+        this(kD, kS, nShininess, 0, 0);
     }
 
-    public Material(double kt, double kr, double kD, double kS, int nShininess) {
+    public Material(double kD, double kS, int nShininess, double kr, double kt) {
         _kT = kt;
         _kR = kr;
         _kD = kD;

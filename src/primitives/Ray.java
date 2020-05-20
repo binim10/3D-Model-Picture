@@ -4,12 +4,17 @@ package primitives;
  * The type Ray.
  */
 public class Ray {
+
+    /**
+     * @param DELTA help me to move the point that help to true shadoe
+     */
+    private static final double DELTA = 0.1;
+
     // Point of origin
     private Point3D _POO;
 
     // Ray direction
     private Vector _direction;
-
 
     /**
      * Instantiates a new Ray.
@@ -21,6 +26,12 @@ public class Ray {
         //check if direction is normalized
         this._POO = new Point3D(poo);
         this._direction = direction.normalized();
+    }
+
+    public Ray(Point3D poo, Vector direction, Vector n) {
+        Vector delta = n.scale(n.dotProduct(direction) > 0 ? DELTA : -DELTA);
+        _POO = new Point3D(poo.add(delta));
+        _direction = direction.normalized();
     }
 
     /**
@@ -48,7 +59,7 @@ public class Ray {
      * @return the direction
      */
     public Vector getDirection() {
-        return this._direction;
+        return this._direction.normalize();
     }
 
     /**
