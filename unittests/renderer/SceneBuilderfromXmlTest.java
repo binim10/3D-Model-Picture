@@ -1,7 +1,8 @@
-package parser;
+package renderer;
 
 import org.junit.Test;
 import org.xml.sax.SAXException;
+import parser.SceneBuilder;
 import renderer.Render;
 import scene.Scene;
 
@@ -14,16 +15,14 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-public class SceneBuilderTest {
+public class SceneBuilderfromXmlTest {
 
     @Test
     public void loadSceneFromFiletest() {
         SceneBuilder sceneBuilder = new SceneBuilder();
-        Render fromXml= sceneBuilder.loadSceneFromFile("C:\\Users\\binim\\IdeaProjects\\IME5780\\basicRenderTestTwoColors.xml");
+        Render fromXml = sceneBuilder.loadSceneFromFile("C:\\Users\\binim\\IdeaProjects\\IME5780\\basicRenderTestTwoColors.xml");
         fromXml.renderImage();
         fromXml.printGrid(50, Color.yellow);
         fromXml.writeToImage();
-
-
     }
 }

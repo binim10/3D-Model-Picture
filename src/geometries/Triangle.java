@@ -66,14 +66,14 @@ public class Triangle extends Polygon {
 
         List<Vector> vectors = new ArrayList<>(3);
         for (int i = 0; i < 3; ++i) {
-            vectors.add(new Vector(_vertices.get(i).subtract(ray.getPOO())));
+            vectors.add(new Vector(_vertices.get(i).subtract(ray.getPOO())).normalize());
         }
 
         List<Vector> normals = new ArrayList<>(3);
         for (int i = 0; i < 2; ++i) {
-            normals.add(vectors.get(i).crossProduct(vectors.get(i + 1)));
+            normals.add(vectors.get(i).crossProduct(vectors.get(i + 1)).normalize());
         }
-        normals.add(vectors.get(2).crossProduct(vectors.get(0)));
+        normals.add(vectors.get(2).crossProduct(vectors.get(0)).normalize());
 
         int plus = 0, minus = 0;
         for (int i = 0; i < 3; ++i) {

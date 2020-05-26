@@ -42,7 +42,6 @@ public class SceneBuilder {
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
-
         return new Render(_imageWriter,_scene);
     }
 

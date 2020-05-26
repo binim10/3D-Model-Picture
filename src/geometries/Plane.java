@@ -102,7 +102,7 @@ public class Plane extends Geometry {
         double nQMinusP0 = _normal.dotProduct(_p.subtract(ray.getPOO()));
         double t = alignZero(nQMinusP0 / nv);
 
-        if (t > 0) {
+        if (alignZero(t) > 0) {
             GeoPoint p = new GeoPoint(this, ray.getPoint(t));
             return List.of(p);
         }
