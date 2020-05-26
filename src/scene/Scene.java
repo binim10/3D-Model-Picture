@@ -2,9 +2,14 @@ package scene;
 
 import elements.AmbientLight;
 import elements.Camera;
+import elements.LightSource;
 import geometries.Geometries;
 import geometries.Intersectable;
 import primitives.Color;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * The type Scene, represent the entire scene in an image.
@@ -16,6 +21,7 @@ public class Scene {
     private Geometries _geometries;
     private Camera _camera;
     private double _distance;
+    List<LightSource> _lights = new LinkedList<LightSource>();
 
     /**
      * Instantiates a new Scene.
@@ -82,6 +88,15 @@ public class Scene {
     }
 
     /**
+     * Gets lights.
+     *
+     * @return the lights
+     */
+    public List<LightSource> getLights() {
+        return _lights;
+    }
+
+    /**
      * Sets background.
      *
      * @param background the background
@@ -124,6 +139,17 @@ public class Scene {
      */
     public void addGeometries(Intersectable... geometries) {
         _geometries.add(geometries);
+    }
+
+    /**
+     * Add lights.
+     *
+     * @param lights the lights
+     */
+    public void addLights(LightSource... lights) {
+        for (LightSource ls : lights) {
+            _lights.add(ls);
+        }
     }
 
 

@@ -92,13 +92,13 @@ public class Vector {
     /**
      * Scale
      *
-     * @param _scalar the scalar
+     * @param scalar the scalar
      * @return Vector vector
      */
-    public Vector scale(double _scalar) {
-        return new Vector(this._head.get_x().get() * _scalar,
-                this._head.get_y().get() * _scalar,
-                this._head.get_z().get() * _scalar);
+    public Vector scale(double scalar) {
+        return new Vector(this._head.get_x().get() * scalar,
+                this._head.get_y().get() * scalar,
+                this._head.get_z().get() * scalar);
     }
 
     /**

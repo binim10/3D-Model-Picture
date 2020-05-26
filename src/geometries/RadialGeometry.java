@@ -1,13 +1,18 @@
 package geometries;
 
+import primitives.Color;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Vector;
 
 /**
  * The type Radial geometry.
  */
-public abstract class RadialGeometry implements Geometry {
+public abstract class RadialGeometry extends Geometry {
 
+    /**
+     * The Radius.
+     */
     protected double _radius;
 
     /**
@@ -16,16 +21,30 @@ public abstract class RadialGeometry implements Geometry {
      * @param radius the radius
      */
     public RadialGeometry(double radius) {
-        this._radius = radius;
+        this(Color.BLACK, radius);
     }
 
     /**
      * Instantiates a new Radial geometry.
      *
-     * @param radialGeometry the radial geometry
+     * @param color  the color
+     * @param radius the radius
      */
-    public RadialGeometry(RadialGeometry radialGeometry) {
-        this._radius = radialGeometry._radius;
+    public RadialGeometry(Color color, double radius) {
+        this(color, new Material(0, 0, 0), radius);
+    }
+
+
+    /**
+     * Instantiates a new Radial geometry.
+     *
+     * @param color    the color
+     * @param material the material
+     * @param radius   the radius
+     */
+    public RadialGeometry(Color color, Material material, double radius) {
+        super(color, material);
+        _radius = radius;
     }
 
     /**

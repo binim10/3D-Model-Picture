@@ -4,6 +4,7 @@ import org.junit.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
+import geometries.Intersectable.GeoPoint;
 
 import java.awt.*;
 import java.util.Collection;
@@ -45,18 +46,18 @@ public class SphereTest {
                 sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(1, 1, 0))));
 
         // TC02: Ray starts before and crosses the sphere (2 points)
-        Point3D p1 = new Point3D(0.0651530771650466, 0.355051025721682, 0);
-        Point3D p2 = new Point3D(1.53484692283495, 0.844948974278318, 0);
-        List<Point3D> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0),
+        GeoPoint p1 = new GeoPoint(sphere, new Point3D(0.0651530771650466, 0.355051025721682, 0));
+        GeoPoint p2 = new GeoPoint(sphere, new Point3D(1.53484692283495, 0.844948974278318, 0));
+        List<GeoPoint> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0),
                 new Vector(3, 1, 0)));
         assertEquals("TC02 Wrong number of points", 2, result.size());
-        if (result.get(0).get_x().get() > result.get(1).get_x().get())
+        if (result.get(0).point.get_x().get() > result.get(1).point.get_x().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("no match between the intersections", List.of(p1, p2), result);
 
         // TC03: Ray starts inside the sphere (1 point)
-        Point3D p3 = new Point3D(1.5831513611335566, 0.8123635208501675, 0.0);
-        List<Point3D> result2 = sphere.findIntersections(new Ray(new Point3D(0.5, 0, 0), new Vector(2, 1.5, 0)));
+        GeoPoint p3 = new GeoPoint(sphere, new Point3D(1.5831513611335566, 0.8123635208501675, 0.0));
+        List<GeoPoint> result2 = sphere.findIntersections(new Ray(new Point3D(0.5, 0, 0), new Vector(2, 1.5, 0)));
         assertEquals("TC03: no intersection's at all or more than one", 1, result2.size());
         assertEquals("TC03: Ray not cross the sphere in the excepted points", p3, result2.get(0));
         // TC04: Ray starts after the sphere (0 points)
@@ -69,8 +70,8 @@ public class SphereTest {
 
 
         // TC11: Ray starts at sphere and goes inside (1 points)
-        Point3D p11 = new Point3D(1.820706605082462, 0.5712796438230884, 0.008957506761619063);
-        List<Point3D> result11 = sphere.findIntersections(new Ray(new Point3D(0.19, 0.58, 0.07),
+        GeoPoint p11 = new GeoPoint(sphere, new Point3D(1.820706605082462, 0.5712796438230884, 0.008957506761619063));
+        List<GeoPoint> result11 = sphere.findIntersections(new Ray(new Point3D(0.19, 0.58, 0.07),
                 new Vector(1.87, -0.01, -0.07)));
         assertEquals("TC11: no match between the number of intersection", 1, result11.size());
         assertEquals("no match between the points of the intersection", p11, result11.get(0));
@@ -83,31 +84,31 @@ public class SphereTest {
 
         // **** Group: Ray's line goes through the center
         // TC13: Ray starts before the sphere (2 points
-        Point3D p13 = new Point3D(0, 0, 0);
-        Point3D p13_1 = new Point3D(2, 0, 0);
-        List<Point3D> result13 = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(3, 0, 0)));
+        GeoPoint p13 = new GeoPoint(sphere, new Point3D(0, 0, 0));
+        GeoPoint p13_1 = new GeoPoint(sphere, new Point3D(2, 0, 0));
+        List<GeoPoint> result13 = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(3, 0, 0)));
         assertEquals("TC13: No match between Number of intersection", 2, result13.size());
-        if (result13.get(0).get_x().get() > result13.get(1).get_x().get())
+        if (result13.get(0).point.get_x().get() > result13.get(1).point.get_x().get())
             result13 = List.of(result13.get(1), result13.get(0));
         assertEquals("TC13: no match between points of intersection", List.of(p13, p13_1), result13);
 
         // TC14: Ray starts at sphere and goes inside (1 points)
-        Point3D p14 = new Point3D(2, 0, 0);
-        List<Point3D> result14 = sphere.findIntersections(new Ray(new Point3D(0, 0, 0),
+        GeoPoint p14 = new GeoPoint(sphere, new Point3D(2, 0, 0));
+        List<GeoPoint> result14 = sphere.findIntersections(new Ray(new Point3D(0, 0, 0),
                 new Vector(3, 0, 0)));
         assertEquals("TC11: no match between the number of intersection", 1, result14.size());
         assertEquals("no match between the points of the intersection", p14, result14.get(0));
 
         // TC15: Ray starts inside (1 points)
-        Point3D p15 = new Point3D(2, 0, 0);
-        List<Point3D> result15 = sphere.findIntersections(new Ray(new Point3D(1.5, 0, 0),
+        GeoPoint p15 = new GeoPoint(sphere, new Point3D(2, 0, 0));
+        List<GeoPoint> result15 = sphere.findIntersections(new Ray(new Point3D(1.5, 0, 0),
                 new Vector(3, 0, 0)));
         assertEquals("TC11: no match between the number of intersection", 1, result15.size());
         assertEquals("no match between the points of the intersection", p15, result15.get(0));
 
         // TC16: Ray starts at the center (1 points)
-        Point3D p16 = new Point3D(1.5773502691896257, 0.5773502691896258, 0.5773502691896258);
-        List<Point3D> result16 = sphere.findIntersections(new Ray(new Point3D(1, 0, 0),
+        GeoPoint p16 = new GeoPoint(sphere, new Point3D(1.5773502691896257, 0.5773502691896258, 0.5773502691896258));
+        List<GeoPoint> result16 = sphere.findIntersections(new Ray(new Point3D(1, 0, 0),
                 new Vector(2, 2, 2)));
         assertEquals("TC11: no match between the number of intersection", 1, result16.size());
         assertEquals("no match between the points of the intersection", p16, result16.get(0));

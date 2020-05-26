@@ -12,7 +12,7 @@ import static primitives.Util.*;
  *
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -23,16 +23,39 @@ public class Polygon implements Geometry {
     protected Plane _plane;
 
     /**
+     * Instantiates a new Polygon.
+     *
+     * @param vertices the vertices
+     */
+    public Polygon(Point3D... vertices) {
+        this(Color.BLACK, vertices);
+    }
+
+    /**
+     * Instantiates a new Polygon.
+     *
+     * @param color    the color
+     * @param vertices the vertices
+     */
+    public Polygon(Color color, Point3D... vertices) {
+        this(color, new Material(0, 0, 0), vertices);
+    }
+
+    /**
      * Polygon constructor based on vertices list. The list must be ordered by edge
      * path. The polygon must be convex.
      *
+     * @param color    the emmission
+     * @param material the material
      * @param vertices list of vertices according to their order by edge path
      * @throws IllegalArgumentException in any case of illegal combination of                                  vertices:                                  <ul>                                  <li>Less than 3 vertices</li>                                  <li>Consequent vertices are in the same                                  point                                  <li>The vertices are not in the same                                  plane</li>                                  <li>The order of vertices is not according                                  to edge path</li>                                  <li>Three consequent vertices lay in the                                  same line (180&#176; angle between two                                  consequent edges)                                  <li>The polygon is concave (not convex></li>                                  </ul>
      */
-    public Polygon(Point3D... vertices) {
+    public Polygon(Color color, Material material, Point3D... vertices) {
+        super(color, material);
         if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         _vertices = List.of(vertices);
+
         // Generate the plane according to the first three vertices and associate the
         // polygon with this plane.
         // The plane holds the invariant normal (orthogonal unit) vector to the polygon
@@ -74,7 +97,32 @@ public class Polygon implements Geometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        return null;
+    public List<GeoPoint> findIntersections(Ray ray) {
+        List<GeoPoint> planeIntersections = _plane.findIntersections(ray);
+        if (planeIntersections == null)
+            return null;
+
+        Point3D p0 = ray.getPOO();
+        Vector v = ray.getDirection();
+
+        Vector v1 = _vertices.get(1).subtract(p0);
+        Vector v2 = _vertices.get(0).subtract(p0);
+        double sign = v.dotProduct(v1.crossProduct(v2));
+        if (isZero(sign))
+            return null;
+
+        boolean positive = sign > 0;
+
+        for (int i = _vertices.size() - 1; i > 0; --i) {
+            v1 = v2;
+            v2 = _vertices.get(i).subtract(p0);
+            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+            if (isZero(sign)) return null;
+            if (positive != (sign > 0)) return null;
+        }
+
+        planeIntersections.get(0).geometry = this;
+
+        return planeIntersections;
     }
 }

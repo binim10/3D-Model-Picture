@@ -1,8 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +21,32 @@ public class Triangle extends Polygon {
      * @param c the c
      */
     public Triangle(Point3D a, Point3D b, Point3D c) {
-        super(a, b, c);
+        this(Color.BLACK, a, b, c);
+    }
+
+    /**
+     * Instantiates a new Triangle withe color.
+     *
+     * @param color the color of the triangle.
+     * @param a     the a
+     * @param b     the b
+     * @param c     the c
+     */
+    public Triangle(Color color, Point3D a, Point3D b, Point3D c) {
+        this(Color.BLACK, new Material(0, 0, 0), a, b, c);
+    }
+
+    /**
+     * Instantiates a new Triangle with material.
+     *
+     * @param color    the color
+     * @param material the material
+     * @param point3D  the point 3 d
+     * @param point3D1 the point 3 d 1
+     * @param point3D2 the point 3 d 2
+     */
+    public Triangle(Color color, Material material, Point3D point3D, Point3D point3D1, Point3D point3D2) {
+        super(color, material, point3D, point3D1, point3D2);
     }
 
     @Override
@@ -32,10 +55,14 @@ public class Triangle extends Polygon {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> plaInter= _plane.findIntersections(ray);
+    public List<GeoPoint> findIntersections(Ray ray) {
+        List<GeoPoint> plaInter = _plane.findIntersections(ray);
         if (plaInter == null) // Ray doesn't intersect with the triangle
             return null;
+
+        for (GeoPoint g : plaInter) {
+            g.geometry = this;
+        }
 
         List<Vector> vectors = new ArrayList<>(3);
         for (int i = 0; i < 3; ++i) {
@@ -60,7 +87,7 @@ public class Triangle extends Polygon {
         }
         if (plus != 3 && minus != 3)
             return null;
-        return _plane.findIntersections(ray);
+        return plaInter;
 
     }
 }

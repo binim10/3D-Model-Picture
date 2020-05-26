@@ -39,6 +39,7 @@ public class SAXHandler extends DefaultHandler {
     boolean bTube = false;
     boolean bCamera = false;
     boolean bImage = false;
+    boolean bLights;
 
     public Scene getScene(){
         return scene;
@@ -154,6 +155,9 @@ public class SAXHandler extends DefaultHandler {
         } else if (qName.equalsIgnoreCase("tube")) {
             //TODO parser for tube
             bTube = true;
+        } else if (qName.equalsIgnoreCase("lights")) {
+            //TODO parser for tube
+            bLights = true;
         }
     }
 
@@ -182,6 +186,9 @@ public class SAXHandler extends DefaultHandler {
         }
         if (bGeometries) {
             bGeometries = false;
+        }
+        if (bLights) {
+            bLights = false;
         }
     }
 

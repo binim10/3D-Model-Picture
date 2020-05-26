@@ -5,6 +5,7 @@ import org.junit.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
+import geometries.Intersectable.GeoPoint;
 
 import java.util.List;
 
@@ -36,8 +37,8 @@ public class TriangleTest {
 
         // ============ Equivalence Partitions Tests ==============
         // TC02: Inside polygon/triangle(1 intersection)
-        Point3D p2 = new Point3D(0, 2, 1);
-        List<Point3D> result2 = t.findIntersections(new Ray(new Point3D(0.5, 2, 1), new Vector(-2, 0, 0)));
+        GeoPoint p2 = new GeoPoint(t, new Point3D(0, 2, 1));
+        List<GeoPoint> result2 = t.findIntersections(new Ray(new Point3D(0.5, 2, 1), new Vector(-2, 0, 0)));
         assertEquals("no match between num of intersection", p2, result2.get(0));
 
         // TC03: Outside against edge(0 intersection)

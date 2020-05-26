@@ -1,8 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
@@ -12,20 +10,15 @@ import static primitives.Util.isZero;
 /**
  * The type Plane represent a plane.
  */
-public class Plane implements Geometry {
-    protected Point3D _p;
-    protected Vector _normal;
-
+public class Plane extends Geometry {
     /**
-     * Instantiates a new Plane.
-     *
-     * @param p      the p
-     * @param normal the normal
+     * The P.
      */
-    public Plane(Point3D p, Vector normal) {
-        this._p = p;
-        this._normal = normal;
-    }
+    protected Point3D _p;
+    /**
+     * The Normal.
+     */
+    protected Vector _normal;
 
     /**
      * Instantiates a new Plane.
@@ -35,11 +28,45 @@ public class Plane implements Geometry {
      * @param z the z
      */
     public Plane(Point3D x, Point3D y, Point3D z) {
-        this._p = new Point3D(x);
-        Vector v1 = y.subtract(x);
-        Vector v2 = z.subtract(x);
-        this._normal = (v1.crossProduct(v2)).normalized();
+        this(x, (y.subtract(x).crossProduct(z.subtract(x))).normalized());
     }
+
+    /**
+     * Instantiates a new Plane.
+     *
+     * @param p      the p
+     * @param normal the normal
+     */
+    public Plane(Point3D p, Vector normal) {
+        this(new Material(0, 0, 0), Color.BLACK, p, normal);
+    }
+
+    /**
+     * Instantiates a new Plane with color.
+     *
+     * @param color  the color
+     * @param p      the p
+     * @param normal the normal
+     */
+    public Plane(Color color, Point3D p, Vector normal) {
+        this(new Material(0, 0, 0), color, p, normal);
+    }
+
+    /**
+     * Instantiates a new Plane with material.
+     *
+     * @param material the material
+     * @param color    the color
+     * @param p        the p
+     * @param normal   the normal
+     */
+    public Plane(Material material, Color color, Point3D p, Vector normal) {
+        super(color, material);
+        _p = p;
+        _normal = normal.normalized();
+
+    }
+
 
     /**
      * Gets p.
@@ -56,7 +83,7 @@ public class Plane implements Geometry {
      * @return the normal
      */
     public Vector get_normal() {
-        return _normal;
+        return _normal.normalized();
     }
 
     @Override
@@ -65,7 +92,7 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         if (ray.getPOO().equals(_p)) // Ray start at the point that present the plane
             return null;
         double nv = ray.getDirection().dotProduct(_normal);
@@ -76,7 +103,7 @@ public class Plane implements Geometry {
         double t = alignZero(nQMinusP0 / nv);
 
         if (t > 0) {
-            Point3D p = new Point3D(ray.getPoint(t));
+            GeoPoint p = new GeoPoint(this, ray.getPoint(t));
             return List.of(p);
         }
         return null;
