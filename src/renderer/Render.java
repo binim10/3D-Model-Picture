@@ -65,15 +65,22 @@ public class Render {
         }
     }
 
+    /**
+     * Calc color of given geo point.
+     *
+     * @param gp    the Geo point class
+     * @param ray   the ray
+     * @return the Color
+     */
     private Color calcColor(GeoPoint gp, Ray ray) {
         return calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, 1).add(_scene.getAmbientLight().getIntensity());
     }
 
     /**
-     * Calc color of given point.
+     * Calc color of given geo point.
      *
-     * @param p     the point
-     * @param inRay the in ray
+     * @param p     the Geo point class
+     * @param inRay the ray
      * @param level the level
      * @param k     the k
      * @return the Color
@@ -123,6 +130,7 @@ public class Render {
      * Calculate Specular component of light reflection.
      *
      * @param ks             specular component  mekadem
+     * @param nl             dot product between l and n
      * @param l              direction from light to point
      * @param n              normal to surface at the point
      * @param v              direction from point of view to point
@@ -142,7 +150,7 @@ public class Render {
      * Calculate Diffusive component of light reflection.
      *
      * @param kd             diffusive component mekadem
-     * @param nl             n.dotproduct(l)
+     * @param nl             dot product between l and n
      * @param lightIntensity light intensity at the point
      * @return diffusive component of light reflection
      */
@@ -156,7 +164,7 @@ public class Render {
 
     /**
      * Unshaded boolean.
-     *
+     * @param ls the light source
      * @param l  the vector from lithe source to the point
      * @param n  the normal
      * @param gp the geo point
@@ -179,16 +187,38 @@ public class Render {
     }
 
 
+    /**
+     * Construct reflected ray .
+     *
+     * @param n     the vector n
+     * @param point the point
+     * @param inRay the ray
+     * @return the ray after moov delta
+     */
     private Ray constructReflectedRay(Vector n, Point3D point, Ray inRay) {
         Vector v = inRay.getDirection();
         Vector r = v.add(n.scale(-2 * (v.dotProduct(n))));
         return new Ray(point, r, n);
     }
 
+    /**
+     * Construct refracted ray .
+     *
+     * @param n     the vector n
+     * @param point the point
+     * @param inRay the ray
+     * @return the ray after moov delta
+     */
     private Ray constructRefractedRay(Vector n, Point3D point, Ray inRay) {
         return new Ray(point, inRay.getDirection(), n);
     }
 
+    /**
+     * Find closest intersection geo point.
+     *
+     * @param ray the ray
+     * @return the geo point closest
+     */
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> intersectionsPoints = _scene.getGeometries().findIntersections(ray);
         if (intersectionsPoints == null)

@@ -10,14 +10,23 @@ public class Material {
     /**
      * Instantiates a new Material.
      *
-     * @param kD         the k d
-     * @param kS         the k s
+     * @param kD         the mekadem of diffusive
+     * @param kS         the mekadem of specular
      * @param nShininess the n shininess
      */
     public Material(double kD, double kS, int nShininess) {
         this(kD, kS, nShininess, 0, 0);
     }
 
+    /**
+     * Instantiates a new Material.
+     *
+     * @param kD         the mekadem of diffusive
+     * @param kS         the mekadem of specular
+     * @param nShininess the shininess
+     * @param kr         the mekadem of refrected
+     * @param kt         the mekadem of reflected
+     */
     public Material(double kD, double kS, int nShininess, double kr, double kt) {
         _kT = kt;
         _kR = kr;

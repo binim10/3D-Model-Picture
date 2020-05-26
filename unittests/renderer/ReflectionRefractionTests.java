@@ -159,7 +159,7 @@ public class ReflectionRefractionTests {
 						new Point3D(60, -50, -20000), 1, 7E-5, 5E-7, new Vector(0, 0, 1)),
 				new PointLight(new Color(java.awt.Color.yellow), new Point3D(190, -190, 1000), 1, 4E-5, 2E-7));
 
-		ImageWriter imageWriter = new ImageWriter("tests", 200, 200, 600, 600);
+		ImageWriter imageWriter = new ImageWriter("Beach", 200, 200, 600, 600);
 		Render render = new Render(imageWriter, scene);
 
 		render.renderImage();
@@ -245,7 +245,7 @@ public class ReflectionRefractionTests {
 						new Point3D(60, -50, -20000), 1, 7E-5, 5E-7, new Vector(0, 0, 1)),
 				new PointLight(new Color(java.awt.Color.yellow), new Point3D(190, -190, 5000), 1, 4E-5, 2E-7)*/);
 
-		ImageWriter imageWriter = new ImageWriter("new Test", 200, 200, 600, 600);
+		ImageWriter imageWriter = new ImageWriter("The magical room", 200, 200, 600, 600);
 		Render render = new Render(imageWriter, scene);
 
 		render.renderImage();
@@ -331,7 +331,7 @@ public class ReflectionRefractionTests {
 						new Point3D(60, -50, -20000), 1, 7E-5, 5E-7, new Vector(0, 0, 1)),
 				new PointLight(new Color(java.awt.Color.yellow), new Point3D(190, -190, 5000), 1, 4E-5, 2E-7)*/);
 
-		ImageWriter imageWriter = new ImageWriter("new Test moving camera", 200, 200, 600, 600);
+		ImageWriter imageWriter = new ImageWriter("The magical room moving camera", 200, 200, 600, 600);
 		Render render = new Render(imageWriter, scene);
 
 		render.renderImage();
