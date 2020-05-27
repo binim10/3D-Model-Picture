@@ -20,7 +20,7 @@ public class SceneBuilderfromXmlTest {
     @Test
     public void loadSceneFromFiletest() {
         SceneBuilder sceneBuilder = new SceneBuilder();
-        Render fromXml = sceneBuilder.loadSceneFromFile("C:\\Users\\binim\\IdeaProjects\\IME5780\\basicRenderTestTwoColors.xml");
+        Render fromXml = sceneBuilder.loadSceneFromFile("C:\\Users\\זאבי\\IdeaProjects\\IME5780\\basicRenderTestTwoColors.xml");
         fromXml.renderImage();
         fromXml.printGrid(50, Color.yellow);
         fromXml.writeToImage();

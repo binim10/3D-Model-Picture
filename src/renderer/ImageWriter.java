@@ -4,15 +4,16 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.*;
-import javax.imageio.stream.*;
 
 /**
- * Image writer class combines accumulation of pixel color matrix and
- * finally producing a non-optimized jpeg image from this matrix.
- * The class although is responsible of holding image related parameters
- * of View Plane - pixel matrix size and resolution
+ * Image writer class combines accumulation of pixel color matrix and finally
+ * producing a non-optimized jpeg image from this matrix. The class although is
+ * responsible of holding image related parameters of View Plane - pixel matrix
+ * size and resolution
  *
  * @author Dan
  */
@@ -20,14 +21,14 @@ public class ImageWriter {
     private double _imageWidth, _imageHeight;
     private int _nX, _nY;
 
-    private final String PROJECT_PATH = System.getProperty("user.dir");
+    private static final String FOLDER_PATH = System.getProperty("user.dir") + "/images";
 
     private BufferedImage _image;
-
     private String _imageName;
 
-    // ***************** Constructors ********************** //
+    private Logger _logger = Logger.getLogger("ImageWriter");
 
+    // ***************** Constructors ********************** //
     /**
      * Image Writer constructor accepting image name and View Plane parameters,
      *
@@ -48,7 +49,6 @@ public class ImageWriter {
     }
 
     // ***************** Getters/Setters ********************** //
-
     /**
      * View Plane width getter
      *
@@ -88,28 +88,21 @@ public class ImageWriter {
     // ***************** Operations ******************** //
 
     /**
-     * Function writeToImage produces unoptimized jpeg file of
-     * the image according to pixel color matrix in the directory
-     * of the project
+     * Function writeToImage produces unoptimized png file of the image according to
+     * pixel color matrix in the directory of the project
      */
     public void writeToImage() {
-        File ouFile = new File(PROJECT_PATH + "/images/" + _imageName + ".jpg");
         try {
-            javax.imageio.ImageWriter jpgWriter = ImageIO.getImageWritersByFormatName("jpg").next();
-            ImageWriteParam jpgWriteParam = jpgWriter.getDefaultWriteParam();
-            jpgWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-            jpgWriteParam.setCompressionQuality(1f);
-            jpgWriter.setOutput(new FileImageOutputStream(ouFile));
-            jpgWriter.write(null, new IIOImage(_image, null, null), jpgWriteParam);
-            //ImageIO.write(_image, "jpg", ouFile);
+            File file = new File(FOLDER_PATH + '/' + _imageName + ".png");
+            ImageIO.write(_image, "png", file);
         } catch (IOException e) {
-            e.printStackTrace();
+            _logger.log(Level.SEVERE, "I/O error", e);
         }
     }
 
     /**
-     * The function writePixel writes a color of a specific pixel
-     * into pixel color matrix
+     * The function writePixel writes a color of a specific pixel into pixel color
+     * matrix
      *
      * @param xIndex X axis index of the pixel
      * @param yIndex Y axis index of the pixel
