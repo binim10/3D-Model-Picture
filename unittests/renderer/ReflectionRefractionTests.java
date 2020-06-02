@@ -35,12 +35,12 @@ public class ReflectionRefractionTests {
 		scene.setAmbientLight(new AmbientLight(Color.BLACK, 0));
 
 		scene.addGeometries(
-				new Sphere(new Color(java.awt.Color.BLUE), new Material(0.4, 0.3, 100, 0, 0.3), 50,
+				new Sphere(new Color(java.awt.Color.BLUE), new Material(0.4, 0.3, 100, 0, 0.9), 50,
 						new Point3D(0, 0, 50)),
 				new Sphere(new Color(java.awt.Color.RED), new Material(0.5, 0.5, 100), 25, new Point3D(0, 0, 50)));
 
 		scene.addLights(new SpotLight(new Color(1000, 600, 0), new Point3D(-100, 100, -500), 1,
-				0.0004, 0.0000006, new Vector(-1, 1, 2)));
+				0.0004, 0.0000006, new Vector(-1, 1, 2), 1, 50));
 
 		ImageWriter imageWriter = new ImageWriter("twoSpheres", 150, 150, 500, 500);
 		Render render = new Render(imageWriter, scene);
@@ -95,14 +95,14 @@ public class ReflectionRefractionTests {
 						new Point3D(-150, 150, 115), new Point3D(150, 150, 135), new Point3D(75, -75, 150)), //
 				new Triangle(Color.BLACK, new Material(0.5, 0.5, 60), //
 						new Point3D(-150, 150, 115), new Point3D(-70, -70, 140), new Point3D(75, -75, 150)), //
-				new Sphere(new Color(java.awt.Color.BLUE), new Material(0.2, 0.2, 30, 0, 0.6), // )
+				new Sphere(new Color(java.awt.Color.BLUE), new Material(0.2, 0.2, 30, 0, 0), // )
 						30, new Point3D(60, -50, 50)));
 
 		scene.addLights(new SpotLight(new Color(700, 400, 400), //
-				new Point3D(60, -50, 0), 1, 4E-5, 2E-7, new Vector(0, 0, 1)));
+				new Point3D(60, -50, 0), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(3));
 
 		ImageWriter imageWriter = new ImageWriter("shadow with transparency", 200, 200, 600, 600);
-		Render render = new Render(imageWriter, scene);
+		Render render = new Render(imageWriter, scene).setSuperSampling(300);
 
 		render.renderImage();
 		render.writeToImage();
@@ -206,11 +206,11 @@ public class ReflectionRefractionTests {
 						new Point3D(-100, 400, 150), new Point3D(100, 400, 350), new Point3D(0, 200, 250)));
 
 		scene.addLights(new SpotLight(new Color(java.awt.Color.white), //
-						new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)),
-				new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7));
+						new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(5),
+				new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7).setRadius(5));
 
 		ImageWriter imageWriter = new ImageWriter("The magical room", 200, 200, 600, 600);
-		Render render = new Render(imageWriter, scene);
+		Render render = new Render(imageWriter, scene).setSuperSampling(200);
 
 		render.renderImage();
 		render.writeToImage();

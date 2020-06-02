@@ -4,6 +4,8 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * The interface Light source.
  */
@@ -17,6 +19,14 @@ public interface LightSource {
      */
     Color getIntensity(Point3D point3D);
 
+    double getRadius();
+
+    LightSource setRadius(double radius);
+
+    LightSource setPoints(List<Point3D> randPo);
+
+    Point3D getPosition();
+
     /**
      * Gets the vector from light source to the given point.
      *
@@ -26,5 +36,7 @@ public interface LightSource {
     Vector getL(Point3D point3D);
 
     double getDistance(Point3D point3D);
+
+    List<Point3D> getPoints();
 
 }

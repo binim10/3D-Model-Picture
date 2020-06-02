@@ -6,11 +6,7 @@ import primitives.Ray;
 import primitives.Vector;
 import geometries.Intersectable.GeoPoint;
 
-import java.awt.*;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import static org.junit.Assert.*;
 
@@ -51,7 +47,7 @@ public class SphereTest {
         List<GeoPoint> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0),
                 new Vector(3, 1, 0)));
         assertEquals("TC02 Wrong number of points", 2, result.size());
-        if (result.get(0).point.get_x().get() > result.get(1).point.get_x().get())
+        if (result.get(0).point.getX().get() > result.get(1).point.getX().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("no match between the intersections", List.of(p1, p2), result);
 
@@ -88,7 +84,7 @@ public class SphereTest {
         GeoPoint p13_1 = new GeoPoint(sphere, new Point3D(2, 0, 0));
         List<GeoPoint> result13 = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(3, 0, 0)));
         assertEquals("TC13: No match between Number of intersection", 2, result13.size());
-        if (result13.get(0).point.get_x().get() > result13.get(1).point.get_x().get())
+        if (result13.get(0).point.getX().get() > result13.get(1).point.getX().get())
             result13 = List.of(result13.get(1), result13.get(0));
         assertEquals("TC13: no match between points of intersection", List.of(p13, p13_1), result13);
 

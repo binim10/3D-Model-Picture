@@ -20,6 +20,7 @@ public class Render {
     private static final double MIN_CALC_COLOR_K = 0.001;
     private ImageWriter _imageWriter;
     private Scene _scene;
+    private int _superSampling;
 
 
     /**
@@ -32,6 +33,15 @@ public class Render {
         this._imageWriter = imageWriter;
         this._scene = scene;
 
+    }
+
+    public int getSuperSampling() {
+        return _superSampling;
+    }
+
+    public Render setSuperSampling(int superSampling) {
+        _superSampling = superSampling;
+        return this;
     }
 
     /**
@@ -68,8 +78,8 @@ public class Render {
     /**
      * Calc color of given geo point.
      *
-     * @param gp    the Geo point class
-     * @param ray   the ray
+     * @param gp  the Geo point class
+     * @param ray the ray
      * @return the Color
      */
     private Color calcColor(GeoPoint gp, Ray ray) {
@@ -93,11 +103,11 @@ public class Render {
         int nShininess = material.getNShininess();
         double kd = material.getKD();
         double ks = material.getKS();
-        double nv = v.dotProduct(n);
+        double nv = alignZero(v.dotProduct(n));
         for (LightSource lightSource : _scene.getLights()) {
             Vector l = lightSource.getL(p.point);
-            double nl = l.dotProduct(n);
-            if ((nl > 0d && nv > 0d) || (nl <= 0d && nv <= 0d)) {
+            double nl = alignZero(l.dotProduct(n));
+            if ((nl > 0d && nv > 0d) || (nl < 0d && nv < 0d)) {
                 double ktr = transparency(lightSource, l, n, p);
                 if (ktr * k > MIN_CALC_COLOR_K) {
                     Color lightIntensity = lightSource.getIntensity(p.point).scale(ktr);
@@ -163,7 +173,8 @@ public class Render {
 
 
     /**
-     * Unshaded boolean.
+     * calculate the color according transparency.
+     *
      * @param ls the light source
      * @param l  the vector from lithe source to the point
      * @param n  the normal
@@ -173,19 +184,30 @@ public class Render {
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint gp) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(gp.point, lightDirection, n);
-        List<GeoPoint> intersections = _scene.getGeometries().findIntersections(lightRay);
-        if (intersections == null) return 1.0;
-        double distance = ls.getDistance(gp.point);
-        double ktr = 1.0;
-        for (GeoPoint g : intersections) {
-            if (alignZero(g.point.distance(gp.point) - distance) <= 0) {
-                if (ktr < MIN_CALC_COLOR_K) return 0.0;
-                ktr *= g.geometry.getMaterial().getKT();
+        double ktr = 0, sumKtr = 0;
+        List<Ray> beamRays = lightRay.createBeamRays(ls, gp.point, n, getSuperSampling());
+        for (Ray r : beamRays) {
+            List<GeoPoint> intersections = _scene.getGeometries().findIntersections(r);
+            if (intersections == null) {
+                sumKtr += 1.0;
+                continue;
             }
-        }
-        return ktr;
-    }
+            double distance = ls.getDistance(gp.point);
+            ktr = 1.0;
+            for (GeoPoint g : intersections) {
 
+                if (alignZero(g.point.distance(gp.point) - distance) <= 0) {
+                    if (ktr < MIN_CALC_COLOR_K) {
+                        ktr = 0.0;
+                        break;
+                    }
+                    ktr *= g.geometry.getMaterial().getKT();
+                }
+            }
+            sumKtr += ktr;
+        }
+        return sumKtr / beamRays.size();
+    }
 
     /**
      * Construct reflected ray .

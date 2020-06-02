@@ -4,6 +4,8 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
+import java.util.List;
+
 import static java.lang.Math.max;
 import static primitives.Util.alignZero;
 
@@ -13,6 +15,7 @@ import static primitives.Util.alignZero;
 public class SpotLight extends PointLight {
     private Vector _direction;
     private double _sharpsBeam;
+    protected List<Point3D> _randomPoints = null;
 
     /**
      * Instantiates a new Light.
@@ -29,9 +32,25 @@ public class SpotLight extends PointLight {
     }
 
     public SpotLight(Color intensity, Point3D position, double c, double l, double q, Vector direction, double sharps) {
+        this(intensity, position, c, l, q, direction, sharps, 0);
+    }
+
+    public SpotLight(Color intensity, Point3D position, double c, double l, double q, Vector direction, double sharps, double radius) {
         super(intensity, position, c, l, q);
         _direction = direction.normalized();
         _sharpsBeam = sharps;
+        _radius = radius;
+    }
+
+    @Override
+    public LightSource setPoints(List<Point3D> randPo) {
+        _randomPoints = randPo;
+        return this;
+    }
+
+    @Override
+    public List<Point3D> getPoints() {
+        return _randomPoints;
     }
 
     @Override

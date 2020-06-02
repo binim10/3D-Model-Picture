@@ -1,10 +1,18 @@
 package primitives;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.getRandom;
+
 /**
  * The type Point 3 d.
  */
 public class Point3D {
     public final static Point3D ZERO = new Point3D(0, 0, 0);
+
     Coordinate _x;
     Coordinate _y;
     Coordinate _z;
@@ -51,7 +59,7 @@ public class Point3D {
      *
      * @return new Coordinate with _x value
      */
-    public Coordinate get_x() {
+    public Coordinate getX() {
         return new Coordinate(_x);
     }
 
@@ -60,7 +68,7 @@ public class Point3D {
      *
      * @return the y
      */
-    public Coordinate get_y() {
+    public Coordinate getY() {
         return new Coordinate(_y);
     }
 
@@ -69,7 +77,7 @@ public class Point3D {
      *
      * @return the z
      */
-    public Coordinate get_z() {
+    public Coordinate getZ() {
         return new Coordinate(_z);
     }
 
@@ -83,9 +91,9 @@ public class Point3D {
      */
     public Point3D add(Vector _vector) {
         return new Point3D(
-                this.get_x().get() + _vector._head.get_x().get(),
-                this.get_y().get() + _vector._head.get_y().get(),
-                this.get_z().get() + _vector._head.get_z().get());
+                this.getX().get() + _vector._head.getX().get(),
+                this.getY().get() + _vector._head.getY().get(),
+                this.getZ().get() + _vector._head.getZ().get());
     }
 
     /**
@@ -96,9 +104,9 @@ public class Point3D {
      */
     public Vector subtract(Point3D vertex) {
         return new Vector(
-                this.get_x().get() - vertex.get_x().get(),
-                this.get_y().get() - vertex.get_y().get(),
-                this.get_z().get() - vertex.get_z().get()
+                this.getX().get() - vertex.getX().get(),
+                this.getY().get() - vertex.getY().get(),
+                this.getZ().get() - vertex.getZ().get()
         );
     }
 
@@ -110,9 +118,9 @@ public class Point3D {
      * @return double double
      */
     public double distanceSquared(Point3D point) {
-        return ((point.get_x().get() - this.get_x().get()) * (point.get_x().get() - this.get_x().get()) +
-                (point.get_y().get() - this.get_y().get()) * (point.get_y().get() - this.get_y().get()) +
-                (point.get_z().get() - this.get_z().get()) * (point.get_z().get() - this.get_z().get()));
+        return ((point.getX().get() - this.getX().get()) * (point.getX().get() - this.getX().get()) +
+                (point.getY().get() - this.getY().get()) * (point.getY().get() - this.getY().get()) +
+                (point.getZ().get() - this.getZ().get()) * (point.getZ().get() - this.getZ().get()));
     }
 
     /**
@@ -124,6 +132,35 @@ public class Point3D {
      */
     public double distance(Point3D point) {
         return Math.sqrt(distanceSquared(point));
+    }
+
+    /**
+     * Create random points surround the point by given normal and radius.
+     *
+     * @param direction the direction
+     * @param radius    the radius
+     * @return the list
+     */
+    public List<Point3D> createRandomPoints(Vector direction, double radius, int numRays) {
+        if (radius == 0)
+            return null;
+        List<Point3D> randomPoints = new LinkedList<Point3D>();
+        Vector vX = direction.normalize().createNormal();
+        Vector vY = vX.crossProduct(direction.normalize());
+        double x, y;
+        for (int i = 0; i < numRays; i++) {
+            x = getRandom(-1, 1);
+            y = Math.sqrt(1 - x * x);
+            Point3D p = this;
+            x = alignZero(x * (getRandom(-radius, radius)));
+            y = alignZero(y * (getRandom(-radius, radius)));
+            if (x != 0)
+                p = p.add(vX.scale(x));
+            if (y != 0)
+                p = p.add(vY.scale(y));
+            randomPoints.add(p);
+        }
+        return randomPoints;
     }
 
     /************override functions*************/
@@ -139,9 +176,9 @@ public class Point3D {
     @Override
     public String toString() {
         return "(" +
-                get_x().toString() +
-                ", " + get_y().toString() +
-                ", " + get_z().toString() +
+                getX().toString() +
+                ", " + getY().toString() +
+                ", " + getZ().toString() +
                 ')';
     }
 

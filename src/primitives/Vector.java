@@ -4,6 +4,9 @@ package primitives;
  * The type Vector.
  */
 public class Vector {
+    /**
+     * The Head.
+     */
     protected Point3D _head;
 
     /****************** Constructor *******************/
@@ -64,7 +67,7 @@ public class Vector {
      *
      * @return Point3D head
      */
-    public Point3D get_head() {
+    public Point3D getHead() {
         return _head;
     }
 
@@ -96,9 +99,9 @@ public class Vector {
      * @return Vector vector
      */
     public Vector scale(double scalar) {
-        return new Vector(this._head.get_x().get() * scalar,
-                this._head.get_y().get() * scalar,
-                this._head.get_z().get() * scalar);
+        return new Vector(this._head.getX().get() * scalar,
+                this._head.getY().get() * scalar,
+                this._head.getZ().get() * scalar);
     }
 
     /**
@@ -109,9 +112,9 @@ public class Vector {
      * @return double double
      */
     public double dotProduct(Vector _vec) {
-        return (this._head.get_x().get() * _vec._head.get_x().get()) +
-                (this._head.get_y().get() * _vec._head.get_y().get()) +
-                (this._head.get_z().get() * _vec._head.get_z().get());
+        return (this._head.getX().get() * _vec._head.getX().get()) +
+                (this._head.getY().get() * _vec._head.getY().get()) +
+                (this._head.getZ().get() * _vec._head.getZ().get());
 
     }
 
@@ -124,9 +127,9 @@ public class Vector {
      */
     public Vector crossProduct(Vector _vector) {
         return new Vector((new Point3D(
-                this._head.get_y().get() * _vector._head.get_z().get() - this._head.get_z().get() * _vector._head.get_y().get(),
-                this._head.get_z().get() * _vector._head.get_x().get() - this._head.get_x().get() * _vector._head.get_z().get(),
-                this._head.get_x().get() * _vector._head.get_y().get() - this._head.get_y().get() * _vector._head.get_x().get())));
+                this._head.getY().get() * _vector._head.getZ().get() - this._head.getZ().get() * _vector._head.getY().get(),
+                this._head.getZ().get() * _vector._head.getX().get() - this._head.getX().get() * _vector._head.getZ().get(),
+                this._head.getX().get() * _vector._head.getY().get() - this._head.getY().get() * _vector._head.getX().get())));
     }
 
     /**
@@ -153,10 +156,41 @@ public class Vector {
      * @return the vector
      */
     public Vector normalize() {
-        this._head = new Point3D(this._head.get_x().get() / this.length(),
-                this._head.get_y().get() / this.length(),
-                this._head.get_z().get() / length());
+        this._head = new Point3D(this._head.getX().get() / this.length(),
+                this._head.getY().get() / this.length(),
+                this._head.getZ().get() / length());
         return this;
+    }
+
+    /**
+     * Create normal vector.
+     *
+     * @return the vector
+     */
+    public Vector createNormal() {
+        int min = 1;
+        double x = _head.getX().get(), y = _head.getY().get(), z = _head.getZ().get();
+        double minCoor = x > 0 ? x : -x;
+        if (Math.abs(y) < minCoor) {
+            minCoor = y > 0 ? y : -y;
+            min = 2;
+        }
+        if (Math.abs(z) < minCoor) {
+            min = 3;
+        }
+        switch (min) {
+            case 1: {
+                return new Vector(0, -z, y).normalize();
+            }
+            case 2: {
+                return new Vector(-z, 0, x).normalize();
+            }
+            case 3: {
+                return new Vector(y, -x, 0).normalize();
+            }
+            default:
+                throw new IllegalArgumentException("Unexpected value: " + min);
+        }
     }
 
     /**

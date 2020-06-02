@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.Random;
+
 /**
  * Util class is used for some internal utilities, e.g. controlling accuracy
  *
@@ -39,5 +41,10 @@ public abstract class Util {
      */
     public static double alignZero(double number) {
         return getExp(number) < ACCURACY ? 0.0 : number;
+    }
+
+    public static double getRandom(double min, double max) {
+        Random rand = new Random();
+        return rand.nextDouble() * (max - min) + min;
     }
 }

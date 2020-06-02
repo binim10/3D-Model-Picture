@@ -1,5 +1,11 @@
 package primitives;
 
+import elements.LightSource;
+import elements.SpotLight;
+
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * The type Ray.
  */
@@ -70,6 +76,23 @@ public class Ray {
      */
     public Point3D getPoint(double t) {
         return getPOO().add(getDirection().scale(t));
+    }
+
+    public List<Ray> createBeamRays(LightSource ls, Point3D point, Vector normal, int numRays) {
+        List<Ray> rayList = new LinkedList<Ray>();
+        rayList.add(this);
+        List<Point3D> pointList = ls.getPoints();
+        if (pointList == null && ls.getRadius() > 0) {//it is not directional light and it has a radius
+            pointList = ls.getPosition().createRandomPoints(_direction.normalize(), ls.getRadius(), numRays);
+            ls.setPoints(pointList);//it will store the points if is spot, other it will do nothing
+        }
+        if (pointList != null) {
+            for (Point3D p : pointList) {
+                Ray r = new Ray(point, p.subtract(point).normalize(), normal);
+                rayList.add(r);
+            }
+        }
+        return rayList;
     }
 
     @Override
