@@ -206,11 +206,11 @@ public class ReflectionRefractionTests {
 						new Point3D(-100, 400, 150), new Point3D(100, 400, 350), new Point3D(0, 200, 250)));
 
 		scene.addLights(new SpotLight(new Color(java.awt.Color.white), //
-						new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(5),
-				new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7).setRadius(5));
+						new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)),
+				new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7));
 
 		ImageWriter imageWriter = new ImageWriter("The magical room", 200, 200, 600, 600);
-		Render render = new Render(imageWriter, scene).setSuperSampling(200);
+		Render render = new Render(imageWriter, scene);
 
 		render.renderImage();
 		render.writeToImage();
