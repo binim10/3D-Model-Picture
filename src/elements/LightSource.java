@@ -11,6 +11,29 @@ import java.util.List;
  */
 public interface LightSource {
     /**
+     * Gets position if exist.
+     *
+     * @return the position (directional return null)
+     */
+
+    Point3D getPosition();
+
+    /**
+     * Gets radius if exist.
+     *
+     * @return the radius
+     */
+    double getRadius();
+
+    /**
+     * Sets radius if its possible.
+     *
+     * @param radius the radius
+     * @return the radius
+     */
+    LightSource setRadius(double radius);
+
+    /**
      * Gets intensity in a given point.
      * each light source calculated difference
      *
@@ -19,13 +42,20 @@ public interface LightSource {
      */
     Color getIntensity(Point3D point3D);
 
-    double getRadius();
+    /**
+     * Gets direction from spot Light, others return null
+     *
+     * @return the direction
+     */
+    Vector getDirection();
 
-    LightSource setRadius(double radius);
-
-    LightSource setPoints(List<Point3D> randPo);
-
-    Point3D getPosition();
+    /**
+     * Gets distance from a given point to position.
+     *
+     * @param point3D the point 3 d
+     * @return the distance
+     */
+    double getDistance(Point3D point3D);
 
     /**
      * Gets the vector from light source to the given point.
@@ -35,8 +65,18 @@ public interface LightSource {
      */
     Vector getL(Point3D point3D);
 
-    double getDistance(Point3D point3D);
-
+    /**
+     * Gets points list
+     *
+     * @return the points
+     */
     List<Point3D> getPoints();
 
+    /**
+     * Sets points ONLY for spotLight.
+     *
+     * @param randPo the random points
+     * @return the interface (directional and point lights will not store nothing)
+     */
+    void setPoints(List<Point3D> randPo);
 }

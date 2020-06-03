@@ -6,7 +6,6 @@ import geometries.Intersectable;
 import geometries.Intersectable.GeoPoint;
 import primitives.*;
 import scene.Scene;
-
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -22,7 +21,6 @@ public class Render {
     private Scene _scene;
     private int _superSampling;
 
-
     /**
      * Instantiates a new Render.
      *
@@ -32,13 +30,23 @@ public class Render {
     public Render(ImageWriter imageWriter, Scene scene) {
         this._imageWriter = imageWriter;
         this._scene = scene;
-
     }
 
+    /**
+     * Gets super sampling.
+     *
+     * @return the number of rays
+     */
     public int getSuperSampling() {
         return _superSampling;
     }
 
+    /**
+     * Sets super sampling.
+     *
+     * @param superSampling the super sampling
+     * @return the number of rays
+     */
     public Render setSuperSampling(int superSampling) {
         _superSampling = superSampling;
         return this;
@@ -135,7 +143,6 @@ public class Render {
         return color;
     }
 
-
     /**
      * Calculate Specular component of light reflection.
      *
@@ -171,7 +178,6 @@ public class Render {
         return lightIntensity.scale(kd * d);
     }
 
-
     /**
      * calculate the color according transparency.
      *
@@ -185,7 +191,7 @@ public class Render {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(gp.point, lightDirection, n);
         double ktr = 0, sumKtr = 0;
-        List<Ray> beamRays = lightRay.createBeamRays(ls, gp.point, n, getSuperSampling());
+        List<Ray> beamRays = lightRay.createRaysBeam(ls, gp.point, n, getSuperSampling());
         for (Ray r : beamRays) {
             List<GeoPoint> intersections = _scene.getGeometries().findIntersections(r);
             if (intersections == null) {
@@ -195,7 +201,6 @@ public class Render {
             double distance = ls.getDistance(gp.point);
             ktr = 1.0;
             for (GeoPoint g : intersections) {
-
                 if (alignZero(g.point.distance(gp.point) - distance) <= 0) {
                     if (ktr < MIN_CALC_COLOR_K) {
                         ktr = 0.0;
@@ -275,7 +280,6 @@ public class Render {
                 }
             }
         }
-
     }
 
     /**
@@ -285,5 +289,4 @@ public class Render {
     public void writeToImage() {
         _imageWriter.writeToImage();
     }
-
 }

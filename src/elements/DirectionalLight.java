@@ -7,7 +7,6 @@ import primitives.Vector;
 import java.util.List;
 
 public class DirectionalLight extends Light implements LightSource {
-
     private Vector _direction;
 
     /**
@@ -36,12 +35,17 @@ public class DirectionalLight extends Light implements LightSource {
     }
 
     @Override
-    public LightSource setPoints(List<Point3D> randPo) {
-        return this;
+    public void setPoints(List<Point3D> randPo) {
+        return;
     }
 
     @Override
     public Point3D getPosition() {
+        return null;
+    }
+
+    @Override
+    public Vector getDirection() {
         return null;
     }
 

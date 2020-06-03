@@ -1,25 +1,20 @@
 package primitives;
 
 import elements.LightSource;
-import elements.SpotLight;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.getRandom;
 
 /**
  * The type Ray.
  */
 public class Ray {
 
-    /**
-     * @param DELTA help me to move the point that help to true shadoe
-     */
     private static final double DELTA = 0.1;
-
-    // Point of origin
     private Point3D _POO;
-
-    // Ray direction
     private Vector _direction;
 
     /**
@@ -34,6 +29,13 @@ public class Ray {
         this._direction = direction.normalized();
     }
 
+    /**
+     * Instantiates a new Ray.
+     *
+     * @param poo       the poo
+     * @param direction the direction
+     * @param n         the n
+     */
     public Ray(Point3D poo, Vector direction, Vector n) {
         Vector delta = n.scale(n.dotProduct(direction) > 0 ? DELTA : -DELTA);
         _POO = new Point3D(poo.add(delta));
@@ -51,7 +53,7 @@ public class Ray {
     }
 
     /**
-     * Gets poo.
+     * Gets point of start
      *
      * @return the poo
      */
@@ -78,13 +80,26 @@ public class Ray {
         return getPOO().add(getDirection().scale(t));
     }
 
-    public List<Ray> createBeamRays(LightSource ls, Point3D point, Vector normal, int numRays) {
+    /**
+     * Create beam rays list.
+     *
+     * @param ls      the LightSource
+     * @param point   the point i want to calculate its color
+     * @param normal  the normal to the point
+     * @param numRays the number of rays in the beam
+     * @return the list
+     */
+    public List<Ray> createRaysBeam(LightSource ls, Point3D point, Vector normal, int numRays) {
         List<Ray> rayList = new LinkedList<Ray>();
         rayList.add(this);
-        List<Point3D> pointList = ls.getPoints();
+        List<Point3D> pointList = ls.getPoints();//in spot light i have already random points
         if (pointList == null && ls.getRadius() > 0) {//it is not directional light and it has a radius
-            pointList = ls.getPosition().createRandomPoints(_direction.normalize(), ls.getRadius(), numRays);
-            ls.setPoints(pointList);//it will store the points if is spot, other it will do nothing
+            Vector lightDirection = ls.getDirection();//only spot light return vector, other return null
+            if (lightDirection != null) {//case spot light in first time
+                pointList = createRandomPoints(ls.getPosition(), lightDirection, ls.getRadius(), numRays);
+                ls.setPoints(pointList);
+            } else//case point light
+                pointList = createRandomPoints(ls.getPosition(), _direction.normalize(), ls.getRadius(), numRays);
         }
         if (pointList != null) {
             for (Point3D p : pointList) {
@@ -93,6 +108,35 @@ public class Ray {
             }
         }
         return rayList;
+    }
+
+    /**
+     * Create random points surround the point by given normal and radius.
+     *
+     * @param centerPoint the center point
+     * @param direction   the direction
+     * @param radius      the radius
+     * @param numRays     the num rays
+     * @return the list
+     */
+    public List<Point3D> createRandomPoints(Point3D centerPoint, Vector direction, double radius, int numRays) {
+        List<Point3D> randomPoints = new LinkedList<Point3D>();
+        Vector vX = direction.normalize().createNormal();
+        Vector vY = vX.crossProduct(direction.normalize());
+        double x, y;
+        for (int i = 0; i < numRays; i++) {
+            x = getRandom(-1, 1);
+            y = Math.sqrt(1 - x * x);
+            Point3D p = centerPoint;
+            x = alignZero(x * (getRandom(-radius, radius)));
+            y = alignZero(y * (getRandom(-radius, radius)));
+            if (x != 0)
+                p = p.add(vX.scale(x));
+            if (y != 0)
+                p = p.add(vY.scale(y));
+            randomPoints.add(p);
+        }
+        return randomPoints;
     }
 
     @Override

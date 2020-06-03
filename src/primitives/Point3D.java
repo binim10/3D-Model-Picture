@@ -134,34 +134,6 @@ public class Point3D {
         return Math.sqrt(distanceSquared(point));
     }
 
-    /**
-     * Create random points surround the point by given normal and radius.
-     *
-     * @param direction the direction
-     * @param radius    the radius
-     * @return the list
-     */
-    public List<Point3D> createRandomPoints(Vector direction, double radius, int numRays) {
-        if (radius == 0)
-            return null;
-        List<Point3D> randomPoints = new LinkedList<Point3D>();
-        Vector vX = direction.normalize().createNormal();
-        Vector vY = vX.crossProduct(direction.normalize());
-        double x, y;
-        for (int i = 0; i < numRays; i++) {
-            x = getRandom(-1, 1);
-            y = Math.sqrt(1 - x * x);
-            Point3D p = this;
-            x = alignZero(x * (getRandom(-radius, radius)));
-            y = alignZero(y * (getRandom(-radius, radius)));
-            if (x != 0)
-                p = p.add(vX.scale(x));
-            if (y != 0)
-                p = p.add(vY.scale(y));
-            randomPoints.add(p);
-        }
-        return randomPoints;
-    }
 
     /************override functions*************/
     @Override

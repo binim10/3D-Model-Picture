@@ -40,7 +40,7 @@ public class ReflectionRefractionTests {
 				new Sphere(new Color(java.awt.Color.RED), new Material(0.5, 0.5, 100), 25, new Point3D(0, 0, 50)));
 
 		scene.addLights(new SpotLight(new Color(1000, 600, 0), new Point3D(-100, 100, -500), 1,
-				0.0004, 0.0000006, new Vector(-1, 1, 2), 1, 50));
+				0.0004, 0.0000006, new Vector(-1, 1, 2)));
 
 		ImageWriter imageWriter = new ImageWriter("twoSpheres", 150, 150, 500, 500);
 		Render render = new Render(imageWriter, scene);

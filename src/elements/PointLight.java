@@ -16,7 +16,6 @@ public class PointLight extends Light implements LightSource {
     protected double _kC, _kL, _kQ;
     protected double _radius;
 
-
     /**
      * Instantiates a new Point light.
      *
@@ -34,6 +33,16 @@ public class PointLight extends Light implements LightSource {
         _kQ = q;
     }
 
+    @Override
+    public Point3D getPosition() {
+        return _position;
+    }
+
+    @Override
+    public LightSource setRadius(double radius) {
+        _radius = radius;
+        return this;
+    }
 
     @Override
     public double getDistance(Point3D point3D) {
@@ -46,6 +55,11 @@ public class PointLight extends Light implements LightSource {
     }
 
     @Override
+    public double getRadius() {
+        return _radius;
+    }
+
+    @Override
     public Color getIntensity(Point3D point3D) {
         double disSq = point3D.distanceSquared(_position);
         double d = point3D.distance(_position);
@@ -53,25 +67,13 @@ public class PointLight extends Light implements LightSource {
     }
 
     @Override
-    public double getRadius() {
-        return _radius;
+    public Vector getDirection() {
+        return null;
     }
 
     @Override
-    public LightSource setRadius(double radius) {
-        _radius = radius;
-        return this;
-    }
-
-    @Override
-    public LightSource setPoints(List<Point3D> randPo) {
-        return this;
-    }
-
-
-    @Override
-    public Point3D getPosition() {
-        return _position;
+    public void setPoints(List<Point3D> randPo) {
+        return;
     }
 
     @Override

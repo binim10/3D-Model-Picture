@@ -15,7 +15,7 @@ import static primitives.Util.alignZero;
 public class SpotLight extends PointLight {
     private Vector _direction;
     private double _sharpsBeam;
-    protected List<Point3D> _randomPoints = null;
+    private List<Point3D> _randomPoints = null;
 
     /**
      * Instantiates a new Light.
@@ -31,26 +31,36 @@ public class SpotLight extends PointLight {
         this(intensity, position, c, l, q, direction, 1.0);
     }
 
+    /**
+     * Instantiates a new Spot light.
+     *
+     * @param intensity the intensity
+     * @param position  the position
+     * @param c         the c
+     * @param l         the l
+     * @param q         the q
+     * @param direction the direction
+     * @param sharps    the sharps
+     */
     public SpotLight(Color intensity, Point3D position, double c, double l, double q, Vector direction, double sharps) {
-        this(intensity, position, c, l, q, direction, sharps, 0);
-    }
-
-    public SpotLight(Color intensity, Point3D position, double c, double l, double q, Vector direction, double sharps, double radius) {
         super(intensity, position, c, l, q);
         _direction = direction.normalized();
         _sharpsBeam = sharps;
-        _radius = radius;
     }
 
     @Override
-    public LightSource setPoints(List<Point3D> randPo) {
-        _randomPoints = randPo;
-        return this;
+    public Vector getDirection() {
+        return _direction;
     }
 
     @Override
     public List<Point3D> getPoints() {
         return _randomPoints;
+    }
+
+    @Override
+    public void setPoints(List<Point3D> randPo) {
+        _randomPoints = randPo;
     }
 
     @Override
