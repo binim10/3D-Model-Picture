@@ -66,7 +66,9 @@ public interface LightSource {
     Vector getL(Point3D point3D);
 
     /**
-     * Gets points list
+     * Gets points list, this method return the random points list from spot light if exist,
+     * other return null.
+     * in point light and directional always return null
      *
      * @return the points
      */

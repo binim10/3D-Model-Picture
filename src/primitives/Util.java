@@ -10,6 +10,7 @@ import java.util.Random;
 public abstract class Util {
     // It is binary, equivalent to ~1/1,000,000,000,000 in decimal (12 digits)
     private static final int ACCURACY = -40;
+    private static final Random random = new Random();
 
     // double store format (bit level): seee eeee eeee (1.)mmmm � mmmm
     // 1 bit sign, 11 bits exponent, 53 bits (52 stored) normalized mantissa
@@ -43,8 +44,14 @@ public abstract class Util {
         return getExp(number) < ACCURACY ? 0.0 : number;
     }
 
+    /**
+     * Gets random by given min value and max value.
+     *
+     * @param min the min
+     * @param max the max
+     * @return the random
+     */
     public static double getRandom(double min, double max) {
-        Random rand = new Random();
-        return rand.nextDouble() * (max - min) + min;
+        return random.nextDouble() * (max - min) + min;
     }
 }

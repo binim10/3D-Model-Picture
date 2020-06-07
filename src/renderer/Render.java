@@ -6,6 +6,7 @@ import geometries.Intersectable;
 import geometries.Intersectable.GeoPoint;
 import primitives.*;
 import scene.Scene;
+
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -188,9 +189,10 @@ public class Render {
      * @return the boolean
      */
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint gp) {
-        Vector lightDirection = l.scale(-1); // from point to light source
+        Vector lightDirection = l.scale(-1); // from point to light source- BASIC SHADOW RAY
         Ray lightRay = new Ray(gp.point, lightDirection, n);
-        double ktr = 0, sumKtr = 0;
+        double ktr, sumKtr = 0;
+        double distance = ls.getDistance(gp.point);
         List<Ray> beamRays = lightRay.createRaysBeam(ls, gp.point, n, getSuperSampling());
         for (Ray r : beamRays) {
             List<GeoPoint> intersections = _scene.getGeometries().findIntersections(r);
@@ -198,7 +200,6 @@ public class Render {
                 sumKtr += 1.0;
                 continue;
             }
-            double distance = ls.getDistance(gp.point);
             ktr = 1.0;
             for (GeoPoint g : intersections) {
                 if (alignZero(g.point.distance(gp.point) - distance) <= 0) {

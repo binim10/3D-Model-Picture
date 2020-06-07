@@ -99,7 +99,7 @@ public class Ray {
                 pointList = createRandomPoints(ls.getPosition(), lightDirection, ls.getRadius(), numRays);
                 ls.setPoints(pointList);
             } else//case point light
-                pointList = createRandomPoints(ls.getPosition(), _direction.normalize(), ls.getRadius(), numRays);
+                pointList = createRandomPoints(ls.getPosition(), _direction, ls.getRadius(), numRays);
         }
         if (pointList != null) {
             for (Point3D p : pointList) {
@@ -119,10 +119,10 @@ public class Ray {
      * @param numRays     the num rays
      * @return the list
      */
-    public List<Point3D> createRandomPoints(Point3D centerPoint, Vector direction, double radius, int numRays) {
+    private List<Point3D> createRandomPoints(Point3D centerPoint, Vector direction, double radius, int numRays) {
         List<Point3D> randomPoints = new LinkedList<Point3D>();
-        Vector vX = direction.normalize().createNormal();
-        Vector vY = vX.crossProduct(direction.normalize());
+        Vector vX = direction.createNormal();
+        Vector vY = vX.crossProduct(direction);
         double x, y;
         for (int i = 0; i < numRays; i++) {
             x = getRandom(-1, 1);

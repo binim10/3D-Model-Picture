@@ -138,20 +138,20 @@ public class SoftShadow {
                 new Polygon(Color.BLACK, new Material(0.2, 0.2, 200, 0.9, 0),
                         new Point3D(-150, -150, 1999), new Point3D(-150, 200, 1999), new Point3D(150, 200, 1999), new Point3D(150, -150, 1999)),
                 new Sphere(new Color(800, 0, 0), new Material(0.5, 0.5, 200, 0.2, 0), // )
-                        140, new Point3D(260, 260, 500)),
+                        140, new Point3D(300, 260, 600)),
                 new Sphere(new Color(0, 0, 200), new Material(0.25, 0.25, 20, 0, 0.25), // )
                         140, new Point3D(-260, 260, 0)),
                 new Sphere(new Color(700, 20, 20), new Material(0.5, 0.5, 200, 0, 0), // )
-                        100, new Point3D(-300, 300, 1500)),
+                        100, new Point3D(-600, 300, 1300)),
                 new Triangle(new Color(100, 300, 100), new Material(0.5, 0.5, 100, 0.5, 0),
                         new Point3D(-100, 400, 150), new Point3D(100, 400, 350), new Point3D(0, 200, 250)));
 
-        scene.addLights(new SpotLight(new Color(java.awt.Color.white), //
+        scene.addLights(new SpotLight(new Color(700, 400, 400), //no. 1
                         new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(5),
-                new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7).setRadius(3),
-                new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -50, 1000), 1, 4E-5, 2E-7).setRadius(10));
+                new PointLight(new Color(200, 400, 200), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7).setRadius(5),//no.2
+                new PointLight(new Color(200, 200, 400), new Point3D(0.001, -50, 1000), 1, 4E-5, 2E-7).setRadius(10));//no.3
 
-        ImageWriter imageWriter = new ImageWriter("The magical room moving camera to right - soft shadow", 200, 200, 600, 600);
+        ImageWriter imageWriter = new ImageWriter("The magical room moving camera to right - soft shadow 3", 200, 200, 500, 500);
         Render render = new Render(imageWriter, scene).setSuperSampling(400);
 
         render.renderImage();

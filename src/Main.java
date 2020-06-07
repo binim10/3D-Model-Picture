@@ -1,6 +1,8 @@
 //Created by Zeev Abramovich ID 313583460 zevi3190@gmail.com
 // and Simcha Storch ID 308375823 binim1010@gmail.com
 
+import static primitives.Util.getRandom;
+
 /**
  * Test program for the 1st stage
  *
@@ -8,15 +10,12 @@
  */
 public final class Main {
 
-
-
     /**
      * Main program to tests initial functionality of the 1st stage
      *
      * @param args irrelevant here
      */
     public static void main(String[] args) {
-
 //        try {
 //
 //            File inputFile = new File("C:\\Users\\binim\\IdeaProjects\\IME5780\\basicRenderTestTwoColors.xml");

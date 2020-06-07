@@ -170,12 +170,12 @@ public class Vector {
     public Vector createNormal() {
         int min = 1;
         double x = _head.getX().get(), y = _head.getY().get(), z = _head.getZ().get();
-        double minCoor = x > 0 ? x : -x;
-        if (Math.abs(y) < minCoor) {
-            minCoor = y > 0 ? y : -y;
+        double minCoordinate = x > 0 ? x : -x;
+        if (Math.abs(y) < minCoordinate) {
+            minCoordinate = y > 0 ? y : -y;
             min = 2;
         }
-        if (Math.abs(z) < minCoor) {
+        if (Math.abs(z) < minCoordinate) {
             min = 3;
         }
         switch (min) {
