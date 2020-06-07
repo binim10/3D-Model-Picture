@@ -46,6 +46,7 @@ public abstract class Util {
 
     /**
      * Gets random by given min value and max value.
+     * Util method to create Random double numbers.
      *
      * @param min the min
      * @param max the max

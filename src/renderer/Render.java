@@ -44,6 +44,7 @@ public class Render {
 
     /**
      * Sets super sampling.
+     * number of Rays from the point, effected the image quality.
      *
      * @param superSampling the super sampling
      * @return the number of rays

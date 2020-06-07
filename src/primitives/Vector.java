@@ -163,7 +163,8 @@ public class Vector {
     }
 
     /**
-     * Create normal vector.
+     * Create normal vector orthogonal to the Vector.
+     * we decided to put this method in Vector Class because its create a normal *Vector*. (RDD).
      *
      * @return the vector
      */

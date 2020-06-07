@@ -81,7 +81,8 @@ public class Ray {
     }
 
     /**
-     * Create beam rays list.
+     * Create beam rays list from given point to the light source.
+     * we decided to put this method in ray class because its create Ray's.
      *
      * @param ls      the LightSource
      * @param point   the point i want to calculate its color
@@ -112,7 +113,7 @@ public class Ray {
 
     /**
      * Create random points surround the point by given normal and radius.
-     *
+     * help method to createRaysBeam. (RDD)
      * @param centerPoint the center point
      * @param direction   the direction
      * @param radius      the radius
