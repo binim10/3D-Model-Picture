@@ -39,7 +39,7 @@ public class SoftShadow {
                 new Point3D(-100, 100, -200), 1, 1E-5, 1.5E-7).setRadius(4));
 
         ImageWriter imageWriter = new ImageWriter("sphereTriangleInitial", 200, 200, 400, 400);
-        Render render = new Render(imageWriter, scene).setSuperSampling(200);
+        Render render = new Render(imageWriter, scene).setSuperSampling(500).setMultithreading(3).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();
@@ -79,7 +79,7 @@ public class SoftShadow {
                 new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7).setRadius(3));
 
         ImageWriter imageWriter = new ImageWriter("The magical room- soft shadow", 200, 200, 600, 600);
-        Render render = new Render(imageWriter, scene).setSuperSampling(200);
+        Render render = new Render(imageWriter, scene).setSuperSampling(200).setMultithreading(3).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();
@@ -111,7 +111,7 @@ public class SoftShadow {
                 new Point3D(60, -50, 0), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(12));
 
         ImageWriter imageWriter = new ImageWriter("soft shadow without transparency + triangle between -  500Ray 12Radius", 200, 200, 600, 600);
-        Render render = new Render(imageWriter, scene).setSuperSampling(500);
+        Render render = new Render(imageWriter, scene).setSuperSampling(500).setMultithreading(3).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();
@@ -129,30 +129,30 @@ public class SoftShadow {
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
 
         scene.addGeometries( //
-                new Plane(new Material(0.2, 0.1, 60, 0, 0), Color.BLACK,
+                new Plane(new Material(0.4, 0.1, 60, 0, 0), new Color(java.awt.Color.DARK_GRAY),
                         new Point3D(0, 400, 100), new Vector(0, -1, 0)),
-                new Polygon(Color.BLACK, new Material(0.2, 0.2, 200, 0.5, 0),
+                new Polygon(Color.BLACK, new Material(0.2, 0.3, 200, 0.5, 0),
                         new Point3D(-1, -300, 500), new Point3D(-1, -140, 500), new Point3D(1, -140, 500), new Point3D(1, -300, 500)),
-                new Sphere(new Color(java.awt.Color.yellow), new Material(0.2, 0.2, 200, 0, 0.8), // )
+                new Sphere(new Color(java.awt.Color.yellow), new Material(0.2, 0.2, 200, 0, 0.6), // )
                         80, new Point3D(-1, -120, 500)),
                 new Polygon(Color.BLACK, new Material(0.2, 0.2, 200, 0.9, 0),
                         new Point3D(-150, -150, 1999), new Point3D(-150, 200, 1999), new Point3D(150, 200, 1999), new Point3D(150, -150, 1999)),
-                new Sphere(new Color(800, 0, 0), new Material(0.5, 0.5, 200, 0.2, 0), // )
+                new Sphere(new Color(800, 0, 0), new Material(0.3, 0.5, 200, 0.2, 0), // )
                         140, new Point3D(300, 260, 600)),
                 new Sphere(new Color(0, 0, 200), new Material(0.25, 0.25, 20, 0, 0.25), // )
                         140, new Point3D(-260, 260, 0)),
-                new Sphere(new Color(700, 20, 20), new Material(0.5, 0.5, 200, 0, 0), // )
+                new Sphere(new Color(400, 20, 20), new Material(0.2, 0.5, 200, 0, 0.3), // )
                         100, new Point3D(-600, 300, 1300)),
-                new Triangle(new Color(100, 300, 100), new Material(0.5, 0.5, 100, 0.5, 0),
+                new Triangle(new Color(100, 300, 100), new Material(0.25, 0.5, 100, 0.25, 0),
                         new Point3D(-100, 400, 150), new Point3D(100, 400, 350), new Point3D(0, 200, 250)));
 
         scene.addLights(new SpotLight(new Color(700, 400, 400), //no. 1
-                        new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(5),
-                new PointLight(new Color(200, 400, 200), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7).setRadius(5),//no.2
-                new PointLight(new Color(200, 200, 400), new Point3D(0.001, -50, 1000), 1, 4E-5, 2E-7).setRadius(10));//no.3
+                        new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(15),
+                new PointLight(new Color(200, 400, 200), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7).setRadius(15),//no.2
+                new PointLight(new Color(200, 200, 400), new Point3D(0.001, -50, 1000), 1, 4E-5, 2E-7).setRadius(25));//no.3
 
-        ImageWriter imageWriter = new ImageWriter("The magical room moving camera to right - soft shadow 3", 200, 200, 500, 500);
-        Render render = new Render(imageWriter, scene).setSuperSampling(400);
+        ImageWriter imageWriter = new ImageWriter("The magical room moving camera to right - soft shadow 5", 200, 200, 1000, 1000);
+        Render render = new Render(imageWriter, scene).setSuperSampling(400).setMultithreading(3).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();

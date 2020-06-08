@@ -14,8 +14,8 @@ import static primitives.Util.getRandom;
 public class Ray {
 
     private static final double DELTA = 0.1;
-    private Point3D _POO;
-    private Vector _direction;
+    private final Point3D _POO;
+    private final Vector _direction;
 
     /**
      * Instantiates a new Ray.

@@ -11,8 +11,10 @@ import static primitives.Util.isZero;
  * The type Camera represent the rays/vectors the "camera" send to the view plane.
  */
 public class Camera {
-    private Point3D _p0;
-    private Vector _vUp, _vTo, _vRight;
+    private final Point3D _p0;
+    private final Vector _vUp;
+    private final Vector _vTo;
+    private final Vector _vRight;
 
     /**
      * Instantiates a new Camera.

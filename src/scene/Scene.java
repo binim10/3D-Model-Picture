@@ -15,10 +15,10 @@ import java.util.List;
  * The type Scene, represent the entire scene in an image.
  */
 public class Scene {
-    private String _name;
+    private final String _name;
     private Color _background;
     private AmbientLight _ambientLight;
-    private Geometries _geometries;
+    private final Geometries _geometries;
     private Camera _camera;
     private double _distance;
     List<LightSource> _lights = new LinkedList<LightSource>();

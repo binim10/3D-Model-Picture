@@ -14,7 +14,7 @@ public interface Intersectable {
     /**
      * The util class Get point.
      */
-    public static class GeoPoint {
+    class GeoPoint {
 
         public Geometry geometry;
         public Point3D point;

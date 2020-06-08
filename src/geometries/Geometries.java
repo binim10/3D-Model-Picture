@@ -12,7 +12,7 @@ import java.util.List;
  * The type Geometries to hold collection of intersectable's
  */
 public class Geometries implements Intersectable {
-    private List<Intersectable> _geometries;
+    private final List<Intersectable> _geometries;
 
     /**
      * Instantiates a new Geometries.

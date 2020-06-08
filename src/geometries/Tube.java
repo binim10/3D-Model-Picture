@@ -10,7 +10,7 @@ import java.util.List;
  * The type Tube.
  */
 public class Tube extends RadialGeometry {
-    private Ray _axisRay;
+    private final Ray _axisRay;
 
     /**
      * Instantiates a new Tube.

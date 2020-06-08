@@ -13,8 +13,8 @@ import static primitives.Util.alignZero;
  * The type Spot light.
  */
 public class SpotLight extends PointLight {
-    private Vector _direction;
-    private double _sharpsBeam;
+    private final Vector _direction;
+    private final double _sharpsBeam;
     private List<Point3D> _randomPoints = null;
 
     /**

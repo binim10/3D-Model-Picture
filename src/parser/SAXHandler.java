@@ -26,7 +26,7 @@ public class SAXHandler extends DefaultHandler {
     private Scene scene = null;
     private ImageWriter image = null;
     private Camera camera = null;
-    private Geometries geometriesList = new Geometries();
+    private final Geometries geometriesList = new Geometries();
     private Double d = null;
 
     //boolean ver for start/ end elements
@@ -169,7 +169,7 @@ public class SAXHandler extends DefaultHandler {
     }
 
     @Override
-    public void characters(char ch[], int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) throws SAXException {
         if (bScene) {
             scene.addGeometries(geometriesList);
             bScene = false;

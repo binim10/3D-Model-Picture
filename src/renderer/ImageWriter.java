@@ -18,17 +18,20 @@ import javax.imageio.*;
  * @author Dan
  */
 public class ImageWriter {
-    private double _imageWidth, _imageHeight;
-    private int _nX, _nY;
+    private final double _imageWidth;
+    private final double _imageHeight;
+    private final int _nX;
+    private final int _nY;
 
     private static final String FOLDER_PATH = System.getProperty("user.dir") + "/images";
 
-    private BufferedImage _image;
-    private String _imageName;
+    private final BufferedImage _image;
+    private final String _imageName;
 
-    private Logger _logger = Logger.getLogger("ImageWriter");
+    private final Logger _logger = Logger.getLogger("ImageWriter");
 
     // ***************** Constructors ********************** //
+
     /**
      * Image Writer constructor accepting image name and View Plane parameters,
      *

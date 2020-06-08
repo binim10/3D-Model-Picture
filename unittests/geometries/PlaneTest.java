@@ -68,11 +68,9 @@ public class PlaneTest {
 
         // TC09: Ray is neither orthogonal nor parallel to and begins at the plane(0 intersection)
         assertNull("", pl.findIntersections(new Ray(new Point3D(0, 2, 2), new Vector(-2, 5, 2))));
-        ;
 
         // TC10: Ray intersects the plane
         assertNull("", pl.findIntersections(new Ray(new Point3D(0, 0, 0), new Vector(-2, 5, 2))));
-        ;
 
     }
 }

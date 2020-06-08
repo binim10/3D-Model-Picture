@@ -4,8 +4,11 @@ package primitives;
  * The type Material.
  */
 public class Material {
-    private double _kD, _kS, _kT, _kR;
-    private int _nShininess;
+    private final double _kD;
+    private final double _kS;
+    private final double _kT;
+    private final double _kR;
+    private final int _nShininess;
 
     /**
      * Instantiates a new Material.

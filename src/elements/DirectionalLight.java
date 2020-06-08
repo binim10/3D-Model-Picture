@@ -7,7 +7,7 @@ import primitives.Vector;
 import java.util.List;
 
 public class DirectionalLight extends Light implements LightSource {
-    private Vector _direction;
+    private final Vector _direction;
 
     /**
      * Instantiates a new Light.
