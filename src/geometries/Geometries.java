@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * The type Geometries to hold collection of intersectable's
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
     private final List<Intersectable> _geometries;
 
     /**
@@ -36,7 +36,11 @@ public class Geometries implements Intersectable {
      * @param geometries the geometries
      */
     public void add(Intersectable... geometries) {
-        _geometries.addAll(Arrays.asList(geometries));
+        for (Intersectable geo : geometries) {
+            geo.createBox();
+            this.createBox(geo);
+            _geometries.add(geo);
+        }
     }
 
 
@@ -54,5 +58,15 @@ public class Geometries implements Intersectable {
         }
         return intersections;
 
+    }
+
+
+    void createBox(Intersectable inter) {
+        minX = inter.minX < minX ? inter.minX : minX;
+        maxX = inter.maxX > maxX ? inter.maxX : maxX;
+        minY = inter.minY < minY ? inter.minY : minY;
+        maxY = inter.maxY > maxY ? inter.maxY : maxY;
+        minZ = inter.minZ < minZ ? inter.minZ : minZ;
+        maxZ = inter.maxZ > maxZ ? inter.maxZ : maxZ;
     }
 }

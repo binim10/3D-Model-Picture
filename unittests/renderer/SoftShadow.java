@@ -36,7 +36,7 @@ public class SoftShadow {
                         new Point3D(-70, 40, 0), new Point3D(-40, 70, 0), new Point3D(-68, 68, 4)));
 
         scene.addLights(new PointLight(new Color(400, 240, 0),
-                new Point3D(-100, 100, -200), 1, 1E-5, 1.5E-7).setRadius(4));
+                new Point3D(-100, 100, -200), 1, 1E-5, 1.5E-7).setRadius(15));
 
         ImageWriter imageWriter = new ImageWriter("sphereTriangleInitial", 200, 200, 400, 400);
         Render render = new Render(imageWriter, scene).setSuperSampling(500).setMultithreading(3).setDebugPrint();

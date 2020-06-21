@@ -125,4 +125,16 @@ public class Polygon extends Geometry {
 
         return planeIntersections;
     }
+
+    @Override
+    void createBox() {
+        for (Point3D ver : _vertices) {
+            minX = Math.min(ver.getX().get(), minX);
+            maxX = Math.max(ver.getX().get(), maxX);
+            minY = Math.min(ver.getX().get(), minY);
+            maxY = Math.max(ver.getX().get(), maxY);
+            minZ = Math.min(ver.getX().get(), minZ);
+            maxZ = Math.max(ver.getX().get(), maxZ);
+        }
+    }
 }

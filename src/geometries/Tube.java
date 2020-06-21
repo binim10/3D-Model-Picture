@@ -54,4 +54,14 @@ public class Tube extends RadialGeometry {
     public List<GeoPoint> findIntersections(Ray ray) {
         return null;
     }
+
+    @Override
+    void createBox() {
+        minX = Double.NEGATIVE_INFINITY;
+        maxX = Double.POSITIVE_INFINITY;
+        minY = Double.NEGATIVE_INFINITY;
+        maxY = Double.POSITIVE_INFINITY;
+        minZ = Double.NEGATIVE_INFINITY;
+        maxZ = Double.POSITIVE_INFINITY;
+    }
 }
