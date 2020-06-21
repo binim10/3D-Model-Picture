@@ -9,11 +9,11 @@ import java.util.Objects;
 import static primitives.Util.alignZero;
 
 /**
- * The interface Intersectable.
+ * The abstract Intersectable.
  */
 public abstract class Intersectable {
 
-    double minX = Double.POSITIVE_INFINITY,
+  protected double minX = Double.POSITIVE_INFINITY,
             minY = Double.POSITIVE_INFINITY,
             minZ = Double.POSITIVE_INFINITY,
             maxX = Double.NEGATIVE_INFINITY,
@@ -23,7 +23,7 @@ public abstract class Intersectable {
     /**
      * The util class Get point.
      */
-    class GeoPoint {
+   public class GeoPoint {
 
         public Geometry geometry;
         public Point3D point;
@@ -95,7 +95,6 @@ public abstract class Intersectable {
             return false;
         return true;
     }
-
 
     void createBox() {
 
