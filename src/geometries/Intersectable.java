@@ -6,6 +6,8 @@ import primitives.*;
 import java.util.List;
 import java.util.Objects;
 
+import static primitives.Util.alignZero;
+
 /**
  * The interface Intersectable.
  */
@@ -60,34 +62,40 @@ public abstract class Intersectable {
         return null;
     }
 
-    List<GeoPoint> findBox(Ray ray) {
-        double rX = ray.getDirection().getHead().getX().get(),
-                rY = ray.getDirection().getHead().getY().get(),
-                rZ = ray.getDirection().getHead().getZ().get();
 
-        double tMin = (this.minX - ray.getPOO().getX().get()) / rX;
-        double tMax = (this.maxX - ray.getPOO().getX().get()) / rX;
+    public Boolean checkIntersectionWithBox(Ray ray) {
+        Point3D originRay = ray.getPOO();
+        Point3D headV = ray.getDirection().getHead();
+        double rayX = alignZero(headV.getX().get());
+        double rayY = alignZero(headV.getY().get());
+        double rayZ = alignZero(headV.getZ().get());
+        double rayPX = alignZero(originRay.getX().get());
+        double rayPY = alignZero(originRay.getY().get());
+        double rayPZ = alignZero(originRay.getZ().get());
 
-        double txMin = Math.min(tMin, tMax);
-        double txMax = Math.max(tMin, tMax);
+        if (rayX == 0 && (rayPX > this.maxX || rayPX < this.minX))
+            return false;
+        if (rayX > 0 && this.maxX < rayPX)
+            return false;
+        if (rayX < 0 && this.minX > rayPX)
+            return false;
 
-        tMin = (this.minY - ray.getPOO().getY().get()) / rY;
-        tMin = (this.maxY - ray.getPOO().getY().get()) / rY;
+        if (rayY == 0 && (rayPY > this.maxY || rayPY < this.minY))
+            return false;
+        if (rayY > 0 && this.maxY < rayPY)
+            return false;
+        if (rayY < 0 && this.minY > rayPY)
+            return false;
 
-        double tyMin = Math.min(tMin, tMax);
-        double tyMax = Math.max(tMin, tMax);
-
-        tMin = (this.minZ - ray.getPOO().getZ().get()) / rZ;
-        tMin = (this.maxZ - ray.getPOO().getZ().get()) / rZ;
-
-        double tzMin = Math.min(tmin, Math.min(tz1, tz2));
-        double tzMax = Math.max(tmax, Math.max(tz1, tz2));
-
-        if (tmax >= tmin)
-            return this.findIntersections(ray);
-        else
-            return null;
+        if (rayZ == 0 && (rayPZ > this.maxZ || rayPZ < this.minZ))
+            return false;
+        if (rayZ > 0 && this.maxZ < rayPZ)
+            return false;
+        if (rayZ < 0 && this.minZ > rayPZ)
+            return false;
+        return true;
     }
+
 
     void createBox() {
 

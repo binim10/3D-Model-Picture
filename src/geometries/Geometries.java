@@ -46,18 +46,12 @@ public class Geometries extends Intersectable {
 
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
-        List<GeoPoint> intersections = null;//if there isn't any intersections the list will be null.
-
+        List<GeoPoint> intersections = new LinkedList<GeoPoint>();
         for (Intersectable geo : _geometries) {
-            List<GeoPoint> tempIntersections = geo.findIntersections(ray);
-            if (tempIntersections != null) {
-                if (intersections == null)
-                    intersections = new LinkedList<GeoPoint>();
-                intersections.addAll(tempIntersections);
-            }
+            if (geo.checkIntersectionWithBox(ray))
+                intersections.addAll(geo.findIntersections(ray));
         }
         return intersections;
-
     }
 
 
