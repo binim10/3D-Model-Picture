@@ -37,7 +37,7 @@ public class Geometries extends Intersectable {
      */
     public void add(Intersectable... geometries) {
         for (Intersectable geo : geometries) {
-            geo.createBox();
+            this.createBox();
             this.createBox(geo);
             _geometries.add(geo);
         }
@@ -46,26 +46,43 @@ public class Geometries extends Intersectable {
 
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
-        List<GeoPoint> intersections = new LinkedList<GeoPoint>();
-        boolean a = false;
-        List<GeoPoint> tempIntersection = new LinkedList<GeoPoint>();
+        List<GeoPoint> intersections = null;//if there isn't any intersections the list will be null.
+        for (Intersectable geo : _geometries) {
+            List<GeoPoint> tempIntersections = geo.findIntersections(ray);
+            if (tempIntersections != null) {
+                if (intersections == null)
+                    intersections = new LinkedList<GeoPoint>();
+                intersections.addAll(tempIntersections);
+            }
+        }
+        return intersections;
+    }
+
+    @Override
+    public void createBox() {
+        return;
+    }
+
+    @Override
+    public List<GeoPoint> findIntersectionsBB(Ray ray) {
+        List<GeoPoint> intersections = new LinkedList<>();
+        List<GeoPoint> tempIntersection = new LinkedList<>();
         for (Intersectable geo : _geometries) {
             if (geo.checkIntersectionWithBox(ray))
-                tempIntersection = geo.findIntersections(ray);
+                tempIntersection = geo.findIntersectionsBB(ray);
             if (tempIntersection != null)
                 intersections.addAll(tempIntersection);
-            tempIntersection = null;
         }
-        return intersections.isEmpty() ? null : intersections;
+        return intersections;
     }
 
 
     void createBox(Intersectable inter) {
-        _minX = inter._minX < _minX ? inter._minX : _minX;
-        _maxX = inter._maxX > _maxX ? inter._maxX : _maxX;
-        _minY = inter._minY < _minY ? inter._minY : _minY;
-        _maxY = inter._maxY > _maxY ? inter._maxY : _maxY;
-        _minZ = inter._minZ < _minZ ? inter._minZ : _minZ;
-        _maxZ = inter._maxZ > _maxZ ? inter._maxZ : _maxZ;
+        _minX = Math.min(inter._minX, _minX);
+        _maxX = Math.max(inter._maxX, _maxX);
+        _minY = Math.min(inter._minY, _minY);
+        _maxY = Math.max(inter._maxY, _maxY);
+        _minZ = Math.min(inter._minZ, _minZ);
+        _maxZ = Math.max(inter._maxZ, _maxZ);
     }
 }

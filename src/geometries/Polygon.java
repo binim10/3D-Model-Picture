@@ -127,7 +127,7 @@ public class Polygon extends Geometry {
     }
 
     @Override
-    void createBox() {
+    public void createBox() {
         for (Point3D ver : _vertices) {
             _minX = Math.min(ver.getX().get(), _minX);
             _maxX = Math.max(ver.getX().get(), _maxX);

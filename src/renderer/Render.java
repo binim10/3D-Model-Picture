@@ -24,6 +24,8 @@ public class Render {
     private final int SPARE_THREADS = 2;
     private int _threads = 1;
     private boolean _print = false;
+    private boolean BVHImprove = false;
+
 
     /**
      * This function renders image's pixel color map from the scene included with
@@ -157,6 +159,11 @@ public class Render {
         return this;
     }
 
+    public Render setBVHImprove(boolean BVHImprove) {
+        this.BVHImprove = BVHImprove;
+        return this;
+    }
+
     /**
      * Calc color of given geo point.
      *
@@ -268,7 +275,8 @@ public class Render {
         double distance = ls.getDistance(gp.point);
         List<Ray> beamRays = lightRay.createRaysBeam(ls, gp.point, n, getSuperSampling());
         for (Ray r : beamRays) {
-            List<GeoPoint> intersections = _scene.getGeometries().findIntersections(r);
+            List<GeoPoint> intersections = BVHImprove ? _scene.getGeometries().findIntersectionsBB(r)
+                    : _scene.getGeometries().findIntersections(r);
             if (intersections == null) {
                 sumKtr += 1.0;
                 continue;
@@ -321,8 +329,9 @@ public class Render {
      * @return the geo point closest
      */
     private GeoPoint findClosestIntersection(Ray ray) {
-        List<GeoPoint> intersectionsPoints = _scene.getGeometries().findIntersections(ray);
-        if (intersectionsPoints == null)
+        List<GeoPoint> intersectionsPoints = BVHImprove ? _scene.getGeometries().findIntersectionsBB(ray) :
+                _scene.getGeometries().findIntersections(ray);
+        if (intersectionsPoints == null || intersectionsPoints.isEmpty())
             return null;
         Point3D rayStart = ray.getPOO();
         double min = Double.MAX_VALUE;

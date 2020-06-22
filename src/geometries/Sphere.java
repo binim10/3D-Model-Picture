@@ -94,15 +94,15 @@ public class Sphere extends RadialGeometry {
     }
 
     @Override
-    void createBox() {
+    public void createBox() {
         double x = _center.getX().get(),
                 y = _center.getY().get(),
                 z = _center.getZ().get();
-        _minX = x - _radius;
-        _maxX = x + _radius;
-        _minY = y - _radius;
-        _maxY = y + _radius;
-        _minZ = z - _radius;
-        _maxZ = z + _radius;
+        this._minX = x - _radius;
+        this._maxX = x + _radius;
+        this._minY = y - _radius;
+        this._maxY = y + _radius;
+        this._minZ = z - _radius;
+        this._maxZ = z + _radius;
     }
 }

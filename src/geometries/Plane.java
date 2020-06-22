@@ -111,7 +111,7 @@ public class Plane extends Geometry {
     }
 
     @Override
-    void createBox() {
+    public void createBox() {
         _minX = Double.NEGATIVE_INFINITY;
         _maxX = Double.POSITIVE_INFINITY;
         _minY = Double.NEGATIVE_INFINITY;

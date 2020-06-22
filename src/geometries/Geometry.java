@@ -1,9 +1,8 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Material;
-import primitives.Point3D;
-import primitives.Vector;
+import primitives.*;
+
+import java.util.List;
 
 /**
  * The interface Geometry.
@@ -35,6 +34,7 @@ public abstract class Geometry extends Intersectable {
      * @param material  the material
      */
     public Geometry(Color emmission, Material material) {
+        super();
         _emmission = emmission;
         _material = material;
     }
@@ -65,5 +65,10 @@ public abstract class Geometry extends Intersectable {
      */
     public abstract Vector getNormal(Point3D p);
 
-
+    @Override
+    public List<GeoPoint> findIntersectionsBB(Ray ray) {
+        if (checkIntersectionWithBox(ray))
+            return findIntersections(ray);
+        return null;
+    }
 }
