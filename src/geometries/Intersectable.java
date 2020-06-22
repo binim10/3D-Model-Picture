@@ -4,7 +4,6 @@ import primitives.*;
 
 
 import java.util.List;
-import java.util.Objects;
 
 import static primitives.Util.alignZero;
 
@@ -13,42 +12,42 @@ import static primitives.Util.alignZero;
  */
 public abstract class Intersectable {
 
-  protected double minX = Double.POSITIVE_INFINITY,
-            minY = Double.POSITIVE_INFINITY,
-            minZ = Double.POSITIVE_INFINITY,
-            maxX = Double.NEGATIVE_INFINITY,
-            maxY = Double.NEGATIVE_INFINITY,
-            maxZ = Double.NEGATIVE_INFINITY;
+    protected double _minX = Double.POSITIVE_INFINITY,
+            _minY = Double.POSITIVE_INFINITY,
+            _minZ = Double.POSITIVE_INFINITY,
+            _maxX = Double.NEGATIVE_INFINITY,
+            _maxY = Double.NEGATIVE_INFINITY,
+            _maxZ = Double.NEGATIVE_INFINITY;
 
     public Boolean checkIntersectionWithBox(Ray ray) {
         Point3D originRay = ray.getPOO();
         Point3D headV = ray.getDirection().getHead();
-        double rayX = alignZero(headV.getX().get());
-        double rayY = alignZero(headV.getY().get());
-        double rayZ = alignZero(headV.getZ().get());
+        double rayVX = alignZero(headV.getX().get());
+        double rayVY = alignZero(headV.getY().get());
+        double rayVZ = alignZero(headV.getZ().get());
         double rayPX = alignZero(originRay.getX().get());
         double rayPY = alignZero(originRay.getY().get());
         double rayPZ = alignZero(originRay.getZ().get());
 
-        if (rayX == 0 && (rayPX > this.maxX || rayPX < this.minX))
+        if (rayVX == 0 && (rayPX > this._maxX || rayPX < this._minX))
             return false;
-        if (rayX > 0 && this.maxX < rayPX)
+        if (rayVX > 0 && this._maxX < rayPX)
             return false;
-        if (rayX < 0 && this.minX > rayPX)
-            return false;
-
-        if (rayY == 0 && (rayPY > this.maxY || rayPY < this.minY))
-            return false;
-        if (rayY > 0 && this.maxY < rayPY)
-            return false;
-        if (rayY < 0 && this.minY > rayPY)
+        if (rayVX < 0 && this._minX > rayPX)
             return false;
 
-        if (rayZ == 0 && (rayPZ > this.maxZ || rayPZ < this.minZ))
+        if (rayVY == 0 && (rayPY > this._maxY || rayPY < this._minY))
             return false;
-        if (rayZ > 0 && this.maxZ < rayPZ)
+        if (rayVY > 0 && this._maxY < rayPY)
             return false;
-        return !(rayZ < 0) || !(this.minZ > rayPZ);
+        if (rayVY < 0 && this._minY > rayPY)
+            return false;
+
+        if (rayVZ == 0 && (rayPZ > this._maxZ || rayPZ < this._minZ))
+            return false;
+        if (rayVZ > 0 && this._maxZ < rayPZ)
+            return false;
+        return !(rayVZ < 0) || !(this._minZ > rayPZ);
     }
 
 

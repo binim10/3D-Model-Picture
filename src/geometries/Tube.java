@@ -57,11 +57,11 @@ public class Tube extends RadialGeometry {
 
     @Override
     void createBox() {
-        minX = Double.NEGATIVE_INFINITY;
-        maxX = Double.POSITIVE_INFINITY;
-        minY = Double.NEGATIVE_INFINITY;
-        maxY = Double.POSITIVE_INFINITY;
-        minZ = Double.NEGATIVE_INFINITY;
-        maxZ = Double.POSITIVE_INFINITY;
+        _minX = Double.NEGATIVE_INFINITY;
+        _maxX = Double.POSITIVE_INFINITY;
+        _minY = Double.NEGATIVE_INFINITY;
+        _maxY = Double.POSITIVE_INFINITY;
+        _minZ = Double.NEGATIVE_INFINITY;
+        _maxZ = Double.POSITIVE_INFINITY;
     }
 }

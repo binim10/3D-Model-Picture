@@ -98,11 +98,11 @@ public class Sphere extends RadialGeometry {
         double x = _center.getX().get(),
                 y = _center.getY().get(),
                 z = _center.getZ().get();
-        minX = x - _radius;
-        maxX = x + _radius;
-        minY = y - _radius;
-        maxY = y + _radius;
-        minZ = z - _radius;
-        maxZ = z + _radius;
+        _minX = x - _radius;
+        _maxX = x + _radius;
+        _minY = y - _radius;
+        _maxY = y + _radius;
+        _minZ = z - _radius;
+        _maxZ = z + _radius;
     }
 }

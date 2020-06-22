@@ -66,8 +66,7 @@ public class Render {
                 Thread thread : threads)
             try {
                 thread.join();
-            } catch (
-                    Exception e) {
+            } catch (Exception e) {
             }
         if (_print) System.out.printf("\r100%%\n");
     }
@@ -460,7 +459,7 @@ public class Render {
             int percents = nextP(target);
             if (percents > 0)
                 if (Render.this._print) {
-                    System.out.println(System.out.printf("\r %02d%%", percents));
+                    System.out.println(String.format("\r %02d%%", percents));
                 }
             if (percents >= 0)
                 return true;
