@@ -19,35 +19,64 @@ public abstract class Intersectable {
             _maxY = Double.NEGATIVE_INFINITY,
             _maxZ = Double.NEGATIVE_INFINITY;
 
+    /**
+     * boolean func to check if the ray intersect the ray
+     *
+     * @param ray
+     * @return true or false
+     */
     public Boolean checkIntersectionWithBox(Ray ray) {
-        Point3D originRay = ray.getPOO();
-        Point3D headV = ray.getDirection().getHead();
-        double rayVX = alignZero(headV.getX().get());
-        double rayVY = alignZero(headV.getY().get());
-        double rayVZ = alignZero(headV.getZ().get());
-        double rayPX = alignZero(originRay.getX().get());
-        double rayPY = alignZero(originRay.getY().get());
-        double rayPZ = alignZero(originRay.getZ().get());
 
-        if (rayVX == 0 && (rayPX > this._maxX || rayPX < this._minX))
-            return false;
-        if (rayVX > 0 && this._maxX < rayPX)
-            return false;
-        if (rayVX < 0 && this._minX > rayPX)
-            return false;
+        Point3D maxPoi = new Point3D(_maxX, _maxY, _maxZ);
+        Point3D minPoi = new Point3D(_minX, _minY, _minZ);
+        double pCX = ray.getPOO().getX().get();
+        double pCY = ray.getPOO().getY().get();
+        double pCZ = ray.getPOO().getZ().get();
 
-        if (rayVY == 0 && (rayPY > this._maxY || rayPY < this._minY))
-            return false;
-        if (rayVY > 0 && this._maxY < rayPY)
-            return false;
-        if (rayVY < 0 && this._minY > rayPY)
-            return false;
+        double pVX = ray.getDirection().getHead().getX().get();
+        double pVY = ray.getDirection().getHead().getY().get();
+        double pVZ = ray.getDirection().getHead().getZ().get();
 
-        if (rayVZ == 0 && (rayPZ > this._maxZ || rayPZ < this._minZ))
+        Point3D invDir = new Point3D(1d / pVX, 1d / pVY, 1d / pVZ);
+
+        boolean signDirX = invDir.getX().get() < 0;
+        boolean signDirY = invDir.getY().get() < 0;
+        boolean signDirZ = invDir.getZ().get() < 0;
+
+        Point3D bbox = signDirX ? maxPoi : minPoi;
+        double tXmin = (bbox.getX().get() - pCX) * invDir.getX().get();
+        bbox = signDirX ? minPoi : maxPoi;
+        double tXmax = (bbox.getX().get() - pCX) * invDir.getX().get();
+        bbox = signDirY ? maxPoi : minPoi;
+        double tYmin = (bbox.getY().get() - pCY) * invDir.getY().get();
+        bbox = signDirY ? minPoi : maxPoi;
+        double tYmax = (bbox.getY().get() - pCY) * invDir.getY().get();
+
+        if ((tXmin > tYmax) || (tYmin > tXmax)) {
+            return null;
+        }
+        if (tYmin > tXmin) {
+            tXmin = tYmin;
+        }
+        if (tYmax < tXmax) {
+            tXmax = tYmax;
+        }
+
+        bbox = signDirZ ? maxPoi : minPoi;
+        double tzmin = (bbox.getZ().get() - pCZ) * invDir.getZ().get();
+        bbox = signDirZ ? minPoi : maxPoi;
+        double tzmax = (bbox.getZ().get() - pCZ) * invDir.getZ().get();
+
+        if ((tXmin > tzmax) || (tzmin > tXmax)) {
             return false;
-        if (rayVZ > 0 && this._maxZ < rayPZ)
-            return false;
-        return !(rayVZ < 0) || !(this._minZ > rayPZ);
+        }
+        if (tzmin > tXmin) {
+            tXmin = tzmin;
+        }
+        if (tzmax < tXmax) {
+            tXmax = tzmax;
+        }
+        return true;
     }
 
 

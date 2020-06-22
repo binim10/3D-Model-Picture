@@ -48,7 +48,7 @@ public class Geometries extends Intersectable {
     public List<GeoPoint> findIntersections(Ray ray) {
         List<GeoPoint> intersections = new LinkedList<GeoPoint>();
         boolean a = false;
-        List<GeoPoint> tempIntersection = null;
+        List<GeoPoint> tempIntersection = new LinkedList<GeoPoint>();
         for (Intersectable geo : _geometries) {
             if (geo.checkIntersectionWithBox(ray))
                 tempIntersection = geo.findIntersections(ray);
@@ -61,11 +61,11 @@ public class Geometries extends Intersectable {
 
 
     void createBox(Intersectable inter) {
-        minX = inter.minX < minX ? inter.minX : minX;
-        maxX = inter.maxX > maxX ? inter.maxX : maxX;
-        minY = inter.minY < minY ? inter.minY : minY;
-        maxY = inter.maxY > maxY ? inter.maxY : maxY;
-        minZ = inter.minZ < minZ ? inter.minZ : minZ;
-        maxZ = inter.maxZ > maxZ ? inter.maxZ : maxZ;
+        _minX = inter._minX < _minX ? inter._minX : _minX;
+        _maxX = inter._maxX > _maxX ? inter._maxX : _maxX;
+        _minY = inter._minY < _minY ? inter._minY : _minY;
+        _maxY = inter._maxY > _maxY ? inter._maxY : _maxY;
+        _minZ = inter._minZ < _minZ ? inter._minZ : _minZ;
+        _maxZ = inter._maxZ > _maxZ ? inter._maxZ : _maxZ;
     }
 }
