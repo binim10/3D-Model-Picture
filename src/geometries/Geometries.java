@@ -37,7 +37,7 @@ public class Geometries extends Intersectable {
      */
     public void add(Intersectable... geometries) {
         for (Intersectable geo : geometries) {
-            this.createBox();
+            geo.createBox();
             this.createBox(geo);
             _geometries.add(geo);
         }
@@ -60,18 +60,27 @@ public class Geometries extends Intersectable {
 
     @Override
     public void createBox() {
-        return;
+        _minX = Double.POSITIVE_INFINITY;
+        _minY = Double.POSITIVE_INFINITY;
+        _minZ = Double.POSITIVE_INFINITY;
+        _maxX = Double.NEGATIVE_INFINITY;
+        _maxY = Double.NEGATIVE_INFINITY;
+        _maxZ = Double.NEGATIVE_INFINITY;
+
     }
 
     @Override
     public List<GeoPoint> findIntersectionsBB(Ray ray) {
-        List<GeoPoint> intersections = new LinkedList<>();
-        List<GeoPoint> tempIntersection = new LinkedList<>();
+        List<GeoPoint> intersections = null;
+        List<GeoPoint> tempIntersection = null;
         for (Intersectable geo : _geometries) {
-            if (geo.checkIntersectionWithBox(ray))
+            if (geo.checkIntersectionWithBox(ray)) {
+                tempIntersection = new LinkedList<GeoPoint>();
                 tempIntersection = geo.findIntersectionsBB(ray);
-            if (tempIntersection != null)
-                intersections.addAll(tempIntersection);
+            }
+            if (tempIntersection != null) {
+                intersections = new LinkedList<GeoPoint>(tempIntersection);
+            }
         }
         return intersections;
     }

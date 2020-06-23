@@ -65,10 +65,5 @@ public abstract class Geometry extends Intersectable {
      */
     public abstract Vector getNormal(Point3D p);
 
-    @Override
-    public List<GeoPoint> findIntersectionsBB(Ray ray) {
-        if (checkIntersectionWithBox(ray))
-            return findIntersections(ray);
-        return null;
-    }
+
 }

@@ -27,8 +27,6 @@ public abstract class Intersectable {
      * @return true or false
      */
     public Boolean checkIntersectionWithBox(Ray ray) {
-
-
         Point3D pV = ray.getDirection().getHead();
         Point3D pC = ray.getPOO();
         double pCX = pC.getX().get();
@@ -128,5 +126,11 @@ public abstract class Intersectable {
 
     public abstract void createBox();
 
-    public abstract List<GeoPoint> findIntersectionsBB(Ray ray);
+    public List<GeoPoint> findIntersectionsBB(Ray ray) {
+        if (checkIntersectionWithBox(ray))
+            return findIntersections(ray);
+        return null;
+    }
+
+    ;
 }

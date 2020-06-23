@@ -52,7 +52,7 @@ public class improveSpeed {
                         new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(10),
                 new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7));
 
-        ImageWriter imageWriter = new ImageWriter("The magical room with BVH 601Bodies 3 with SS", 200, 200, 600, 600);
+        ImageWriter imageWriter = new ImageWriter("The magical room with no BVH 601Bodies 3 with SS 200", 200, 200, 600, 600);
         Render render = new Render(imageWriter, scene).setSuperSampling(200).setMultithreading(3).setDebugPrint().setBVHImprove(true);
 
         render.renderImage();

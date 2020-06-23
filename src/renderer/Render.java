@@ -24,7 +24,7 @@ public class Render {
     private final int SPARE_THREADS = 2;
     private int _threads = 1;
     private boolean _print = false;
-    private boolean BVHImprove = false;
+    private boolean BVHImprove;
 
 
     /**
