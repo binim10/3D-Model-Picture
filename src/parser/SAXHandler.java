@@ -149,14 +149,14 @@ public class SAXHandler extends DefaultHandler {
             geometriesList.add(new Sphere(rad, center));
             bSphere = true;
         } else if (qName.equalsIgnoreCase("plane")) {
-            //TODO parser for plane
+
 
             bPlane = true;
         } else if (qName.equalsIgnoreCase("tube")) {
-            //TODO parser for tube
+
             bTube = true;
         } else if (qName.equalsIgnoreCase("lights")) {
-            //TODO parser for tube
+
             bLights = true;
         }
     }
@@ -194,7 +194,7 @@ public class SAXHandler extends DefaultHandler {
 
     public List<Double> getDoubleList(String s) {
         String[] arrString = s.split(" ");
-        List<Double> lisDouble = new ArrayList<Double>();
+        List<Double> lisDouble = new ArrayList<>();
         for (int i = 0; i < arrString.length; i++) {
             lisDouble.add(d = Double.parseDouble(arrString[i]));
         }

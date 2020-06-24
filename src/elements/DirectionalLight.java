@@ -36,7 +36,6 @@ public class DirectionalLight extends Light implements LightSource {
 
     @Override
     public void setPoints(List<Point3D> randPo) {
-        return;
     }
 
     @Override

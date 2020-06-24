@@ -129,12 +129,12 @@ public class Polygon extends Geometry {
     @Override
     public void createBox() {
         for (Point3D ver : _vertices) {
-            _minX = Math.min(ver.getX().get(), _minX);
-            _maxX = Math.max(ver.getX().get(), _maxX);
-            _minY = Math.min(ver.getY().get(), _minY);
-            _maxY = Math.max(ver.getY().get(), _maxY);
-            _minZ = Math.min(ver.getZ().get(), _minZ);
-            _maxZ = Math.max(ver.getZ().get(), _maxZ);
+            this._minX = Math.min(ver.getX().get(), this._minX);
+            this._maxX = Math.max(ver.getX().get(), this._maxX);
+            this._minY = Math.min(ver.getY().get(), this._minY);
+            this._maxY = Math.max(ver.getY().get(), this._maxY);
+            this._minZ = Math.min(ver.getZ().get(), this._minZ);
+            this._maxZ = Math.max(ver.getZ().get(), this._maxZ);
         }
     }
 }

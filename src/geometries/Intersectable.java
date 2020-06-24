@@ -5,8 +5,6 @@ import primitives.*;
 
 import java.util.List;
 
-import static primitives.Util.alignZero;
-
 /**
  * The abstract Intersectable.
  */
@@ -71,17 +69,7 @@ public abstract class Intersectable {
             tZmin = tZmax;
             tZmax = temp;
         }
-
-        if ((tXmin > tZmax) || (tZmin > tXmax))
-            return false;
-
-        if (tZmin > tXmin)
-            tXmin = tZmin;
-
-        if (tZmax < tXmax)
-            tXmax = tZmax;
-
-        return true;
+        return ((tXmin <= tZmax) && (tZmin <= tXmax));
     }
 
 
@@ -124,13 +112,11 @@ public abstract class Intersectable {
         }
     }
 
-    public abstract void createBox();
+    protected abstract void createBox();
 
     public List<GeoPoint> findIntersectionsBB(Ray ray) {
         if (checkIntersectionWithBox(ray))
             return findIntersections(ray);
         return null;
     }
-
-    ;
 }

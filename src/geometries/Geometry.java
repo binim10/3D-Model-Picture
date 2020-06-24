@@ -8,8 +8,8 @@ import java.util.List;
  * The interface Geometry.
  */
 public abstract class Geometry extends Intersectable {
-    protected Color _emmission;
-    protected Material _material;
+    protected final Color _emmission;
+    protected final Material _material;
 
     /**
      * Instantiates a new Geometry.

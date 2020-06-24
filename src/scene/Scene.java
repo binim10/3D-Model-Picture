@@ -21,7 +21,7 @@ public class Scene {
     private final Geometries _geometries;
     private Camera _camera;
     private double _distance;
-    List<LightSource> _lights = new LinkedList<LightSource>();
+    List<LightSource> _lights = new LinkedList<>();
 
     /**
      * Instantiates a new Scene.
@@ -147,9 +147,7 @@ public class Scene {
      * @param lights the lights
      */
     public void addLights(LightSource... lights) {
-        for (LightSource ls : lights) {
-            _lights.add(ls);
-        }
+        _lights.addAll(Arrays.asList(lights));
     }
 
 

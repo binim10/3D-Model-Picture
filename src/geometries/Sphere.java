@@ -51,20 +51,20 @@ public class Sphere extends RadialGeometry {
      *
      * @return the center
      */
-    public Point3D get_center() {
+    public Point3D getCenter() {
         return _center;
     }
 
     @Override
     public Vector getNormal(Point3D p) {
-        Vector v = p.subtract(get_center());
+        Vector v = p.subtract(getCenter());
         return v.normalize();
     }
 
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
         // Ray start at the center of the sphere
-        if (ray.getPOO().equals(get_center())) {
+        if (ray.getPOO().equals(getCenter())) {
             GeoPoint p = new GeoPoint(this, ray.getPoint(_radius));
             return List.of(p);
         }

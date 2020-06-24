@@ -1,10 +1,7 @@
 package geometries;
 
-import primitives.Point3D;
 import primitives.Ray;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class Geometries extends Intersectable {
      * Instantiates a new Geometries.
      */
     public Geometries() {
-        _geometries = new LinkedList<Intersectable>();
+        _geometries = new LinkedList<>();
     }
 
     /**
@@ -27,7 +24,9 @@ public class Geometries extends Intersectable {
      * @param geometries the geometries
      */
     public Geometries(Intersectable... geometries) {
-        this._geometries = Arrays.asList(geometries);
+        _geometries = new LinkedList<>();
+        this.add(geometries);
+
     }
 
     /**
@@ -51,7 +50,7 @@ public class Geometries extends Intersectable {
             List<GeoPoint> tempIntersections = geo.findIntersections(ray);
             if (tempIntersections != null) {
                 if (intersections == null)
-                    intersections = new LinkedList<GeoPoint>();
+                    intersections = new LinkedList<>();
                 intersections.addAll(tempIntersections);
             }
         }
@@ -60,13 +59,6 @@ public class Geometries extends Intersectable {
 
     @Override
     public void createBox() {
-        _minX = Double.POSITIVE_INFINITY;
-        _minY = Double.POSITIVE_INFINITY;
-        _minZ = Double.POSITIVE_INFINITY;
-        _maxX = Double.NEGATIVE_INFINITY;
-        _maxY = Double.NEGATIVE_INFINITY;
-        _maxZ = Double.NEGATIVE_INFINITY;
-
     }
 
     @Override
@@ -75,11 +67,12 @@ public class Geometries extends Intersectable {
         List<GeoPoint> tempIntersection = null;
         for (Intersectable geo : _geometries) {
             if (geo.checkIntersectionWithBox(ray)) {
-                tempIntersection = new LinkedList<GeoPoint>();
                 tempIntersection = geo.findIntersectionsBB(ray);
             }
             if (tempIntersection != null) {
-                intersections = new LinkedList<GeoPoint>(tempIntersection);
+                if (intersections == null)
+                    intersections = new LinkedList<>();
+                intersections.addAll(tempIntersection);
             }
         }
         return intersections;
@@ -87,11 +80,11 @@ public class Geometries extends Intersectable {
 
 
     void createBox(Intersectable inter) {
-        _minX = Math.min(inter._minX, _minX);
-        _maxX = Math.max(inter._maxX, _maxX);
-        _minY = Math.min(inter._minY, _minY);
-        _maxY = Math.max(inter._maxY, _maxY);
-        _minZ = Math.min(inter._minZ, _minZ);
-        _maxZ = Math.max(inter._maxZ, _maxZ);
+        this._minX = Math.min(inter._minX, this._minX);
+        this._maxX = Math.max(inter._maxX, this._maxX);
+        this._minY = Math.min(inter._minY, this._minY);
+        this._maxY = Math.max(inter._maxY, this._maxY);
+        this._minZ = Math.min(inter._minZ, this._minZ);
+        this._maxZ = Math.max(inter._maxZ, this._maxZ);
     }
 }

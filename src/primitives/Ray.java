@@ -91,7 +91,7 @@ public class Ray {
      * @return the list
      */
     public List<Ray> createRaysBeam(LightSource ls, Point3D point, Vector normal, int numRays) {
-        List<Ray> rayList = new LinkedList<Ray>();
+        List<Ray> rayList = new LinkedList<>();
         rayList.add(this);
         List<Point3D> pointList = ls.getPoints();//in spot light i have already random points
         if (pointList == null && ls.getRadius() > 0) {//it is not directional light and it has a radius
@@ -121,7 +121,7 @@ public class Ray {
      * @return the list
      */
     private List<Point3D> createRandomPoints(Point3D centerPoint, Vector direction, double radius, int numRays) {
-        List<Point3D> randomPoints = new LinkedList<Point3D>();
+        List<Point3D> randomPoints = new LinkedList<>();
         Vector vX = direction.createNormal();
         Vector vY = vX.crossProduct(direction);
         double x, y;

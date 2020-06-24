@@ -70,7 +70,7 @@ public class Render {
                 thread.join();
             } catch (Exception e) {
             }
-        if (_print) System.out.printf("\r100%%\n");
+        if (_print) System.out.print("\r100%%\n");
     }
 
 
@@ -275,8 +275,11 @@ public class Render {
         double distance = ls.getDistance(gp.point);
         List<Ray> beamRays = lightRay.createRaysBeam(ls, gp.point, n, getSuperSampling());
         for (Ray r : beamRays) {
-            List<GeoPoint> intersections = BVHImprove ? _scene.getGeometries().findIntersectionsBB(r)
-                    : _scene.getGeometries().findIntersections(r);
+            List<GeoPoint> intersections;
+            if (BVHImprove)
+                intersections = _scene.getGeometries().findIntersectionsBB(r);
+            else
+                intersections = _scene.getGeometries().findIntersections(r);
             if (intersections == null) {
                 sumKtr += 1.0;
                 continue;
@@ -329,9 +332,12 @@ public class Render {
      * @return the geo point closest
      */
     private GeoPoint findClosestIntersection(Ray ray) {
-        List<GeoPoint> intersectionsPoints = BVHImprove ? _scene.getGeometries().findIntersectionsBB(ray) :
-                _scene.getGeometries().findIntersections(ray);
-        if (intersectionsPoints == null || intersectionsPoints.isEmpty())
+        List<GeoPoint> intersectionsPoints;
+        if (BVHImprove)
+            intersectionsPoints = _scene.getGeometries().findIntersectionsBB(ray);
+        else
+            intersectionsPoints = _scene.getGeometries().findIntersections(ray);
+        if (intersectionsPoints == null)
             return null;
         Point3D rayStart = ray.getPOO();
         double min = Double.MAX_VALUE;
