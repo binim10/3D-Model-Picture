@@ -334,6 +334,7 @@ public class Render {
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> intersectionsPoints;
         if (BVHImprove)
+
             intersectionsPoints = _scene.getGeometries().findIntersectionsBB(ray);
         else
             intersectionsPoints = _scene.getGeometries().findIntersections(ray);

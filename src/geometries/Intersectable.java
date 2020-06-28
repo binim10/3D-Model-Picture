@@ -119,4 +119,25 @@ public abstract class Intersectable {
             return findIntersections(ray);
         return null;
     }
+    /**
+     * Calculate the distance between two geometries
+     * according the middle of they boxes
+     * @param geoI
+     * @param geoJ
+     * @return The distance between geoI to geoJ
+     */
+    public static double distance(Intersectable geoI, Intersectable geoJ) {
+        double midX, midY, midZ;
+        midX = (geoI._minX + geoI._maxX) / 2d;
+        midY = (geoI._minY + geoI._maxY) / 2d;
+        midZ = (geoI._minZ + geoI._maxZ) / 2d;
+        Point3D pGeoI = new Point3D(midX, midY, midZ);
+
+        midX = (geoJ._minX + geoJ._maxX) / 2d;
+        midY = (geoJ._minY + geoJ._maxY) / 2d;
+        midZ = (geoJ._minZ + geoJ._maxZ) / 2d;
+        Point3D pGeoJ = new Point3D(midX, midY, midZ);
+
+        return pGeoI.distance(pGeoJ);
+    }
 }

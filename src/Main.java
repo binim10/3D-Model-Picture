@@ -82,6 +82,11 @@ public final class Main {
 //            out.println("ERROR: Point - Point does not work correctly");
 //
 //        out.println("If there were no any other outputs - all tests succeeded!");
+      /*for(int i=0;i<10;i=i++){
+          i+=1;
+          System.out.println("h");*/
+
+
 
     }
 }

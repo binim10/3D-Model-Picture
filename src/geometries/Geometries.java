@@ -26,7 +26,6 @@ public class Geometries extends Intersectable {
     public Geometries(Intersectable... geometries) {
         _geometries = new LinkedList<>();
         this.add(geometries);
-
     }
 
     /**
@@ -79,6 +78,11 @@ public class Geometries extends Intersectable {
     }
 
 
+    /**
+     * Create box.
+     *
+     * @param inter the inter
+     */
     void createBox(Intersectable inter) {
         this._minX = Math.min(inter._minX, this._minX);
         this._maxX = Math.max(inter._maxX, this._maxX);
@@ -87,4 +91,81 @@ public class Geometries extends Intersectable {
         this._minZ = Math.min(inter._minZ, this._minZ);
         this._maxZ = Math.max(inter._maxZ, this._maxZ);
     }
+
+    /**
+     * Create a BVH hierarchy tree from collection of geometries
+     * Note : the tree contained only the finite geometries (and the infinite geometries
+     * will be separately within the collection)
+     */
+    public void buildHierarchyTreeN3() {
+        List<Intersectable> infiniteGeometries = new LinkedList<>();//temp list for the plane
+        for(Intersectable geo: _geometries){
+            if(geo instanceof Plane)
+                infiniteGeometries.add(geo);
+        }
+        _geometries.removeAll(infiniteGeometries);
+        double distance=0;
+        Intersectable left = null;
+        Intersectable right = null;
+        while (_geometries.size() > 1) {//stop when has only one geometries in the list
+            double best = Double.POSITIVE_INFINITY;
+            for (Intersectable geoI : _geometries)
+                for (Intersectable geoJ : _geometries) {
+                    if (geoI != geoJ && (distance = distance(geoI, geoJ)) < best) {
+                        best = distance;
+                        left = geoI;
+                        right = geoJ;
+                    }
+                }
+            Geometries tempGeometries = new Geometries(left, right);
+            _geometries.remove(left);
+            _geometries.remove(right);
+            _geometries.add(tempGeometries);
+            System.out.println(_geometries.size());
+        }
+        _geometries.addAll(infiniteGeometries);//after i have only one geometry in the list, i add the infinite geometries to the list
+    }
+
+    /**
+     * Create a BVH hierarchy tree from collection of geometries
+     * Note : the tree contained only the finite geometries (and the infinite geometries
+     * will be separately within the collection)
+     */
+    public void buildHierarchyTreeN2() {
+        List<Intersectable> infiniteGeometries = new LinkedList<>();//temp list for the plane
+        for(Intersectable geo: _geometries){
+            if(geo instanceof Plane)
+                infiniteGeometries.add(geo);
+        }
+        _geometries.removeAll(infiniteGeometries);
+        double distance=0;
+        Intersectable left = null;
+        Intersectable right = null;
+        while (_geometries.size() > 1) {//stop when has only one geometries in the list
+            double best = Double.POSITIVE_INFINITY;
+            Intersectable geoI = _geometries.get(0);
+                for (Intersectable geoJ : _geometries) {
+                    if (geoI != geoJ && (distance = distance(geoI, geoJ)) < best) {
+                        best = distance;
+                        left = geoI;
+                        right = geoJ;
+                    }
+                }
+            Geometries tempGeometries = new Geometries(left, right);
+            _geometries.remove(left);
+            _geometries.remove(right);
+            _geometries.add(tempGeometries);
+            System.out.println(_geometries.size());
+        }
+        _geometries.addAll(infiniteGeometries);//after i have only one geometry in the list, i add the infinite geometries to the list
+    }
+
+   public void buildHierarchyTree(){
+        if (_geometries.size()>1000)
+            buildHierarchyTreeN2();
+        else
+            buildHierarchyTreeN3();
+    }
 }
+
+
