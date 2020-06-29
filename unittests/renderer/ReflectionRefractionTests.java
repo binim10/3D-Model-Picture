@@ -11,7 +11,6 @@ import elements.*;
 import geometries.Sphere;
 import geometries.Triangle;
 import primitives.*;
-import renderer.*;
 import scene.Scene;
 
 
@@ -199,22 +198,22 @@ public class ReflectionRefractionTests {
 				new Sphere(new Color(800, 0, 0), new Material(0.5, 0.5, 200, 0.5, 0), // )
 						140, new Point3D(260, 260, 500)),
 				new Sphere(new Color(0, 0, 200), new Material(0.25, 0.25, 20, 0, 0.5), // )
-						140, new Point3D(-260, 260, 0)),
-				new Sphere(new Color(700, 20, 20), new Material(0.5, 0.5, 200, 0.5, 0), // )
-						100, new Point3D(-300, 300, 1500)),
-				new Triangle(new Color(100, 300, 100), new Material(0.5, 0.5, 100, 0.5, 0.5),
-						new Point3D(-100, 400, 150), new Point3D(100, 400, 350), new Point3D(0, 200, 250)));
+                        140, new Point3D(-260, 260, 0)),
+                new Sphere(new Color(700, 20, 20), new Material(0.5, 0.5, 200, 0.5, 0), // )
+                        100, new Point3D(-300, 300, 1500)),
+                new Triangle(new Color(100, 300, 100), new Material(0.5, 0.5, 100, 0.5, 0.5),
+                        new Point3D(-100, 400, 150), new Point3D(100, 400, 350), new Point3D(0, 200, 250)));
 
-		scene.addLights(new SpotLight(new Color(java.awt.Color.white), //
-						new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)),
-				new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7));
+        scene.addLights(new SpotLight(new Color(java.awt.Color.white), //
+                        new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(10),
+                new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7).setRadius(10));
 
-		ImageWriter imageWriter = new ImageWriter("The magical room", 200, 200, 600, 600);
-		Render render = new Render(imageWriter, scene);
-
-		render.renderImage();
-		render.writeToImage();
-	}
+        ImageWriter imageWriter = new ImageWriter("The magical room with BVH algo", 200, 200, 600, 600);
+        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint().setBVHImprove(true).setSuperSampling(300);
+        scene.getGeometries().buildHierarchyTree();
+        render.renderImage();
+        render.writeToImage();
+    }
 
 	/**
 	 * bonus t move camera.
@@ -350,14 +349,62 @@ public class ReflectionRefractionTests {
 						new Point3D(-100, 400, 150), new Point3D(100, 400, 350), new Point3D(0, 200, 250)));
 
 		scene.addLights(new SpotLight(new Color(java.awt.Color.white), //
-						new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)),
-				new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7));
+                        new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)),
+                new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7));
 
-		ImageWriter imageWriter = new ImageWriter("The magical room moving camera to down", 200, 200, 600, 600);
-		Render render = new Render(imageWriter, scene);
+        ImageWriter imageWriter = new ImageWriter("The magical room moving camera to down", 200, 200, 600, 600);
+        Render render = new Render(imageWriter, scene);
 
-		render.renderImage();
-		render.writeToImage();
-	}
+        render.renderImage();
+        render.writeToImage();
+    }
+
+    @Test
+    public void magicalRoomBVH() {
+        Scene scene = new Scene("Test scene");
+        scene.setCamera(new Camera(new Point3D(0, 0, -10000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
+        scene.setDistance(1000);
+        scene.setBackground(Color.BLACK);
+        scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
+
+        scene.addGeometries( //
+                //right wall
+                new Plane(new Material(0.2, 0.2, 60, 0.3, 0.2), Color.BLACK,
+                        new Point3D(400, 0, 100), new Vector(-1, 0, 0)),
+                //ceiling
+                new Plane(new Material(0.2, 0.2, 60, 0.3, 0.2), Color.BLACK,
+                        new Point3D(0, 400, 100), new Vector(0, -1, 0)),
+                new Plane(new Material(0.2, 0.2, 60, 0.3, 0.2), Color.BLACK,
+                        new Point3D(-400, 0, 100), new Vector(1, 0, 0)),
+                new Plane(new Material(0, 0, 0, 0, 0), Color.BLACK,
+                        new Point3D(0, 0, 3000), new Vector(0, 0, -1)),
+                new Plane(new Material(0.2, 0.2, 60, 0.1, 1), Color.BLACK,
+                        new Point3D(0, -300, 500), new Vector(0, 1, 0)),
+                new Polygon(Color.BLACK, new Material(0.2, 0.2, 200, 0.5, 0),
+                        new Point3D(-1, -300, 500), new Point3D(-1, -140, 500), new Point3D(1, -140, 500), new Point3D(1, -300, 500)),
+                new Sphere(new Color(java.awt.Color.yellow), new Material(0.2, 0.2, 200, 0, 0.8), // )
+                        80, new Point3D(-1, -120, 500)),
+                new Polygon(Color.BLACK, new Material(0.2, 0.2, 200, 0.9, 0),
+                        new Point3D(-150, -150, 1999), new Point3D(-150, 200, 1999), new Point3D(150, 200, 1999), new Point3D(150, -150, 1999)),
+                new Sphere(new Color(800, 0, 0), new Material(0.5, 0.5, 200, 0.5, 0), // )
+                        140, new Point3D(260, 260, 500)),
+                new Sphere(new Color(0, 0, 200), new Material(0.25, 0.25, 20, 0, 0.5), // )
+                        140, new Point3D(-260, 260, 0)),
+                new Sphere(new Color(700, 20, 20), new Material(0.5, 0.5, 200, 0.5, 0), // )
+                        100, new Point3D(-300, 300, 1500)),
+                new Triangle(new Color(100, 300, 100), new Material(0.5, 0.5, 100, 0.5, 0.5),
+                        new Point3D(-100, 400, 150), new Point3D(100, 400, 350), new Point3D(0, 200, 250)));
+
+        scene.addLights(new SpotLight(new Color(java.awt.Color.white), //
+                        new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(10),
+                new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7).setRadius(10));
+
+        ImageWriter imageWriter = new ImageWriter("The magical room with BVH algo", 200, 200, 600, 600);
+        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint().setBVHImprove(true).setSuperSampling(300);
+        scene.getGeometries().buildHierarchyTree();
+        render.renderImage();
+        render.writeToImage();
+    }
+
 
 }

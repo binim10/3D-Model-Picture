@@ -165,7 +165,7 @@ public class Geometries extends Intersectable {
             buildHierarchyTreeN2();
         else
             buildHierarchyTreeN3();
-    }
+   }
 }
 
 

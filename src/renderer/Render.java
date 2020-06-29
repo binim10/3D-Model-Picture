@@ -24,7 +24,7 @@ public class Render {
     private final int SPARE_THREADS = 2;
     private int _threads = 1;
     private boolean _print = false;
-    private boolean BVHImprove;
+    private boolean _BVHImprove;
 
 
     /**
@@ -159,8 +159,10 @@ public class Render {
         return this;
     }
 
-    public Render setBVHImprove(boolean BVHImprove) {
-        this.BVHImprove = BVHImprove;
+    public Render setBVHImprove(boolean bvhImprove) {
+        this._BVHImprove = bvhImprove;
+        if (bvhImprove)
+            _scene.getGeometries().buildHierarchyTree();
         return this;
     }
 
@@ -276,7 +278,7 @@ public class Render {
         List<Ray> beamRays = lightRay.createRaysBeam(ls, gp.point, n, getSuperSampling());
         for (Ray r : beamRays) {
             List<GeoPoint> intersections;
-            if (BVHImprove)
+            if (_BVHImprove)
                 intersections = _scene.getGeometries().findIntersectionsBB(r);
             else
                 intersections = _scene.getGeometries().findIntersections(r);
@@ -333,10 +335,9 @@ public class Render {
      */
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> intersectionsPoints;
-        if (BVHImprove)
-
+        if (_BVHImprove) {
             intersectionsPoints = _scene.getGeometries().findIntersectionsBB(ray);
-        else
+        } else
             intersectionsPoints = _scene.getGeometries().findIntersections(ray);
         if (intersectionsPoints == null)
             return null;

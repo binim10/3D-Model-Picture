@@ -1,9 +1,6 @@
 package renderer;
 
-import elements.AmbientLight;
-import elements.Camera;
-import elements.PointLight;
-import elements.SpotLight;
+import elements.*;
 import geometries.*;
 import org.junit.Test;
 import primitives.Color;
@@ -375,45 +372,74 @@ public class improveSpeed {
                 d = new Geometries();
 
         //the sea
-        a.add(new Plane(new Material(0.5, 0.4, 100, 0.001, 0), new Color(java.awt.Color.BLUE), //
-                new Point3D(-150, 200, 115), new Vector(0, 1, 0)));/*, ////
+        scene.addGeometries(new Plane(new Material(0.5, 0.4, 100, 0.001, 0), new Color(java.awt.Color.BLUE), //
+                        new Point3D(-150, 200, 115), new Vector(0, 1, 0)),/*, ////
 				new Sphere(new Color(java.awt.Color.BLUE), new Material(0.2, 0.2, 30, 0.2, 0), // )
 						80, new Point3D(180, -180, 2000))*/
-        b.add(new Sphere(new Color(200, 200, 0), new Material(0.5, 0.5, 200, 0, 0.2), // )
-                        100, new Point3D(290, -290, 1000)),
+                new Sphere(new Color(java.awt.Color.yellow), new Material(0.1, 0, 200, 0.1, 0), // )
+                        3000, new Point3D(12900, -12900, 100000)),
                 new Sphere(new Color(java.awt.Color.BLACK), new Material(0, 0, 100, 0, 1), // )
-                        50, new Point3D(60, -50, -10000)));
-        //the sky
-        a.add(new Plane(new Material(0.2, 0.2, 70, 0, 0.5), new Color(100, 100, 500), //
-                new Point3D(0, 0, 30000), new Vector(0, 0, 1)));
-        //the right shift
-        c.add(new Triangle(Color.BLACK, new Material(0.8, 0.5, 60), new Point3D(0, 125, 1200),
+                        50, new Point3D(60, -50, -10000)),
+                //the sky
+                new Plane(new Material(0.2, 0.2, 70, 0, 0.5), new Color(100, 100, 500), //
+                        new Point3D(0, 0, 100000), new Vector(0, 0, 1)),
+                //the right shift
+                new Triangle(new Color(java.awt.Color.LIGHT_GRAY), new Material(0, 0.2, 60), new Point3D(0, 125, 1200),
                         new Point3D(0, -100, 1200), new Point3D(90, 125, 1210)),
-                new Triangle(Color.BLACK, new Material(0.8, 0.5, 60), new Point3D(0, 125, 1200),
+                new Triangle(new Color(java.awt.Color.LIGHT_GRAY), new Material(0, 0.2, 60), new Point3D(0, 125, 1200),
                         new Point3D(0, -100, 1200), new Point3D(-90, 125, 1210)),
-                new Polygon(Color.BLACK, new Material(0.2, 0.5, 60), new Point3D(-150, 125, 1200),
-                        new Point3D(-105, 200, 1200), new Point3D(105, 200, 1200), new Point3D(150, 125, 1200)));
-        //the left shift
-        //                new Triangle(Color.BLACK, new Material(0.8, 0.5, 60), new Point3D(-40, 5, 300),
-        //                        new Point3D(-40, -10, 300), new Point3D(-34, 5, 305)),
-        //                new Triangle(Color.BLACK, new Material(0.8, 0.5, 60), new Point3D(-40, 5, 300),
-        //                        new Point3D(-40, -10, 300), new Point3D(-46, 5, 305)),
-        //                new Polygon(Color.BLACK, new Material(0.2, 0.5, 60), new Point3D(-50, 5, 300),
-        //                        new Point3D(-47, 10, 300), new Point3D(-33, 10, 300), new Point3D(-30, 5, 300)));
-        //the clouds
-        d.add(new Sphere(new Color(java.awt.Color.WHITE), new Material(0.5, 0.5, 200, 0, 0.2), // )
-                        25, new Point3D(-95, -150, 1000)),
+                new Polygon(new Color(java.awt.Color.DARK_GRAY), new Material(0, 0.5, 60), new Point3D(-150, 125, 1200),
+                        new Point3D(-105, 200, 1200), new Point3D(105, 200, 1200), new Point3D(150, 125, 1200)),
+                //the left shift
+                new Triangle(new Color(java.awt.Color.LIGHT_GRAY), new Material(0, 0.2, 60), new Point3D(-300, 125, 2400),
+                        new Point3D(-300, -100, 2400), new Point3D(-210, 125, 2420)),
+                new Triangle(new Color(java.awt.Color.LIGHT_GRAY), new Material(0, 0.2, 60), new Point3D(-300, 125, 2400),
+                        new Point3D(-300, -100, 2400), new Point3D(-390, 125, 2420)),
+                new Polygon(new Color(java.awt.Color.DARK_GRAY), new Material(0, 0.5, 60), new Point3D(-450, 125, 2400),
+                        new Point3D(-405, 200, 2400), new Point3D(-195, 200, 2400), new Point3D(-150, 125, 2400)),
+                //the clouds
                 new Sphere(new Color(java.awt.Color.WHITE), new Material(0.5, 0.5, 200, 0, 0.2), // )
-                        25, new Point3D(-145, -130, 1000)),
+                        500, new Point3D(-1900, -1900, 15000)),
                 new Sphere(new Color(java.awt.Color.WHITE), new Material(0.5, 0.5, 200, 0, 0.2), // )
-                        24, new Point3D(-125, -130, 1000)),
+                        500, new Point3D(-1300, -2200, 15000)),
                 new Sphere(new Color(java.awt.Color.WHITE), new Material(0.5, 0.5, 200, 0, 0.2), // )
-                        25, new Point3D(-135, -170, 1000)),
+                        500, new Point3D(-300, -1900, 15000)),
                 new Sphere(new Color(java.awt.Color.WHITE), new Material(0.5, 0.5, 200, 0, 0.2), // )
-                        24, new Point3D(-115, -170, 1000)),
+                        500, new Point3D(-1250, -1500, 15000)),
                 new Sphere(new Color(java.awt.Color.WHITE), new Material(0.5, 0.5, 200, 0, 0.2), // )
-                        25, new Point3D(-165, -150, 1000)));
-        Geometries g = new Geometries(), h = new Geometries();
+                        500, new Point3D(-700, -2200, 15000)),
+                new Sphere(new Color(java.awt.Color.WHITE), new Material(0.5, 0.5, 200, 0, 0.2), // )
+                        500, new Point3D(-750, -1500, 15000)),
+                //the flag
+                new Polygon(new Color(java.awt.Color.WHITE), new Material(0.5, 0, 60),
+                        new Point3D(100, -10, 500), new Point3D(100, 300, 500),
+                        new Point3D(102, 300, 500), new Point3D(102, -10, 500)),
+                new Triangle(new Color(java.awt.Color.RED), new Material(0, 0, 60),
+                        new Point3D(102, -10, 500), new Point3D(135, 0, 500),
+                        new Point3D(102, 10, 500)),
+                //sand
+                new Sphere(new Color(226, 158, 0), new Material(0.01, 0, 100),
+                        130, new Point3D(0, 280, 0)),
+                new Sphere(new Color(226, 158, 0), new Material(0.01, 0, 100),
+                        130, new Point3D(95, 282, 0)),
+                new Sphere(new Color(226, 158, 0), new Material(0.01, 0, 100),
+                        130, new Point3D(-100, 275, 0)),
+                new Sphere(new Color(226, 158, 0), new Material(0.01, 0, 100),
+                        130, new Point3D(-190, 260, 0)),
+                new Sphere(new Color(226, 158, 0), new Material(0.01, 0, 100),
+                        130, new Point3D(185, 270, 0)),
+                //matkot
+                new Polygon(new Color(java.awt.Color.BLACK), new Material(0.1, 0, 60),
+                        new Point3D(-100, 150, -10), new Point3D(-98, 152, -10),
+                        new Point3D(-88, 142, -10), new Point3D(-90, 140, -10)),
+                new Polygon(new Color(java.awt.Color.BLACK), new Material(0.1, 0, 60),
+                        new Point3D(-90, 140, -10), new Point3D(-88, 142, -10)
+                        , new Point3D(-86, 142, -10), new Point3D(-90, 138, -10)),
+                new Sphere(new Color(108, 52, 0), new Material(0, 0, 60),
+                        13, new Point3D(-79.5, 131, -10)),
+                //ball
+                new Sphere(Color.BLACK, new Material(0.01, 0.2, 60),
+                        3, new Point3D(-105, 143, -15)));
         //********************Waves*****************************
         double j = 3000, n = 200, n1 = 20000, n2, n3 = 10, n4 = 2, n6 = 15, n7 = -3000, count = 1;
         for (int i = 1; i < 10000; i++) {
@@ -427,25 +453,76 @@ public class improveSpeed {
                 n6 *= -1;
             }
             n2 = n1 - n3;
-            h.add(new Triangle(new Color(java.awt.Color.BLUE), new Material(0.2, 0.8, 300, 0, 0),
+            scene.addGeometries(new Triangle(new Color(java.awt.Color.BLUE), new Material(0, 0.8, 300, 0.5, 0.3),
                     new Point3D(j -= 45, n, n2), new Point3D(j + 12, n - 5, n2),
                     new Point3D(j + 24, n, n2)));
             n3 *= -1;
 
         }
-        Geometries e = new Geometries(b, d, c), f = new Geometries(h, a);
-        g.add(e, f);
-        scene.addGeometries(g);
         scene.addLights(new SpotLight(new Color(400, 400, 700), //
-                        new Point3D(100, -100, -1000), 1, 4E-5, 2E-7, new Vector(0, 0, 1)),
-                new SpotLight(new Color(400, 700, 600), //
-                        new Point3D(60, -50, -20000), 1, 7E-5, 5E-7, new Vector(0, 0, 1)),
-                new PointLight(new Color(java.awt.Color.yellow), new Point3D(290, -290, 1000), 1, 4E-5, 2E-7));
+                        new Point3D(100, -100, -1000), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(15),
+                new DirectionalLight(new Color(java.awt.Color.yellow), //
+                        new Vector(-0.2, 1, -1)),
+                new PointLight(new Color(java.awt.Color.yellow), new Point3D(12900, -12900, 100000), 1, 4E-5, 2E-7));
 
-        ImageWriter imageWriter = new ImageWriter("Beach waves", 400, 400, 1000, 1000);
+        ImageWriter imageWriter = new ImageWriter("the Beach", 400, 400, 1000, 1000);
         Render render = new Render(imageWriter, scene).setSuperSampling(100).setBVHImprove(true).setDebugPrint().setMultithreading(3);
-
         render.renderImage();
         render.writeToImage();
     }
+
+    @Test
+    public void magicalRoomBVH() {
+        Scene scene = new Scene("Test scene");
+        scene.setCamera(new Camera(new Point3D(0, 0, -10000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
+        scene.setDistance(1000);
+        scene.setBackground(Color.BLACK);
+        scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
+
+        scene.addGeometries( //
+                //right wall
+//                new Plane(new Material(0.2, 0.2, 60, 0.2, 0.1), Color.BLACK,
+//                        new Point3D(400, 0, 100), new Vector(-1, 0, 0)),
+                //floor
+                new Polygon(Color.BLACK, new Material(0.2, 0.3, 200, 0.4, 0),
+                        new Point3D(-10000, 400, 10000), new Point3D(10000, 400, 10000),
+                        new Point3D(10000, 400, -10000), new Point3D(-10000, 400, -10000)),
+//                //left wall
+//                new Plane(new Material(0.2, 0.2, 60, 0.2, 0.1), Color.BLACK,
+//                        new Point3D(-400, 0, 100), new Vector(1, 0, 0)),
+                new Plane(new Material(0.2, 0.8, 200, 0.2, 0), Color.BLACK,
+                        new Point3D(0, -300, 500), new Vector(0, 1, 0)),
+                new Polygon(Color.BLACK, new Material(0.2, 0.2, 200, 0.5, 0),
+                        new Point3D(-1, -300, 500), new Point3D(-1, -140, 500), new Point3D(1, -140, 500), new Point3D(1, -300, 500)),
+                new Sphere(new Color(java.awt.Color.yellow), new Material(0.2, 0.2, 200, 0, 0.8), // )
+                        80, new Point3D(-1, -120, 500)),
+                new Polygon(Color.BLACK, new Material(0.2, 0.2, 200, 0.9, 0),
+                        new Point3D(-150, -150, 1999), new Point3D(-150, 200, 1999), new Point3D(150, 200, 1999), new Point3D(150, -150, 1999)),
+                new Sphere(new Color(800, 0, 0), new Material(0.5, 0.5, 200, 0.5, 0), // )
+                        140, new Point3D(260, 260, 500)),
+                new Sphere(new Color(0, 0, 200), new Material(0.25, 0.25, 20, 0, 0.5), // )
+                        140, new Point3D(-260, 260, 0)),
+                new Sphere(new Color(700, 20, 20), new Material(0.5, 0.5, 200, 0.5, 0), // )
+                        100, new Point3D(-300, 300, 1500))/*,
+                new Triangle(new Color(100, 300, 100), new Material(0.5, 0.5, 100, 0.5, 0.5),
+                        new Point3D(-100, 400, 150), new Point3D(100, 400, 350), new Point3D(0, 200, 250))*/);
+        int n1 = -1000, n2;
+        for (int i = 1; i < 10000; i++) {
+            n1 += 1;
+            n2 = n1 * -1;
+            scene.addGeometries(new Sphere(new Color(getRandom(1, 255), getRandom(1, 255), getRandom(1, 255)), new Material(0.5,
+                    0.5, 300, 0.5, 0), getRandom(10, 20),
+                    new Point3D(getRandom(-2000, 2000), -300, n2)));
+        }
+
+        scene.addLights(new SpotLight(new Color(java.awt.Color.white), //
+                        new Point3D(0, 0, -1500), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(10),
+                new PointLight(new Color(java.awt.Color.white), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7).setRadius(10));
+
+        ImageWriter imageWriter = new ImageWriter("The magical room with BVH algo", 200, 200, 600, 600);
+        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint().setBVHImprove(true).setSuperSampling(100);
+        render.renderImage();
+        render.writeToImage();
+    }
+
 }
