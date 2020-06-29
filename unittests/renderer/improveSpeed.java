@@ -371,11 +371,11 @@ public class improveSpeed {
                 c = new Geometries(),
                 d = new Geometries();
 
-        //the sea
-        scene.addGeometries(new Plane(new Material(0.5, 0.4, 100, 0.001, 0), new Color(java.awt.Color.BLUE), //
-                        new Point3D(-150, 200, 115), new Vector(0, 1, 0)),/*, ////
-				new Sphere(new Color(java.awt.Color.BLUE), new Material(0.2, 0.2, 30, 0.2, 0), // )
-						80, new Point3D(180, -180, 2000))*/
+
+        scene.addGeometries(
+                //the sea
+                new Plane(new Material(0.5, 0.4, 100, 0.001, 0), new Color(java.awt.Color.BLUE), //
+                        new Point3D(-150, 200, 115), new Vector(0, 1, 0)),
                 new Sphere(new Color(java.awt.Color.yellow), new Material(0.1, 0, 200, 0.1, 0), // )
                         3000, new Point3D(12900, -12900, 100000)),
                 new Sphere(new Color(java.awt.Color.BLACK), new Material(0, 0, 100, 0, 1), // )
@@ -459,13 +459,14 @@ public class improveSpeed {
             n3 *= -1;
 
         }
-        scene.addLights(new SpotLight(new Color(400, 400, 700), //
+        scene.addLights(
+                new SpotLight(new Color(400, 400, 700), //
                         new Point3D(100, -100, -1000), 1, 4E-5, 2E-7, new Vector(0, 0, 1)).setRadius(15),
                 new DirectionalLight(new Color(java.awt.Color.yellow), //
                         new Vector(-0.2, 1, -1)),
                 new PointLight(new Color(java.awt.Color.yellow), new Point3D(12900, -12900, 100000), 1, 4E-5, 2E-7));
 
-        ImageWriter imageWriter = new ImageWriter("the Beach", 400, 400, 1000, 1000);
+        ImageWriter imageWriter = new ImageWriter("the Beach", 400, 400, 1500, 1500);
         Render render = new Render(imageWriter, scene).setSuperSampling(100).setBVHImprove(true).setDebugPrint().setMultithreading(3);
         render.renderImage();
         render.writeToImage();

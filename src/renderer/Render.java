@@ -159,6 +159,12 @@ public class Render {
         return this;
     }
 
+    /**
+     * turn on/off the improvement of BVH
+     *
+     * @param bvhImprove
+     * @return
+     */
     public Render setBVHImprove(boolean bvhImprove) {
         this._BVHImprove = bvhImprove;
         if (bvhImprove)

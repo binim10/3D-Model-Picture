@@ -67,7 +67,6 @@ public class Plane extends Geometry {
 
     }
 
-
     /**
      * Gets p.
      *
