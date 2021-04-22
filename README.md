@@ -1,4 +1,3 @@
-# IME5780
 Model of a 3D picture
 
 I built this project as part of an Introduction to Software Engineering course.
