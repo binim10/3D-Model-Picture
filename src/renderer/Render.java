@@ -69,6 +69,7 @@ public class Render {
             try {
                 thread.join();
             } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         if (_print) System.out.print("\r100%%\n");
     }
@@ -162,8 +163,8 @@ public class Render {
     /**
      * turn on/off the improvement of BVH
      *
-     * @param bvhImprove
-     * @return
+     * @param bvhImprove true if improving is set
+     * @return Render
      */
     public Render setBVHImprove(boolean bvhImprove) {
         this._BVHImprove = bvhImprove;
@@ -281,6 +282,7 @@ public class Render {
         Ray lightRay = new Ray(gp.point, lightDirection, n);
         double ktr, sumKtr = 0;
         double distance = ls.getDistance(gp.point);
+        //create the beam of rays for soft shadow
         List<Ray> beamRays = lightRay.createRaysBeam(ls, gp.point, n, getSuperSampling());
         for (Ray r : beamRays) {
             List<GeoPoint> intersections;
@@ -424,7 +426,7 @@ public class Render {
         public Pixel(int maxRows, int maxCols) {
             _maxRows = maxRows;
             _maxCols = maxCols;
-            _pixels = maxRows * maxCols;
+            _pixels = (long) maxRows * maxCols;
             _nextCounter = _pixels / 100;
             if (Render.this._print) System.out.printf("\r %02d%%", _percents);
         }
@@ -482,12 +484,12 @@ public class Render {
             int percents = nextP(target);
             if (percents > 0)
                 if (Render.this._print) {
-                    System.out.println(String.format("\r %02d%%", percents));
+                    System.out.printf("\r %02d%%%n", percents);
                 }
             if (percents >= 0)
                 return true;
             if (Render.this._print) {
-                System.out.println(String.format("\r %02d%%", 100));
+                System.out.printf("\r %02d%%%n", 100);
             }
             return false;
         }

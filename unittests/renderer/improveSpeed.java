@@ -467,7 +467,7 @@ public class improveSpeed {
                 new PointLight(new Color(java.awt.Color.yellow), new Point3D(12900, -12900, 100000), 1, 4E-5, 2E-7));
 
         ImageWriter imageWriter = new ImageWriter("the Beach", 400, 400, 1500, 1500);
-        Render render = new Render(imageWriter, scene).setSuperSampling(100).setBVHImprove(true).setDebugPrint().setMultithreading(3);
+        Render render = new Render(imageWriter, scene).setSuperSampling(100).setBVHImprove(false).setDebugPrint().setMultithreading(1);
         render.renderImage();
         render.writeToImage();
     }
